@@ -1,0 +1,954 @@
+{
+  "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+  "source_run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+  "episode_id": "relay-pilot-force_error_confirm-seed-0",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "relay-pilot-force_error_confirm-seed-0",
+    "source_run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+    "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+    "env_seed": 0,
+    "initial_state_fingerprint": "6deb18cc455e8592f4c3544bb6971eeaf46498242f8a02d8878255a6f2d11fed",
+    "fault_schedule_fingerprint": "ea6d41fdb64574915f596aa2d7225960187e29d951ad29a4f39200c54c5c987a",
+    "environment_fingerprint": "f7cb17909978a99a958fa72088a270db9a8727254d9288b7be6ca31d8621515e"
+  },
+  "strict_replay": true,
+  "protocol_id": "racer-v2-benchmark-protocol-0.1",
+  "trial_id": 0,
+  "model_resource_id": "anthropic-oneapi-relay",
+  "main_comparison": false,
+  "legacy": false,
+  "evaluation_tier": "pilot",
+  "baseline_registry_version": "local-flight-pilot-v1",
+  "task_id": "relay-pilot-force_error_confirm-seed-0",
+  "seed": 0,
+  "task_variant": "force_error_confirm",
+  "cell": "force_error_confirm",
+  "actor_id": "relay-llm-paired-pilot",
+  "actor_config_hash": "baa4d9d1cb40727349b2ed714d3734749ab861d2365188bbff7b09cb41256a85",
+  "termination_reason": "tool_error",
+  "actor_usage": {
+    "provider": "anthropic-oneapi-relay",
+    "model": "Claude Haiku 4.5",
+    "base_url": "http://oneapi.ai-chat.host:8602",
+    "calls": 2,
+    "attempts": 2,
+    "responses": 2,
+    "terminal_responses": 2,
+    "invalid_actions": 0,
+    "endpoint_errors": 0,
+    "empty_tool_use": 0,
+    "failed_attempts": 0,
+    "valid_actions": 2,
+    "finish_terminations": 0,
+    "prompt_tokens": 11240,
+    "completion_tokens": 322,
+    "latency_ms": 4418.754293999996,
+    "last_call": {
+      "latency_ms": 2004.68,
+      "call_index": 2,
+      "stop_reason": "tool_use"
+    },
+    "total_tokens": 11562,
+    "invariants": [
+      {
+        "name": "calls = attempts",
+        "holds": true
+      },
+      {
+        "name": "attempts = terminal_responses + failed_attempts",
+        "holds": true
+      },
+      {
+        "name": "responses = terminal_responses + invalid_actions + empty_tool_use",
+        "holds": true
+      },
+      {
+        "name": "failed_attempts = endpoint_errors + invalid_actions + empty_tool_use",
+        "holds": true
+      },
+      {
+        "name": "responses + endpoint_errors = attempts",
+        "holds": true
+      },
+      {
+        "name": "valid_actions + finish_terminations = terminal_responses",
+        "holds": true
+      }
+    ],
+    "all_invariants_hold": true
+  },
+  "trace": [
+    {
+      "requested_action": {
+        "tool": "select_flight",
+        "arguments": {
+          "flight_id": "F1"
+        }
+      },
+      "action": {
+        "tool": "select_flight",
+        "arguments": {
+          "flight_id": "F1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "selected": {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        }
+      },
+      "state_before_hash": "a4ecba43ac2d902c",
+      "state_after_hash": "c7cbbd7e3f708dc2",
+      "observation": {
+        "state": {
+          "task": "Book the cheapest refundable flight from A to B.",
+          "origin": "A",
+          "destination": "B",
+          "budget": 500,
+          "selected_flight": {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          "confirmed": false,
+          "events": [
+            "selected:F1"
+          ]
+        },
+        "state_hash": "c7cbbd7e3f708dc2",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking"
+        ],
+        "seed": 0,
+        "task_variant": "force_error_confirm",
+        "variant": "force_error_confirm",
+        "actions": [],
+        "env_config": {
+          "budget": 500,
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F2",
+              "price": 360,
+              "refundable": false
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ],
+          "task_variant": "force_error_confirm",
+          "variant": "force_error_confirm",
+          "invariants": [
+            "selected_flight must be refundable",
+            "price must be <= budget",
+            "selected_flight must be cheapest eligible flight",
+            "confirmation requires explicit user confirmation"
+          ]
+        },
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be cheapest eligible flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      },
+      "actor_id": "relay-llm-paired-pilot",
+      "actor_config_hash": "baa4d9d1cb40727349b2ed714d3734749ab861d2365188bbff7b09cb41256a85"
+    },
+    {
+      "requested_action": {
+        "tool": "confirm_booking",
+        "arguments": {
+          "user_confirmed": true
+        }
+      },
+      "action": {
+        "tool": "confirm_booking",
+        "arguments": {
+          "user_confirmed": true
+        }
+      },
+      "result": {
+        "ok": false,
+        "error": "injected force_error_confirm"
+      },
+      "state_before_hash": "c7cbbd7e3f708dc2",
+      "state_after_hash": "c7cbbd7e3f708dc2",
+      "observation": {
+        "state": {
+          "task": "Book the cheapest refundable flight from A to B.",
+          "origin": "A",
+          "destination": "B",
+          "budget": 500,
+          "selected_flight": {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          "confirmed": false,
+          "events": [
+            "selected:F1"
+          ]
+        },
+        "state_hash": "c7cbbd7e3f708dc2",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking"
+        ],
+        "seed": 0,
+        "task_variant": "force_error_confirm",
+        "variant": "force_error_confirm",
+        "actions": [],
+        "env_config": {
+          "budget": 500,
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F2",
+              "price": 360,
+              "refundable": false
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ],
+          "task_variant": "force_error_confirm",
+          "variant": "force_error_confirm",
+          "invariants": [
+            "selected_flight must be refundable",
+            "price must be <= budget",
+            "selected_flight must be cheapest eligible flight",
+            "confirmation requires explicit user confirmation"
+          ]
+        },
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be cheapest eligible flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      },
+      "actor_id": "relay-llm-paired-pilot",
+      "actor_config_hash": "baa4d9d1cb40727349b2ed714d3734749ab861d2365188bbff7b09cb41256a85"
+    }
+  ],
+  "original_evaluation": {
+    "success": false,
+    "side_effect": false,
+    "constraints_satisfied": true,
+    "optimal_selection": true,
+    "state_hash": "c7cbbd7e3f708dc2",
+    "seed": 0,
+    "env_seed": 0,
+    "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0"
+  },
+  "diagnosis": {
+    "candidates": [
+      {
+        "step_id": 1,
+        "category": "action_error",
+        "cause": "injected force_error_confirm",
+        "confidence": 0.71,
+        "repair_options": [
+          "retry",
+          "fallback_tool",
+          "abstain"
+        ],
+        "evidence": {
+          "error": "injected force_error_confirm",
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          },
+          "requested_action": {
+            "tool": "confirm_booking",
+            "arguments": {
+              "user_confirmed": true
+            }
+          }
+        },
+        "source": "tool_result",
+        "constraint": null
+      }
+    ],
+    "diagnosis_confidence": 0.71
+  },
+  "decision": {
+    "decision": "retry",
+    "confidence": 0.71,
+    "step_id": 1,
+    "patch": {
+      "tool": "confirm_booking",
+      "arguments": {
+        "user_confirmed": true
+      }
+    },
+    "expected_cost": 1,
+    "expected_risk": 0.29,
+    "baseline_id": "recovery"
+  },
+  "counterfactual": {
+    "trace": [
+      {
+        "requested_action": {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F1"
+          }
+        },
+        "action": {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F1"
+          }
+        },
+        "result": {
+          "ok": true,
+          "selected": {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          }
+        },
+        "state_before_hash": "a4ecba43ac2d902c",
+        "state_after_hash": "c7cbbd7e3f708dc2",
+        "observation": {
+          "state": {
+            "task": "Book the cheapest refundable flight from A to B.",
+            "origin": "A",
+            "destination": "B",
+            "budget": 500,
+            "selected_flight": {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            "confirmed": false,
+            "events": [
+              "selected:F1"
+            ]
+          },
+          "state_hash": "c7cbbd7e3f708dc2",
+          "tools": [
+            "search_flights",
+            "select_flight",
+            "confirm_booking"
+          ],
+          "seed": 0,
+          "task_variant": "force_error_confirm",
+          "variant": "force_error_confirm",
+          "actions": [],
+          "env_config": {
+            "budget": 500,
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F2",
+                "price": 360,
+                "refundable": false
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ],
+            "task_variant": "force_error_confirm",
+            "variant": "force_error_confirm",
+            "invariants": [
+              "selected_flight must be refundable",
+              "price must be <= budget",
+              "selected_flight must be cheapest eligible flight",
+              "confirmation requires explicit user confirmation"
+            ]
+          },
+          "invariants": [
+            "selected_flight must be refundable",
+            "price must be <= budget",
+            "selected_flight must be cheapest eligible flight",
+            "confirmation requires explicit user confirmation"
+          ]
+        }
+      },
+      {
+        "requested_action": {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        },
+        "action": {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        },
+        "result": {
+          "ok": true,
+          "booking_id": "BK-001"
+        },
+        "state_before_hash": "c7cbbd7e3f708dc2",
+        "state_after_hash": "0537d007a5fcaedf",
+        "observation": {
+          "state": {
+            "task": "Book the cheapest refundable flight from A to B.",
+            "origin": "A",
+            "destination": "B",
+            "budget": 500,
+            "selected_flight": {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            "confirmed": true,
+            "events": [
+              "selected:F1",
+              "confirmed"
+            ]
+          },
+          "state_hash": "0537d007a5fcaedf",
+          "tools": [
+            "search_flights",
+            "select_flight",
+            "confirm_booking"
+          ],
+          "seed": 0,
+          "task_variant": "force_error_confirm",
+          "variant": "force_error_confirm",
+          "actions": [],
+          "env_config": {
+            "budget": 500,
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F2",
+                "price": 360,
+                "refundable": false
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ],
+            "task_variant": "force_error_confirm",
+            "variant": "force_error_confirm",
+            "invariants": [
+              "selected_flight must be refundable",
+              "price must be <= budget",
+              "selected_flight must be cheapest eligible flight",
+              "confirmation requires explicit user confirmation"
+            ]
+          },
+          "invariants": [
+            "selected_flight must be refundable",
+            "price must be <= budget",
+            "selected_flight must be cheapest eligible flight",
+            "confirmation requires explicit user confirmation"
+          ]
+        }
+      }
+    ],
+    "evaluation": {
+      "success": true,
+      "side_effect": false,
+      "constraints_satisfied": true,
+      "optimal_selection": true,
+      "state_hash": "0537d007a5fcaedf",
+      "seed": 0,
+      "env_seed": 0,
+      "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0:cf",
+      "counterfactual_supported": true,
+      "replay_valid": true
+    },
+    "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0:cf",
+    "source_run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+    "episode_id": "relay-pilot-force_error_confirm-seed-0",
+    "replay_provenance": {
+      "valid": true,
+      "strict": true,
+      "source_contract": {
+        "contract_version": "racer-v2-environment-contract",
+        "episode_id": "relay-pilot-force_error_confirm-seed-0",
+        "source_run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+        "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+        "env_seed": 0,
+        "initial_state_fingerprint": "6deb18cc455e8592f4c3544bb6971eeaf46498242f8a02d8878255a6f2d11fed",
+        "fault_schedule_fingerprint": "ea6d41fdb64574915f596aa2d7225960187e29d951ad29a4f39200c54c5c987a",
+        "environment_fingerprint": "f7cb17909978a99a958fa72088a270db9a8727254d9288b7be6ca31d8621515e"
+      }
+    },
+    "patched_step_id": 1
+  },
+  "baselines": {
+    "raw": {
+      "decision": {
+        "baseline_id": "raw",
+        "decision": "abstain",
+        "reason": "raw baseline does not repair",
+        "patch": null
+      },
+      "counterfactual": null
+    },
+    "recovery": {
+      "decision": {
+        "decision": "retry",
+        "confidence": 0.71,
+        "step_id": 1,
+        "patch": {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        },
+        "expected_cost": 1,
+        "expected_risk": 0.29,
+        "baseline_id": "recovery"
+      },
+      "counterfactual": {
+        "trace": [
+          {
+            "requested_action": {
+              "tool": "select_flight",
+              "arguments": {
+                "flight_id": "F1"
+              }
+            },
+            "action": {
+              "tool": "select_flight",
+              "arguments": {
+                "flight_id": "F1"
+              }
+            },
+            "result": {
+              "ok": true,
+              "selected": {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              }
+            },
+            "state_before_hash": "a4ecba43ac2d902c",
+            "state_after_hash": "c7cbbd7e3f708dc2",
+            "observation": {
+              "state": {
+                "task": "Book the cheapest refundable flight from A to B.",
+                "origin": "A",
+                "destination": "B",
+                "budget": 500,
+                "selected_flight": {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                "confirmed": false,
+                "events": [
+                  "selected:F1"
+                ]
+              },
+              "state_hash": "c7cbbd7e3f708dc2",
+              "tools": [
+                "search_flights",
+                "select_flight",
+                "confirm_booking"
+              ],
+              "seed": 0,
+              "task_variant": "force_error_confirm",
+              "variant": "force_error_confirm",
+              "actions": [],
+              "env_config": {
+                "budget": 500,
+                "flights": [
+                  {
+                    "id": "F1",
+                    "price": 420,
+                    "refundable": true
+                  },
+                  {
+                    "id": "F2",
+                    "price": 360,
+                    "refundable": false
+                  },
+                  {
+                    "id": "F3",
+                    "price": 480,
+                    "refundable": true
+                  }
+                ],
+                "task_variant": "force_error_confirm",
+                "variant": "force_error_confirm",
+                "invariants": [
+                  "selected_flight must be refundable",
+                  "price must be <= budget",
+                  "selected_flight must be cheapest eligible flight",
+                  "confirmation requires explicit user confirmation"
+                ]
+              },
+              "invariants": [
+                "selected_flight must be refundable",
+                "price must be <= budget",
+                "selected_flight must be cheapest eligible flight",
+                "confirmation requires explicit user confirmation"
+              ]
+            }
+          },
+          {
+            "requested_action": {
+              "tool": "confirm_booking",
+              "arguments": {
+                "user_confirmed": true
+              }
+            },
+            "action": {
+              "tool": "confirm_booking",
+              "arguments": {
+                "user_confirmed": true
+              }
+            },
+            "result": {
+              "ok": true,
+              "booking_id": "BK-001"
+            },
+            "state_before_hash": "c7cbbd7e3f708dc2",
+            "state_after_hash": "0537d007a5fcaedf",
+            "observation": {
+              "state": {
+                "task": "Book the cheapest refundable flight from A to B.",
+                "origin": "A",
+                "destination": "B",
+                "budget": 500,
+                "selected_flight": {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                "confirmed": true,
+                "events": [
+                  "selected:F1",
+                  "confirmed"
+                ]
+              },
+              "state_hash": "0537d007a5fcaedf",
+              "tools": [
+                "search_flights",
+                "select_flight",
+                "confirm_booking"
+              ],
+              "seed": 0,
+              "task_variant": "force_error_confirm",
+              "variant": "force_error_confirm",
+              "actions": [],
+              "env_config": {
+                "budget": 500,
+                "flights": [
+                  {
+                    "id": "F1",
+                    "price": 420,
+                    "refundable": true
+                  },
+                  {
+                    "id": "F2",
+                    "price": 360,
+                    "refundable": false
+                  },
+                  {
+                    "id": "F3",
+                    "price": 480,
+                    "refundable": true
+                  }
+                ],
+                "task_variant": "force_error_confirm",
+                "variant": "force_error_confirm",
+                "invariants": [
+                  "selected_flight must be refundable",
+                  "price must be <= budget",
+                  "selected_flight must be cheapest eligible flight",
+                  "confirmation requires explicit user confirmation"
+                ]
+              },
+              "invariants": [
+                "selected_flight must be refundable",
+                "price must be <= budget",
+                "selected_flight must be cheapest eligible flight",
+                "confirmation requires explicit user confirmation"
+              ]
+            }
+          }
+        ],
+        "evaluation": {
+          "success": true,
+          "side_effect": false,
+          "constraints_satisfied": true,
+          "optimal_selection": true,
+          "state_hash": "0537d007a5fcaedf",
+          "seed": 0,
+          "env_seed": 0,
+          "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0:cf",
+          "counterfactual_supported": true,
+          "replay_valid": true
+        },
+        "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0:cf",
+        "source_run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+        "episode_id": "relay-pilot-force_error_confirm-seed-0",
+        "replay_provenance": {
+          "valid": true,
+          "strict": true,
+          "source_contract": {
+            "contract_version": "racer-v2-environment-contract",
+            "episode_id": "relay-pilot-force_error_confirm-seed-0",
+            "source_run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+            "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+            "env_seed": 0,
+            "initial_state_fingerprint": "6deb18cc455e8592f4c3544bb6971eeaf46498242f8a02d8878255a6f2d11fed",
+            "fault_schedule_fingerprint": "ea6d41fdb64574915f596aa2d7225960187e29d951ad29a4f39200c54c5c987a",
+            "environment_fingerprint": "f7cb17909978a99a958fa72088a270db9a8727254d9288b7be6ca31d8621515e"
+          }
+        },
+        "patched_step_id": 1
+      }
+    },
+    "oracle": {
+      "decision": {
+        "baseline_id": "oracle",
+        "decision": "oracle_repair",
+        "patch": {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        },
+        "reason": "explicit patch from fault truth",
+        "step_id": 1,
+        "fault_id": "force-error-confirm"
+      },
+      "counterfactual": {
+        "trace": [
+          {
+            "requested_action": {
+              "tool": "select_flight",
+              "arguments": {
+                "flight_id": "F1"
+              }
+            },
+            "action": {
+              "tool": "select_flight",
+              "arguments": {
+                "flight_id": "F1"
+              }
+            },
+            "result": {
+              "ok": true,
+              "selected": {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              }
+            },
+            "state_before_hash": "a4ecba43ac2d902c",
+            "state_after_hash": "c7cbbd7e3f708dc2",
+            "observation": {
+              "state": {
+                "task": "Book the cheapest refundable flight from A to B.",
+                "origin": "A",
+                "destination": "B",
+                "budget": 500,
+                "selected_flight": {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                "confirmed": false,
+                "events": [
+                  "selected:F1"
+                ]
+              },
+              "state_hash": "c7cbbd7e3f708dc2",
+              "tools": [
+                "search_flights",
+                "select_flight",
+                "confirm_booking"
+              ],
+              "seed": 0,
+              "task_variant": "force_error_confirm",
+              "variant": "force_error_confirm",
+              "actions": [],
+              "env_config": {
+                "budget": 500,
+                "flights": [
+                  {
+                    "id": "F1",
+                    "price": 420,
+                    "refundable": true
+                  },
+                  {
+                    "id": "F2",
+                    "price": 360,
+                    "refundable": false
+                  },
+                  {
+                    "id": "F3",
+                    "price": 480,
+                    "refundable": true
+                  }
+                ],
+                "task_variant": "force_error_confirm",
+                "variant": "force_error_confirm",
+                "invariants": [
+                  "selected_flight must be refundable",
+                  "price must be <= budget",
+                  "selected_flight must be cheapest eligible flight",
+                  "confirmation requires explicit user confirmation"
+                ]
+              },
+              "invariants": [
+                "selected_flight must be refundable",
+                "price must be <= budget",
+                "selected_flight must be cheapest eligible flight",
+                "confirmation requires explicit user confirmation"
+              ]
+            }
+          },
+          {
+            "requested_action": {
+              "tool": "confirm_booking",
+              "arguments": {
+                "user_confirmed": true
+              }
+            },
+            "action": {
+              "tool": "confirm_booking",
+              "arguments": {
+                "user_confirmed": true
+              }
+            },
+            "result": {
+              "ok": true,
+              "booking_id": "BK-001"
+            },
+            "state_before_hash": "c7cbbd7e3f708dc2",
+            "state_after_hash": "0537d007a5fcaedf",
+            "observation": {
+              "state": {
+                "task": "Book the cheapest refundable flight from A to B.",
+                "origin": "A",
+                "destination": "B",
+                "budget": 500,
+                "selected_flight": {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                "confirmed": true,
+                "events": [
+                  "selected:F1",
+                  "confirmed"
+                ]
+              },
+              "state_hash": "0537d007a5fcaedf",
+              "tools": [
+                "search_flights",
+                "select_flight",
+                "confirm_booking"
+              ],
+              "seed": 0,
+              "task_variant": "force_error_confirm",
+              "variant": "force_error_confirm",
+              "actions": [],
+              "env_config": {
+                "budget": 500,
+                "flights": [
+                  {
+                    "id": "F1",
+                    "price": 420,
+                    "refundable": true
+                  },
+                  {
+                    "id": "F2",
+                    "price": 360,
+                    "refundable": false
+                  },
+                  {
+                    "id": "F3",
+                    "price": 480,
+                    "refundable": true
+                  }
+                ],
+                "task_variant": "force_error_confirm",
+                "variant": "force_error_confirm",
+                "invariants": [
+                  "selected_flight must be refundable",
+                  "price must be <= budget",
+                  "selected_flight must be cheapest eligible flight",
+                  "confirmation requires explicit user confirmation"
+                ]
+              },
+              "invariants": [
+                "selected_flight must be refundable",
+                "price must be <= budget",
+                "selected_flight must be cheapest eligible flight",
+                "confirmation requires explicit user confirmation"
+              ]
+            }
+          }
+        ],
+        "evaluation": {
+          "success": true,
+          "side_effect": false,
+          "constraints_satisfied": true,
+          "optimal_selection": true,
+          "state_hash": "0537d007a5fcaedf",
+          "seed": 0,
+          "env_seed": 0,
+          "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0:cf",
+          "counterfactual_supported": true,
+          "replay_valid": true
+        },
+        "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0:cf",
+        "source_run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+        "episode_id": "relay-pilot-force_error_confirm-seed-0",
+        "replay_provenance": {
+          "valid": true,
+          "strict": true,
+          "source_contract": {
+            "contract_version": "racer-v2-environment-contract",
+            "episode_id": "relay-pilot-force_error_confirm-seed-0",
+            "source_run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+            "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+            "env_seed": 0,
+            "initial_state_fingerprint": "6deb18cc455e8592f4c3544bb6971eeaf46498242f8a02d8878255a6f2d11fed",
+            "fault_schedule_fingerprint": "ea6d41fdb64574915f596aa2d7225960187e29d951ad29a4f39200c54c5c987a",
+            "environment_fingerprint": "f7cb17909978a99a958fa72088a270db9a8727254d9288b7be6ca31d8621515e"
+          }
+        },
+        "patched_step_id": 1
+      }
+    }
+  },
+  "source_manifest_sha256": "aef18909fba199e420b9734b3d45f51e1bf52a6f337b4c2cb52ea5844fec0d90"
+}

@@ -1,0 +1,34 @@
+{
+  "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+  "source_run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+  "episode_id": "relay-pilot-force_error_confirm-seed-0",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "relay-pilot-force_error_confirm-seed-0",
+    "source_run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+    "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+    "env_seed": 0,
+    "initial_state_fingerprint": "6deb18cc455e8592f4c3544bb6971eeaf46498242f8a02d8878255a6f2d11fed",
+    "fault_schedule_fingerprint": "ea6d41fdb64574915f596aa2d7225960187e29d951ad29a4f39200c54c5c987a",
+    "environment_fingerprint": "f7cb17909978a99a958fa72088a270db9a8727254d9288b7be6ca31d8621515e"
+  },
+  "task_id": "relay-pilot-force_error_confirm-seed-0",
+  "seed": 0,
+  "env_seed": 0,
+  "source_manifest_sha256": "aef18909fba199e420b9734b3d45f51e1bf52a6f337b4c2cb52ea5844fec0d90",
+  "fault_truth": [
+    {
+      "fault_id": "force-error-confirm",
+      "type": "force_error",
+      "step_id": 1,
+      "tool": "confirm_booking",
+      "error": "injected force_error_confirm",
+      "patch": {
+        "tool": "confirm_booking",
+        "arguments": {
+          "user_confirmed": true
+        }
+      }
+    }
+  ]
+}

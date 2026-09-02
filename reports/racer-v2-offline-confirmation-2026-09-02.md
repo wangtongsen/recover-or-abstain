@@ -34,6 +34,7 @@
 | 隔离容器端到端 smoke（G8） | **通过**：deterministic actor 单任务 replace_action；轨迹无 truth（G5）、Oracle 完整身份 join 成功、oracle 分支 strict replay receipt 有效（replay_run_id=smoke-v2-ra-0:cf）、pilot envelope 被 admission 正确拒绝；全程未调用远程模型 |
 | planned manifest / preflight 审计 | 新增 8 项单测通过；E1+E2 共 495 个 planned baseline-trial cell，审计 `NO-GO/2`（符合预期） |
 | τ² airline adapter 阶段 A（锁定安装 + 工具语义实证） | **完成，G4 前置判定 FAIL**：tau2==1.0.1（fc0055d）隔离安装成功，50 任务加载通过；但重复 cancel 实证发现原生环境账本不幂等（1→2→4→8 指数膨胀）、无 witness 字段、收据对象被原地污染、用户余额不结算、无对账工具。退款分支必须 `counterfactual_supported=false` 或引入外部 witness 层。证据：`output/tau2-airline-adapter-smoke-2026-09-02.json` |
+| relay paired pilot（真实远程模型，pilot tier） | **完成**：Claude Haiku 4.5 经 oneapi relay 真实执行，故障精确激活，recovery 反事实回放成功（state hash 与 Gemma pilot 收敛），usage 恒等式全成立，admission 审计 pilot-tier 预期 NO-GO、其余五关卡全 PASS。证据：`output/relay-llm-paired-pilot-20260902/pilot-summary.json` |
 
 ## 已冻结的主会运行协议
 
@@ -62,5 +63,6 @@
 1. ~~建立无密钥 model registry 与 baseline registry~~ **已完成**（`experiments/racer-v2-model-registry.json`、`experiments/racer-v2-baseline-registry.json`；凭据已迁出仓库）。
 2. ~~Docker build + 隔离容器端到端 smoke~~ **已完成**（`output/smoke-v2/`，G8 接口/隔离证据，verification PASS；未调用远程模型）。
 3. ~~对 τ² airline 完成单任务、固定版本、无正式汇总的 adapter smoke~~ **已完成（阶段 A），结论为负**：真实 refund 语义不提供实体级 witness——账本不幂等、无 witness 字段、收据被原地污染、用户余额不结算、无对账工具（`output/tau2-airline-adapter-smoke-2026-09-02.json`）。退款/取消分支必须 `counterfactual_supported=false`，或在 adapter 阶段 D 引入外部 witness 层后再评估。此实证可作为论文中"公开 benchmark 副作用语义不足以支撑恢复审计"的论据。
-4. 锁定主会 LLM 资源 revision（当前 `anthropic-oneapi-relay` 为 planned，不可绑定 planned cell），实现主会 baseline（当前 14 个 ID 全部 `implemented=false`），执行预注册 paired pilot。
-5. 完整主会执行：全部 baseline × 5 trial × 全 split；admission + preflight 双审计通过后出结果表，补第二审计者对 G0–G8 的复核。
+4. ~~执行预注册 paired pilot（真实远程模型）~~ **已完成（2026-09-02，pilot tier）**：`experiments/relay-llm-paired-pilot-20260902.json`（v2，task-level provenance）经 Docker 隔离链路（task-env→diagnoser→recovery-policy→counterfactual→oracle/evaluator）执行，模型为 Claude Haiku 4.5（oneapi relay，anthropic-native `/v1/messages` + `tool_use` 协议，凭据仅经运行时环境变量注入）。故障在第二步精确激活（`force_error` on `confirm_booking` @ step_id=1），轨迹形状与 Gemma pilot 一致（`[select_flight F1, confirm_booking]`）；recovery 基线经严格反事实回放成功恢复（counterfactual state hash `0537d007a5fcaedf`，与 Gemma pilot 完全一致——确定性回放跨模型收敛）；raw 弃权、oracle 修复，三基线行为符合设计。actor usage 记账 6 条恒等式全部成立（2 calls，11,240+322 tokens，无 empty tool_use 缺陷）。admission 审计按设计返回 NO-GO（pilot tier 被 G2 主表门拒绝），但全部内容质量关卡 PASS：G1 anchor / G3 strict replay receipt / G4 witness / G5 truth-secret isolation / G7 canonical envelope。产物归档于 `output/relay-llm-paired-pilot-20260902/`（`pilot-summary.json` 为入口）。**这是首个真实远程模型的 executed v2 artifact；不构成任何 benchmark 结果**（`evaluation_tier=pilot`, `main_comparison=false`）。runner 同步增强：`actor_usage` 落盘 + `MAX_DYNAMIC_STEPS` 步数上限（`services/agent_runner/app.py` 与根目录副本一致，91/91 单测通过）。
+5. 锁定主会 LLM 资源 revision（`anthropic-oneapi-relay` 已附 pilot 执行证据，但 revision/schema hash 未锁定，仍不可绑定 planned cell），实现主会 baseline（当前 14 个 ID 全部 `implemented=false`）。
+6. 完整主会执行：全部 baseline × 5 trial × 全 split；admission + preflight 双审计通过后出结果表，补第二审计者对 G0–G8 的复核。

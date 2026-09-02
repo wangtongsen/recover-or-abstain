@@ -1,0 +1,117 @@
+{
+  "artifact_status": "paired-pilot_not_a_benchmark_result",
+  "experiment": "relay-llm-paired-pilot",
+  "version": 2,
+  "spec_change_log": [
+    "v1->v2 (2026-09-02, before the archived execution): hoisted protocol_id/trial_id/model_resource_id from the batch envelope into the task entry because agent_runner.run_task reads provenance fields from the task dict only. No experimental parameter (env, faults, baselines, actor, seeds, steps) changed."
+  ],
+  "description": "Single-task, single-seed paired pilot with a real remote LLM actor via the oneapi relay; preregistered as pilot, never a benchmark result.",
+  "environment": "task-env",
+  "evaluation_tier": "pilot",
+  "baseline_registry_version": "local-flight-pilot-v1",
+  "main_comparison": false,
+  "protocol_id": "racer-v2-benchmark-protocol-0.1",
+  "trial_id": 0,
+  "model_resource_id": "anthropic-oneapi-relay",
+  "tasks": [
+    {
+      "task_id": "relay-pilot-force_error_confirm-seed-0",
+      "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+      "seed": 0,
+      "episode_id": "relay-pilot-force_error_confirm-seed-0",
+      "protocol_id": "racer-v2-benchmark-protocol-0.1",
+      "trial_id": 0,
+      "model_resource_id": "anthropic-oneapi-relay",
+      "task_variant": "force_error_confirm",
+      "variant": "force_error_confirm",
+      "cell": "force_error_confirm",
+      "strict_replay": true,
+      "fault_type": "force_error",
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "env_config": {
+        "budget": 500,
+        "flights": [
+          {"id": "F1", "price": 420, "refundable": true},
+          {"id": "F2", "price": 360, "refundable": false},
+          {"id": "F3", "price": 480, "refundable": true}
+        ],
+        "task_variant": "force_error_confirm",
+        "variant": "force_error_confirm",
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be cheapest eligible flight",
+          "confirmation requires explicit user confirmation"
+        ],
+        "faults": [
+          {
+            "fault_id": "force-error-confirm",
+            "type": "force_error",
+            "step_id": 1,
+            "tool": "confirm_booking",
+            "error": "injected force_error_confirm"
+          }
+        ]
+      },
+      "reset": {
+        "budget": 500,
+        "flights": [
+          {"id": "F1", "price": 420, "refundable": true},
+          {"id": "F2", "price": 360, "refundable": false},
+          {"id": "F3", "price": 480, "refundable": true}
+        ],
+        "task_variant": "force_error_confirm",
+        "variant": "force_error_confirm",
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be cheapest eligible flight",
+          "confirmation requires explicit user confirmation"
+        ],
+        "faults": [
+          {
+            "fault_id": "force-error-confirm",
+            "type": "force_error",
+            "step_id": 1,
+            "tool": "confirm_booking",
+            "error": "injected force_error_confirm"
+          }
+        ]
+      },
+      "faults": [
+        {
+          "fault_id": "force-error-confirm",
+          "type": "force_error",
+          "step_id": 1,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "fault_truth": [
+        {
+          "fault_id": "force-error-confirm",
+          "type": "force_error",
+          "step_id": 1,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm",
+          "patch": {
+            "tool": "confirm_booking",
+            "arguments": {"user_confirmed": true}
+          }
+        }
+      ],
+      "actor": {
+        "type": "python",
+        "path": "experiments/actors/remote-relay-actor.py",
+        "actor_id": "relay-llm-paired-pilot"
+      },
+      "baselines": ["raw", "recovery", "oracle"],
+      "max_actor_steps": 3,
+      "protocol_id": "racer-v2-benchmark-protocol-0.1",
+      "trial_id": 0,
+      "model_resource_id": "anthropic-oneapi-relay"
+    }
+  ]
+}

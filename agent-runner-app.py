@@ -7,6 +7,7 @@ import time
 import uuid
 from pathlib import Path
 from urllib.parse import quote
+import sys
 from urllib.request import Request, urlopen
 
 TASK_ENV_URL = os.environ.get("TASK_ENV_URL", "http://task-env:8080")
@@ -16,13 +17,16 @@ REPLAYER_URL = os.environ.get("REPLAYER_URL", "http://counterfactual:8080")
 REQUEST_TIMEOUT = float(os.environ.get("REQUEST_TIMEOUT", "5"))
 STARTUP_RETRIES = int(os.environ.get("STARTUP_RETRIES", "10"))
 STARTUP_RETRY_DELAY = float(os.environ.get("STARTUP_RETRY_DELAY", "0.5"))
-try:
-    MAX_DYNAMIC_STEPS = max(1, int(os.environ.get("MAX_DYNAMIC_STEPS", "32")))
-except (TypeError, ValueError):
-    MAX_DYNAMIC_STEPS = 32
 BATCH_SPEC = os.environ.get("BATCH_SPEC")
 TRAJECTORY_DIR = os.environ.get("TRAJECTORY_DIR", "/data/trajectories")
 ORACLE_DIR = os.environ.get("ORACLE_DIR", "/data/oracle")
+# Callable actors are bounded by default so a malformed or looping model cannot
+# consume unbounded LLM calls. MAX_DYNAMIC_STEPS remains a patchable alias.
+DEFAULT_MAX_ACTOR_STEPS = 3
+try:
+    MAX_DYNAMIC_STEPS = max(1, int(os.environ.get("MAX_DYNAMIC_STEPS", DEFAULT_MAX_ACTOR_STEPS)))
+except (TypeError, ValueError):
+    MAX_DYNAMIC_STEPS = DEFAULT_MAX_ACTOR_STEPS
 DEPENDENCIES = {
     "task-env": TASK_ENV_URL,
     "diagnoser": DIAGNOSER_URL,
@@ -34,26 +38,42 @@ DEFAULT_ACTIONS = [
     {"tool": "select_flight", "arguments": {"flight_id": "F2"}},
     {"tool": "confirm_booking", "arguments": {"user_confirmed": True}},
 ]
-# Callable actors are bounded by default so a malformed or looping model cannot
-# consume unbounded LLM calls. ``MAX_DYNAMIC_STEPS`` remains a patchable alias
-# for existing integrations and tests.
-DEFAULT_MAX_ACTOR_STEPS = 3
-MAX_DYNAMIC_STEPS = DEFAULT_MAX_ACTOR_STEPS
+PILOT_BASELINE_CATALOG = frozenset({"raw", "recovery", "oracle"})
+PILOT_ORACLE_BASELINES = frozenset({"oracle"})
+MAIN_BASELINE_CATALOG = frozenset({
+    "raw_react", "fixed_retry", "exponential_backoff", "generic_reflection",
+    "full_trace_judge", "step_by_step_diagnosis", "binary_search_diagnosis",
+    "agentdebug_targeted_feedback", "always_recover", "racer", "racer_no_abstain",
+    "racer_no_counterfactual", "oracle_root_cause", "oracle_recovery",
+})
+MAIN_ORACLE_BASELINES = frozenset({"oracle_root_cause", "oracle_recovery"})
 _SERVICE_DIR = Path(__file__).resolve().parent
 _DEFAULT_PROJECT_ROOT = _SERVICE_DIR.parents[1] if _SERVICE_DIR.name == "agent_runner" and _SERVICE_DIR.parent.name == "services" else _SERVICE_DIR
 PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", _DEFAULT_PROJECT_ROOT)).resolve()
-
-try:
-    from llm_actor import LLMActorConfig, StructuredLLMActor
-except ImportError:  # test/import compatibility outside the service image
-    LLMActorConfig = None
-    StructuredLLMActor = None
+_COMMON_DIR = next(
+    candidate
+    for candidate in (Path(__file__).resolve().parent / "common", PROJECT_ROOT / "services" / "common")
+    if candidate.is_dir()
+)
+if str(_COMMON_DIR) not in sys.path:
+    sys.path.insert(0, str(_COMMON_DIR))
+from environment_contract import environment_contract, expected_clean_replay_contract
 
 
 def _config_hash(value):
     """Return a stable hash for a JSON-compatible actor configuration."""
     payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _source_manifest_anchor(result):
+    """Hash only immutable source provenance, excluding evaluator-only truth."""
+    fields = (
+        "protocol_id", "task_id", "run_id", "source_run_id", "episode_id", "seed",
+        "trial_id", "model_resource_id", "environment_contract", "actor_id", "actor_config_hash",
+        "evaluation_tier", "baseline_registry_version", "main_comparison", "legacy",
+    )
+    return _config_hash({field: result.get(field) for field in fields})
 
 
 def _actor_meta(actor_id, config):
@@ -247,6 +267,24 @@ def _run_id(task, index):
     return str(task.get("run_id") or f"{task.get('task_id', 'task')}-{index}-{uuid.uuid4().hex[:8]}")
 
 
+def _baseline_catalog(task):
+    """Resolve the sole allowed catalog for the task's declared evaluation tier."""
+    tier = task.get("evaluation_tier")
+    if tier is None:
+        # Historical local tests can remain executable, but are always tagged as
+        # legacy/non-main and cannot pass v2 admission or main-table preflight.
+        return PILOT_BASELINE_CATALOG, PILOT_ORACLE_BASELINES
+    if tier == "pilot":
+        if task.get("baseline_registry_version") != "local-flight-pilot-v1" or task.get("main_comparison") is not False:
+            raise ValueError("pilot tasks require local-flight-pilot-v1 and main_comparison=false")
+        return PILOT_BASELINE_CATALOG, PILOT_ORACLE_BASELINES
+    if tier == "main":
+        if not isinstance(task.get("baseline_registry_version"), str) or not task["baseline_registry_version"].strip() or task.get("main_comparison") is not True:
+            raise ValueError("main tasks require a frozen baseline registry version and main_comparison=true")
+        return MAIN_BASELINE_CATALOG, MAIN_ORACLE_BASELINES
+    raise ValueError("evaluation_tier must be pilot or main before requesting baselines")
+
+
 def run_task(task, index=0):
     task = task if isinstance(task, dict) else {}
     run_id = _run_id(task, index)
@@ -266,6 +304,18 @@ def run_task(task, index=0):
             canonical_config[key] = copy.deepcopy(task[key])
     canonical_faults = canonical_config.get("faults", faults)
     canonical_config["faults"] = copy.deepcopy(canonical_faults)
+    episode_id = str(task.get("episode_id") or run_id)
+    source_contract = environment_contract(
+        env_config=canonical_config,
+        seed=seed,
+        run_id=run_id,
+        episode_id=episode_id,
+        source_run_id=run_id,
+    )
+    strict_replay = task.get("strict_replay") is True
+    protocol_id = task.get("protocol_id")
+    trial_id = task.get("trial_id")
+    model_resource_id = task.get("model_resource_id")
     reset_payload = {"run_id": run_id, "seed": seed, "env_config": canonical_config}
     reset_payload.update(copy.deepcopy(canonical_config))
     reset_payload["run_id"] = run_id
@@ -315,58 +365,37 @@ def run_task(task, index=0):
             termination_reason = "tool_error"
             break
     original_eval = get(f"/evaluate?run_id={quote(run_id, safe='')}")
-    original_success = bool(isinstance(original_eval, dict) and original_eval.get("success"))
     diagnosis = post(DIAGNOSER_URL, "/diagnose", {"trace": trace})
+    baseline_catalog, oracle_baselines = _baseline_catalog(task)
     requested_baselines = task.get("baselines", ["recovery"])
-    if not isinstance(requested_baselines, list):
-        requested_baselines = ["recovery"]
-    baselines = []
-    for baseline_id in requested_baselines:
-        if isinstance(baseline_id, str) and baseline_id in {"raw", "recovery", "oracle"} and baseline_id not in baselines:
-            baselines.append(baseline_id)
-    if not baselines:
-        baselines = ["recovery"]
+    if not isinstance(requested_baselines, list) or not requested_baselines:
+        raise ValueError("baselines must be a non-empty list from the frozen baseline catalog")
+    if not all(isinstance(baseline_id, str) and baseline_id.strip() for baseline_id in requested_baselines):
+        raise ValueError("baseline IDs must be non-empty strings")
+    baselines = list(dict.fromkeys(requested_baselines))
+    unknown = sorted(set(baselines) - baseline_catalog)
+    if unknown:
+        raise ValueError(f"baseline IDs are not registered for {task.get('evaluation_tier')}: {', '.join(unknown)}")
     # The task spec's fault_truth is an evaluator-only oracle reference.  The
     # actual environment truth must come from reset; do not let an optional
     # reference field mask the faults that were really injected.
     # The canonical configuration is exactly what was sent to /reset.  The
     # public response is redacted, so it cannot be used to recover truth.
     actual_fault_truth = canonical_faults
+    # Oracle-only policies are not part of any deployable/main comparison.
+    # Their privileged truth is never sent to raw/recovery baselines.
     oracle_fault_truth = task.get("fault_truth", actual_fault_truth)
     decisions = {}
     counterfactuals = {}
     for baseline_id in baselines:
         if baseline_id == "recovery":
-            baseline_decision = post(
-                RECOVERY_URL,
-                "/choose",
-                {
-                    "diagnosis": diagnosis,
-                    "allow_abstain": True,
-                    "original_success": original_success,
-                },
-            )
+            baseline_decision = post(RECOVERY_URL, "/choose", {"diagnosis": diagnosis, "allow_abstain": True})
             baseline_decision.setdefault("baseline_id", "recovery")
         else:
-            baseline_decision = post(
-                RECOVERY_URL,
-                "/baseline",
-                {
-                    "baseline_id": baseline_id,
-                    "diagnosis": diagnosis,
-                    "fault_truth": oracle_fault_truth,
-                    "original_success": original_success,
-                },
-            )
-        # Never replay a repair after the original task has succeeded. This is
-        # a safety guard in the runner as well as in the recovery policy service.
-        if original_success and baseline_decision.get("patch") is not None:
-            baseline_decision = {
-                **baseline_decision,
-                "decision": "abstain",
-                "reason": "original task already succeeded; no repair needed",
-                "patch": None,
-            }
+            baseline_payload = {"baseline_id": baseline_id, "diagnosis": diagnosis}
+            if baseline_id in oracle_baselines:
+                baseline_payload["fault_truth"] = oracle_fault_truth
+            baseline_decision = post(RECOVERY_URL, "/baseline", baseline_payload)
         baseline_counterfactual = None
         if baseline_decision.get("patch") is not None:
             step_id = baseline_decision.get("step_id")
@@ -376,9 +405,13 @@ def run_task(task, index=0):
                     "/replay",
                     {
                         "run_id": run_id,
+                        "episode_id": episode_id,
                         "source_seed": seed,
                         "source_faults": canonical_faults,
                         "env_config": canonical_config,
+                        "source_contract": source_contract,
+                        "replay_contract": expected_clean_replay_contract(source_contract, f"{run_id}:cf"),
+                        "strict_replay": strict_replay,
                         "prefix": trace[:step_id],
                         "patch": baseline_decision["patch"],
                         "suffix": trace[step_id + 1:],
@@ -393,6 +426,17 @@ def run_task(task, index=0):
     final_observation = original_eval
     result = {
         "run_id": run_id,
+        "source_run_id": run_id,
+        "episode_id": episode_id,
+        "environment_contract": source_contract,
+        "strict_replay": strict_replay,
+        "protocol_id": protocol_id,
+        "trial_id": trial_id,
+        "model_resource_id": model_resource_id,
+        "main_comparison": task.get("main_comparison", False),
+        "legacy": task.get("legacy", task.get("evaluation_tier") is None),
+        "evaluation_tier": task.get("evaluation_tier", "unregistered"),
+        "baseline_registry_version": task.get("baseline_registry_version"),
         "task_id": task.get("task_id", "flight-refundable-cheapest"),
         "seed": seed,
         "task_variant": task.get("task_variant", task.get("variant", "clean_success")),
@@ -401,6 +445,8 @@ def run_task(task, index=0):
         "actor_config_hash": actor_meta["config_hash"],
         "termination_reason": termination_reason,
         "actor_usage": _actor_usage(actor),
+        # Written after construction as an immutable provenance anchor that is
+        # safe to copy into the evaluator-only oracle manifest.
         # Keep oracle truth out of the agent trajectory artifact. The evaluator
         # should receive it through a separate privileged manifest instead.
         "trace": trace,
@@ -413,6 +459,7 @@ def run_task(task, index=0):
             for baseline_id in baselines
         },
     }
+    result["source_manifest_sha256"] = _source_manifest_anchor(result)
     return result
 
 
@@ -441,8 +488,13 @@ def run():
         oracle_temp_path = oracle_path + ".tmp"
         oracle_entry = {
             "run_id": result["run_id"],
+            "source_run_id": result["source_run_id"],
+            "episode_id": result["episode_id"],
+            "environment_contract": result["environment_contract"],
             "task_id": result["task_id"],
             "seed": result["seed"],
+            "env_seed": result["seed"],
+            "source_manifest_sha256": _source_manifest_anchor(result),
             "fault_truth": (
                 task.get("fault_truth", canonical_faults)
             ),

@@ -1,0 +1,154 @@
+{
+  "artifact_status": "paired-pilot_not_a_benchmark_result",
+  "experiment": "relay-llm-paired-pilot",
+  "description": "Single-task, single-seed paired pilot with a real remote LLM (Claude Haiku 4.5 via oneapi relay, anthropic-native /v1/messages + tool_use). Preregistered as pilot tier; never a benchmark result.",
+  "date": "2026-09-02",
+  "source_spec": "experiments/relay-llm-paired-pilot-20260902.json (v2, task-level provenance)",
+  "source_runner": "output/relay-llm-paired-pilot-20260902/runner-stdout.json",
+  "source_evaluator": "output/relay-llm-paired-pilot-20260902/evaluator.json",
+  "source_public_trajectory": "output/relay-llm-paired-pilot-20260902/trajectories/relay-pilot-force_error_confirm-20260902T183000Z-seed-0.json",
+  "source_oracle": "output/relay-llm-paired-pilot-20260902/oracle/relay-pilot-force_error_confirm-20260902T183000Z-seed-0.json",
+  "source_admission_audit": "output/relay-llm-paired-pilot-20260902/admission-audit.json",
+  "run": {
+    "run_id": "relay-pilot-force_error_confirm-20260902T183000Z-seed-0",
+    "task_id": "relay-pilot-force_error_confirm-seed-0",
+    "seed": 0,
+    "model": "Claude Haiku 4.5",
+    "provider": "anthropic-oneapi-relay",
+    "protocol": "anthropic-native /v1/messages + tool_use",
+    "termination_reason": "tool_error",
+    "trace_length": 2,
+    "trace_tools": [
+      "select_flight",
+      "confirm_booking"
+    ],
+    "note": "fault triggered on second action (force_error on confirm_booking at step_id=1); runner terminated on tool error."
+  },
+  "fault_activation": {
+    "configured": true,
+    "fault_triggered": true,
+    "fault_id": "force-error-confirm",
+    "type": "force_error",
+    "step_id": 1,
+    "tool": "confirm_booking",
+    "error": "injected force_error_confirm",
+    "observed_error_steps": [
+      {
+        "index": 1,
+        "step_id": 1,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ]
+  },
+  "original_evaluation": {
+    "original_success": false,
+    "side_effect": false,
+    "constraints_satisfied": true,
+    "optimal_selection": true
+  },
+  "recovery": {
+    "recovered_success": true,
+    "decision": "retry",
+    "patch": {
+      "tool": "confirm_booking",
+      "arguments": {
+        "user_confirmed": true
+      }
+    },
+    "counterfactual_evaluation": {
+      "success": true,
+      "state_hash": "0537d007a5fcaedf",
+      "counterfactual_supported": null,
+      "replay_valid": null
+    },
+    "allowed_no_recovery": true,
+    "status": "recovered"
+  },
+  "baselines": {
+    "raw": {
+      "decision": "abstain",
+      "recovered_success": false,
+      "abstained": true
+    },
+    "recovery": {
+      "decision": "retry",
+      "recovered_success": true,
+      "abstained": false
+    },
+    "oracle": {
+      "decision": "oracle_repair",
+      "recovered_success": true,
+      "abstained": false
+    }
+  },
+  "usage": {
+    "provider": "anthropic-oneapi-relay",
+    "model": "Claude Haiku 4.5",
+    "base_url": "http://oneapi.ai-chat.host:8602",
+    "calls": 2,
+    "attempts": 2,
+    "responses": 2,
+    "terminal_responses": 2,
+    "invalid_actions": 0,
+    "endpoint_errors": 0,
+    "empty_tool_use": 0,
+    "failed_attempts": 0,
+    "valid_actions": 2,
+    "finish_terminations": 0,
+    "prompt_tokens": 11240,
+    "completion_tokens": 322,
+    "latency_ms": 4418.754293999996,
+    "last_call": {
+      "latency_ms": 2004.68,
+      "call_index": 2,
+      "stop_reason": "tool_use"
+    },
+    "total_tokens": 11562,
+    "invariants": [
+      {
+        "name": "calls = attempts",
+        "holds": true
+      },
+      {
+        "name": "attempts = terminal_responses + failed_attempts",
+        "holds": true
+      },
+      {
+        "name": "responses = terminal_responses + invalid_actions + empty_tool_use",
+        "holds": true
+      },
+      {
+        "name": "failed_attempts = endpoint_errors + invalid_actions + empty_tool_use",
+        "holds": true
+      },
+      {
+        "name": "responses + endpoint_errors = attempts",
+        "holds": true
+      },
+      {
+        "name": "valid_actions + finish_terminations = terminal_responses",
+        "holds": true
+      }
+    ],
+    "all_invariants_hold": true
+  },
+  "admission_audit": {
+    "verdict": "NO-GO",
+    "expected_for_pilot_tier": true,
+    "note": "NO-GO is the designed fail-closed outcome for pilot-tier records (G2_NON_MAIN_RECORD). All content-quality gates PASS: G1 anchor, G3 strict replay receipt, G4 side-effect witness, G5 truth/secret isolation, G7 canonical envelope.",
+    "checks": {
+      "G1_source_manifest_anchor": "PASS",
+      "G2_paired_identity": "FAIL",
+      "G3_strict_replay": "PASS",
+      "G4_side_effect_witness": "PASS",
+      "G5_truth_and_secret_isolation": "PASS",
+      "G7_canonical_envelope": "PASS"
+    }
+  },
+  "cross_model_note": {
+    "gemma_pilot_state_hash": "0537d007a5fcaedf",
+    "relay_pilot_state_hash": "0537d007a5fcaedf",
+    "convergent": true
+  }
+}

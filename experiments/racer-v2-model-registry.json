@@ -12,7 +12,9 @@
       "model_version": "1",
       "credential_source": null,
       "config_sha256": "d45104d1ef33c6223962afcc063529fa1a95dfb3b9c7ff00be1c53a997334c79",
-      "eligible_tiers": ["pilot"],
+      "eligible_tiers": [
+        "pilot"
+      ],
       "status": "active"
     }
   ],
@@ -22,12 +24,23 @@
       "kind": "remote_llm",
       "provider": "anthropic-compatible",
       "endpoint_alias": "oneapi-relay",
-      "model_name": null,
+      "model_name": "Claude Haiku 4.5",
       "model_version": null,
       "credential_source": "env:ANTHROPIC_AUTH_TOKEN",
-      "eligible_tiers": ["main"],
+      "eligible_tiers": [
+        "main"
+      ],
       "status": "planned-revision-not-locked",
-      "notes": "provider/model revision、tokenizer/prompt/tool schema hash 未锁定前，不得进入主会 planned cell。凭据仅经运行时环境变量注入。"
+      "notes": "凭据仅经运行时环境变量注入（env:ANTHROPIC_AUTH_TOKEN + env:ANTHROPIC_BASE_URL，值存于 ~/.config/agent-recovery-plan/model-resource.local.json，不入库）。2026-09-02 已在 pilot tier 完成单任务真实执行（Claude Haiku 4.5，tool_use 协议）；provider/model revision、tokenizer/prompt/tool schema hash 未锁定前，仍不得进入主会 planned cell。",
+      "pilot_execution_evidence": {
+        "date": "2026-09-02",
+        "experiment": "relay-llm-paired-pilot",
+        "evaluation_tier": "pilot",
+        "trial_id": 0,
+        "trajectory": "output/relay-llm-paired-pilot-20260902/trajectories/relay-pilot-force_error_confirm-20260902T183000Z-seed-0.json",
+        "usage_calls": 2,
+        "result": "fault activated, recovery counterfactual replay valid"
+      }
     }
   ]
 }

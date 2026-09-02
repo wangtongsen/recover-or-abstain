@@ -1,0 +1,50 @@
+{
+  "checks": {
+    "G1_source_manifest_anchor": "PASS",
+    "G2_paired_identity": "FAIL",
+    "G3_strict_replay": "PASS",
+    "G4_side_effect_witness": "PASS",
+    "G5_truth_and_secret_isolation": "PASS",
+    "G7_canonical_envelope": "PASS"
+  },
+  "counts": {
+    "errors": 4,
+    "main_comparison_rows": 0,
+    "non_main_or_legacy_rows": 3,
+    "warnings": 0
+  },
+  "input": {
+    "canonical_envelope": true,
+    "path": "output/relay-llm-paired-pilot-20260902/pilot-envelope.json",
+    "row_count": 3
+  },
+  "issues": [
+    {
+      "code": "G2_NON_MAIN_RECORD",
+      "message": "主表 admission 不接受 legacy 或 main_comparison=false record。",
+      "path": "$.records[0]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G2_NON_MAIN_RECORD",
+      "message": "主表 admission 不接受 legacy 或 main_comparison=false record。",
+      "path": "$.records[1]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G2_NON_MAIN_RECORD",
+      "message": "主表 admission 不接受 legacy 或 main_comparison=false record。",
+      "path": "$.records[2]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G2_NO_MAIN_COMPARISON_ROWS",
+      "message": "主表 admission 至少需要一条 main_comparison=true、legacy=false 的 canonical row。",
+      "path": "$.records",
+      "severity": "ERROR"
+    }
+  ],
+  "return_code": 2,
+  "schema_version": "racer-v2-artifact-admission-v2",
+  "verdict": "NO-GO"
+}

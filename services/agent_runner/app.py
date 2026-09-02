@@ -20,6 +20,13 @@ STARTUP_RETRY_DELAY = float(os.environ.get("STARTUP_RETRY_DELAY", "0.5"))
 BATCH_SPEC = os.environ.get("BATCH_SPEC")
 TRAJECTORY_DIR = os.environ.get("TRAJECTORY_DIR", "/data/trajectories")
 ORACLE_DIR = os.environ.get("ORACLE_DIR", "/data/oracle")
+# Callable actors are bounded by default so a malformed or looping model cannot
+# consume unbounded LLM calls. MAX_DYNAMIC_STEPS remains a patchable alias.
+DEFAULT_MAX_ACTOR_STEPS = 3
+try:
+    MAX_DYNAMIC_STEPS = max(1, int(os.environ.get("MAX_DYNAMIC_STEPS", DEFAULT_MAX_ACTOR_STEPS)))
+except (TypeError, ValueError):
+    MAX_DYNAMIC_STEPS = DEFAULT_MAX_ACTOR_STEPS
 DEPENDENCIES = {
     "task-env": TASK_ENV_URL,
     "diagnoser": DIAGNOSER_URL,
@@ -141,11 +148,31 @@ def _load_python_actor(path, entrypoint="act"):
     actor = getattr(module, entrypoint, None) or getattr(module, "actions", None)
     if actor is None:
         raise ValueError(f"Python actor must define {entrypoint}() or actions")
+    # Preserve optional redacted usage metrics exposed by an actor module while
+    # keeping the callable contract backward compatible.
+    usage_snapshot = getattr(module, "usage_snapshot", None)
+    if callable(usage_snapshot):
+        try:
+            setattr(actor, "usage_snapshot", usage_snapshot)
+        except (AttributeError, TypeError):
+            pass
     return actor, source.decode("utf-8")
 
 
 def _actor_actions(actor, observation, context):
     return actor(copy.deepcopy(observation), copy.deepcopy(context))
+
+
+def _actor_usage(actor):
+    """Return optional redacted actor usage metrics without changing legacy actors."""
+    snapshot = getattr(actor, "usage_snapshot", None)
+    if not callable(snapshot):
+        return None
+    try:
+        usage = snapshot()
+    except Exception:
+        return None
+    return copy.deepcopy(usage) if isinstance(usage, dict) else None
 
 
 def load_actor(task):
@@ -307,11 +334,16 @@ def run_task(task, index=0):
         dynamic_actor = True
     else:
         raise ValueError("actor must provide actions or a callable")
+    termination_reason = "actor_stopped"
     while True:
+        if dynamic_actor and len(trace) >= MAX_DYNAMIC_STEPS:
+            termination_reason = "max_dynamic_steps_exceeded"
+            break
         if dynamic_actor:
             context = {"run_id": run_id, "task_id": task.get("task_id", "flight-refundable-cheapest"), "seed": seed, "step_id": len(trace), "trace": copy.deepcopy(trace)}
             action = _actor_actions(actor, reset_observation if not trace else trace[-1].get("observation", {}), context)
             if action is None:
+                termination_reason = "actor_returned_none"
                 break
             if isinstance(action, list):
                 action_source = iter(action)
@@ -330,6 +362,7 @@ def run_task(task, index=0):
             step["actor_config_hash"] = actor_meta["config_hash"]
         trace.append(step)
         if not step.get("result", {}).get("ok", True):
+            termination_reason = "tool_error"
             break
     original_eval = get(f"/evaluate?run_id={quote(run_id, safe='')}")
     diagnosis = post(DIAGNOSER_URL, "/diagnose", {"trace": trace})
@@ -410,6 +443,8 @@ def run_task(task, index=0):
         "cell": task.get("cell", task.get("task_variant", task.get("variant", "clean_success"))),
         "actor_id": actor_meta["actor_id"],
         "actor_config_hash": actor_meta["config_hash"],
+        "termination_reason": termination_reason,
+        "actor_usage": _actor_usage(actor),
         # Written after construction as an immutable provenance anchor that is
         # safe to copy into the evaluator-only oracle manifest.
         # Keep oracle truth out of the agent trajectory artifact. The evaluator
