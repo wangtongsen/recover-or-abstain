@@ -33,6 +33,7 @@
 | Docker 镜像构建 | 6 个 v2 服务镜像全部构建成功（python:3.13-slim 基底；镜像 ID 记录于 output/smoke-v2/run-record.json） |
 | 隔离容器端到端 smoke（G8） | **通过**：deterministic actor 单任务 replace_action；轨迹无 truth（G5）、Oracle 完整身份 join 成功、oracle 分支 strict replay receipt 有效（replay_run_id=smoke-v2-ra-0:cf）、pilot envelope 被 admission 正确拒绝；全程未调用远程模型 |
 | planned manifest / preflight 审计 | 新增 8 项单测通过；E1+E2 共 495 个 planned baseline-trial cell，审计 `NO-GO/2`（符合预期） |
+| τ² airline adapter 阶段 A（锁定安装 + 工具语义实证） | **完成，G4 前置判定 FAIL**：tau2==1.0.1（fc0055d）隔离安装成功，50 任务加载通过；但重复 cancel 实证发现原生环境账本不幂等（1→2→4→8 指数膨胀）、无 witness 字段、收据对象被原地污染、用户余额不结算、无对账工具。退款分支必须 `counterfactual_supported=false` 或引入外部 witness 层。证据：`output/tau2-airline-adapter-smoke-2026-09-02.json` |
 
 ## 已冻结的主会运行协议
 
@@ -49,7 +50,7 @@
 ## 仍阻止正式 benchmark/主会主表的事项
 
 1. **没有 executed v2 artifact。** 本轮没有启动 Docker runtime、远程模型或 τ² live 环境，因此不存在可用于结果表的 v2 run、原始轨迹、oracle manifest、derived rows 或统计量。
-2. **E2 仍是本地契约。** refund ledger / response-loss 用 deterministic local environment 与 fake adapter 边界验证，尚未映射并核验 τ² airline 的真实退款/取消工具、状态查询和持久化语义。
+2. **E2 仍是本地契约。** refund ledger / response-loss 用 deterministic local environment 与 fake adapter 边界验证。τ² airline 阶段 A 实证（2026-09-02）已确认原生环境**不提供**实体级退款 witness：若后续要在 τ² 上验证恢复，必须先在 adapter 层构建外部 witness 包裹（阶段 D），或对退款分支显式 `counterfactual_supported=false`。
 3. **完整 runner→adapter→counterfactual→evaluator 尚未 live 验证。** 本轮已在隔离容器完成 runner→task-env→diagnoser→recovery-policy→counterfactual→oracle/evaluator 的 local v2 端到端 smoke（G8 证据，见 `output/smoke-v2/`），但 τ² airline adapter 的 live smoke 仍未执行；smoke 数字不构成任何结果。
 4. **无密钥模型资源、主会 baseline registry 与实际协议执行仍未完成。** protocol/matrix/planned manifest 已锁定，但 `model_registry=[]`，也尚未冻结独立的主会 `baseline_registry`：实际 `model_resource_id`、provider/model revision、baseline 实现 hash、容器 image digest、代码 commit 和已执行 manifest 均未登记；`model.json` 中包含凭据，必须只以本地环境变量/密钥管理方式读取，不能进入代码、轨迹、报告或提交物。
 5. **没有 executed artifact。** preflight 已明确登记 495 个 `evaluation_tier=pilot` 的 planned baseline-trial cell，但 `executed_artifacts=[]`；planned 数量不能写成结果表、主会 coverage 或性能数字。
@@ -60,6 +61,6 @@
 
 1. ~~建立无密钥 model registry 与 baseline registry~~ **已完成**（`experiments/racer-v2-model-registry.json`、`experiments/racer-v2-baseline-registry.json`；凭据已迁出仓库）。
 2. ~~Docker build + 隔离容器端到端 smoke~~ **已完成**（`output/smoke-v2/`，G8 接口/隔离证据，verification PASS；未调用远程模型）。
-3. 对 τ² airline 完成单任务、固定版本、无正式汇总的 adapter smoke，确认真实 refund/status API 能提供等价的实体级 witness；若不能，则标记 counterfactual unsupported。
+3. ~~对 τ² airline 完成单任务、固定版本、无正式汇总的 adapter smoke~~ **已完成（阶段 A），结论为负**：真实 refund 语义不提供实体级 witness——账本不幂等、无 witness 字段、收据被原地污染、用户余额不结算、无对账工具（`output/tau2-airline-adapter-smoke-2026-09-02.json`）。退款/取消分支必须 `counterfactual_supported=false`，或在 adapter 阶段 D 引入外部 witness 层后再评估。此实证可作为论文中"公开 benchmark 副作用语义不足以支撑恢复审计"的论据。
 4. 锁定主会 LLM 资源 revision（当前 `anthropic-oneapi-relay` 为 planned，不可绑定 planned cell），实现主会 baseline（当前 14 个 ID 全部 `implemented=false`），执行预注册 paired pilot。
 5. 完整主会执行：全部 baseline × 5 trial × 全 split；admission + preflight 双审计通过后出结果表，补第二审计者对 G0–G8 的复核。

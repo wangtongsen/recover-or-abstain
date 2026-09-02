@@ -1,0 +1,89 @@
+{
+  "smoke_id": "tau2-airline-adapter-smoke-2026-09-02",
+  "tau2_version": "1.0.1",
+  "environment": "tau2-bench airline (pinned fc0055d)",
+  "llm_used": false,
+  "checks": {
+    "ledger_idempotency": {
+      "ok": false,
+      "entry_counts_after_each_cancel": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "net_totals": [
+        4986,
+        0,
+        0,
+        0
+      ],
+      "observation": "cancel_reservation appends negative entries for every existing payment entry on each call; ledger entries double per cancel. Net total self-cancels but the ledger is not idempotent."
+    },
+    "refund_witness_fields": {
+      "ok": false,
+      "present_witness_fields": [],
+      "payment_entry_fields": [
+        "amount",
+        "payment_id"
+      ],
+      "observation": "payment entries carry only payment_id (the user's payment method id, reused across entries) and amount; no unique per-transaction refund identifier, no idempotency key, no witness hash."
+    },
+    "receipt_aliasing": {
+      "ok": false,
+      "first_return_entries": 2,
+      "same_object_entries_after_second_cancel": 4,
+      "observation": "cancel_reservation returns the live mutable reservation object; a previously returned 'receipt' is silently mutated by later calls, so independent per-call evidence cannot be retained."
+    },
+    "user_side_settlement": {
+      "ok": false,
+      "payment_methods_before": {
+        "gift_card_3576581": {
+          "source": "gift_card",
+          "id": "gift_card_3576581",
+          "amount": 245.0
+        }
+      },
+      "payment_methods_after": {
+        "gift_card_3576581": {
+          "source": "gift_card",
+          "id": "gift_card_3576581",
+          "amount": 245.0
+        }
+      },
+      "observation": "refunds are recorded only on reservation.payment_history; the user's payment_methods balance is never credited back."
+    },
+    "reconciliation_tools": {
+      "ok": false,
+      "available_tools": [
+        "book_reservation",
+        "calculate",
+        "cancel_reservation",
+        "get_db_hash",
+        "get_discoverable_tools",
+        "get_flight_status",
+        "get_reservation_details",
+        "get_statistics",
+        "get_tools",
+        "get_user_details",
+        "has_discoverable_tool",
+        "has_tool",
+        "list_all_airports",
+        "search_direct_flight",
+        "search_onestop_flight",
+        "send_certificate",
+        "tool_mutates_state",
+        "tool_type",
+        "tools",
+        "transfer_to_human_agents",
+        "update_db",
+        "update_reservation_baggages",
+        "update_reservation_flights",
+        "update_reservation_passengers",
+        "use_tool"
+      ],
+      "observation": "no get_refund_status or equivalent reconciliation tool exists; response-loss reconciliation cannot be performed via public tools."
+    }
+  },
+  "g4_conclusion": "FAIL: the pinned tau2 airline environment provides no entity-level idempotent refund ledger, no stable witness fields, mutates returned receipts, does not settle user-side balances, and offers no reconciliation tool. RACER G4 (refund witness / idempotent replay / response-loss reconciliation) cannot be certified on this environment. Adapter branches involving refunds must set counterfactual_supported=false unless an external witness layer is introduced."
+}

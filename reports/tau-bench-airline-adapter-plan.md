@@ -1,6 +1,8 @@
 # τ-bench airline adapter 接入方案（设计报告）
 
 > 本文件仅描述后续 adapter 方案，不代表已接入、已安装或已运行 τ-bench。当前 local-flight 论文实验独立交付；任何未运行的公开 benchmark 数字不得写入论文。
+>
+> **2026-09-02 状态更新**：阶段 A 的锁定安装与工具语义实证已完成（见 §4a）。核心结论：锁定版本的 τ² airline 环境原生**不支持** RACER G4 要求的实体级幂等退款账本——重复 cancel 的 ledger 条目按 1→2→4→8 指数膨胀、无唯一退款标识/幂等键/witness 字段、返回对象被后续调用原地污染、用户侧余额不结算、无对账工具。退款相关的 counterfactual 分支必须标记 `counterfactual_supported=false`，除非引入外部 witness 层。
 
 ## 1. 当前状态与边界
 
@@ -42,6 +44,18 @@ evaluate(run_id) -> success/reward, side_effect metadata when available
 ## 4. 分阶段实施与验收
 
 **阶段 A：不影响 local-flight。** 仅做独立目录/虚拟环境的 import smoke test；确认 airline 环境构造、一个 task 的工具 schema、单步调用和原生 reward。失败只记录为 adapter blocker，不改变 local-flight Compose 或论文结果。
+
+**阶段 A 实施记录（2026-09-02，已完成）：**
+- 锁定安装：隔离 venv `~/.workbuddy/binaries/python/envs/default`，`tau2==1.0.1`（wheel SHA-256 `058ab22c…d820884`），源码归档 `fc0055d.tar.gz`（SHA-256 `7a227036…3383e57e`），数据树解压至 `~/.workbuddy/binaries/python/envs/tau2-data/data`（`TAU2_DATA_DIR`）。Python 3.13 需要 `audioop-lts` 补齐已移除的 `audioop` 标准库模块（voice 依赖链拖入，非 voice 功能使用）。
+- 50 个 airline 任务（base split）加载验证通过；全局 `db.json`（500 用户 / 2000 预订）为唯一初始状态来源，task 不携带 per-task state。
+- 工具语义实证脚本：`scripts/tau2_adapter_smoke.py`（无 LLM、只读项目文件、仅写报告），证据 `output/tau2-airline-adapter-smoke-2026-09-02.json`。
+- 五项 G4 前置检查全部失败：
+  1. `ledger_idempotency` FAIL — 重复 `cancel_reservation` 每次对全部既有 payment 条目追加负数条目，条目数 1→2→4→8 指数翻倍；净额自抵消但账本完全不幂等。
+  2. `refund_witness_fields` FAIL — payment 条目仅有 `payment_id`（用户支付方式 ID，跨条目复用）与 `amount`；无唯一交易退款 ID、幂等键或 witness 哈希。
+  3. `receipt_aliasing` FAIL — `cancel_reservation` 返回活的可变 reservation 对象；先前返回的“收据”会被后续调用原地改写（2 条→4 条），无法保留独立逐次证据。
+  4. `user_side_settlement` FAIL — 退款只记在 `reservation.payment_history`；用户 `payment_methods` 余额从不回充（gift card 前后均 245.0）。
+  5. `reconciliation_tools` FAIL — 无 `get_refund_status` 或等价对账工具；response-loss 对账无法经公开工具完成。
+- 推论：RACER G4（refund witness / idempotent replay / response-loss reconciliation）**无法在原生 τ² airline 环境上认证**。后续 adapter 阶段 B–D 若涉及退款/取消副作用，必须（a）引入 adapter 侧外部 witness 层包裹 cancel/book 工具，或（b）对该分支显式置 `counterfactual_supported=false`。此发现本身可作为论文中“公开 benchmark 环境副作用语义不足”的实证论据。
 
 **阶段 B：离线轨迹转换。** 使用上游 historical trajectory 或已授权的本地结果，验证字段映射、state hash、任务索引和原生 reward 一致性；不得把历史轨迹当新实验数字。
 
