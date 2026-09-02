@@ -1,0 +1,40 @@
+{
+  "experiment": "local-flight-extended",
+  "artifact_status": "historical_spec_blocked_smoke",
+  "scope": "planning/specification only; not an executed result",
+  "matrix": {
+    "task_variants": [
+      "clean_success",
+      "non_refundable",
+      "suboptimal_refundable",
+      "missing_confirmation",
+      "force_error_confirm",
+      "drop_confirm"
+    ],
+    "seeds": [0, 1, 2],
+    "tasks": 18,
+    "baselines": ["raw", "recovery", "oracle"]
+  },
+  "expected_semantics": {
+    "clean_success": "成功确认最优可退航班",
+    "non_refundable": "任务约束改为最便宜不可退航班",
+    "suboptimal_refundable": "确认可退但非最优航班，记录 side_effect",
+    "missing_confirmation": "确认参数为 false，环境拒绝副作用",
+    "force_error_confirm": "确认步骤注入 force_error，保持状态未确认",
+    "drop_confirm": "确认步骤丢弃，保持状态未确认"
+  },
+  "smoke": {
+    "status": "blocked",
+    "reason": "docker compose build 无法从 registry-1.docker.io 拉取 python:3.13-slim（网络超时）",
+    "command": "docker compose up --build -d"
+  },
+  "local_semantic_check": {
+    "clean_success": {"success": true, "side_effect": false},
+    "non_refundable": {"success": true, "side_effect": false},
+    "suboptimal_refundable": {"success": false, "side_effect": true},
+    "missing_confirmation": {"success": false, "side_effect": false},
+    "force_error_confirm": {"success": false, "side_effect": false},
+    "drop_confirm": {"success": false, "side_effect": false}
+  },
+  "tests": {"command": "python -m unittest discover -s tests", "initial_pass": 35}
+}

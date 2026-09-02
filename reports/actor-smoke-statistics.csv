@@ -1,0 +1,2 @@
+fault_type,baseline_id,count,failure_count,original_success_count,recovered_count,harmful_count,abstained_count,recovery_rate,harm_rate,abstention_rate,seed_count,seeds,task_ids,run_ids
+clean_success,recovery,1,1,0,1,0,0,1.0,0.0,0.0,1,[0],['actor-smoke-basic-recovery'],['actor-smoke-basic-recovery-0']

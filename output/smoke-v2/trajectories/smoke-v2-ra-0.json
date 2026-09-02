@@ -1,0 +1,705 @@
+{
+  "run_id": "smoke-v2-ra-0",
+  "source_run_id": "smoke-v2-ra-0",
+  "episode_id": "smoke-v2-replace_action-seed-0",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "smoke-v2-replace_action-seed-0",
+    "source_run_id": "smoke-v2-ra-0",
+    "run_id": "smoke-v2-ra-0",
+    "env_seed": 0,
+    "initial_state_fingerprint": "5af2edc7d87cf5879418814a3f7312a4fd5b3fea45afa56c1b0aa09b5661ad03",
+    "fault_schedule_fingerprint": "01434bd512d5b9ed66fccb07d3ee78b38e0098369a1becaeecc2af14a88907ea",
+    "environment_fingerprint": "c58619888492331da76bd5b65345ea387be57e89f52424eb48487eba5b480aea"
+  },
+  "strict_replay": true,
+  "protocol_id": "racer-v2-benchmark-protocol-0.1",
+  "trial_id": 0,
+  "model_resource_id": "deterministic-local-actor-v1",
+  "main_comparison": false,
+  "legacy": false,
+  "evaluation_tier": "pilot",
+  "baseline_registry_version": "local-flight-pilot-v1",
+  "task_id": "smoke-v2-replace_action-seed-0",
+  "seed": 0,
+  "task_variant": "clean_success",
+  "cell": "clean_success",
+  "actor_id": "deterministic",
+  "actor_config_hash": "d45104d1ef33c6223962afcc063529fa1a95dfb3b9c7ff00be1c53a997334c79",
+  "trace": [
+    {
+      "requested_action": {
+        "tool": "search_flights",
+        "arguments": {}
+      },
+      "action": {
+        "tool": "search_flights",
+        "arguments": {}
+      },
+      "result": {
+        "flights": [
+          {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          {
+            "id": "F2",
+            "price": 360,
+            "refundable": false
+          },
+          {
+            "id": "F3",
+            "price": 480,
+            "refundable": true
+          }
+        ]
+      },
+      "state_before_hash": "a4ecba43ac2d902c",
+      "state_after_hash": "a4ecba43ac2d902c",
+      "observation": {
+        "state": {
+          "task": "Book the cheapest refundable flight from A to B.",
+          "origin": "A",
+          "destination": "B",
+          "budget": 500,
+          "selected_flight": null,
+          "confirmed": false,
+          "events": []
+        },
+        "state_hash": "a4ecba43ac2d902c",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking"
+        ],
+        "seed": 0,
+        "task_variant": "clean_success",
+        "variant": "clean_success",
+        "actions": [
+          {
+            "tool": "search_flights",
+            "arguments": {}
+          },
+          {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F2"
+            }
+          },
+          {
+            "tool": "confirm_booking",
+            "arguments": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "env_config": {
+          "actions": [
+            {
+              "tool": "search_flights",
+              "arguments": {}
+            },
+            {
+              "tool": "select_flight",
+              "arguments": {
+                "flight_id": "F2"
+              }
+            },
+            {
+              "tool": "confirm_booking",
+              "arguments": {
+                "user_confirmed": true
+              }
+            }
+          ]
+        },
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be the cheapest eligible refundable flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      },
+      "actor_id": "deterministic",
+      "actor_config_hash": "d45104d1ef33c6223962afcc063529fa1a95dfb3b9c7ff00be1c53a997334c79"
+    },
+    {
+      "requested_action": {
+        "tool": "select_flight",
+        "arguments": {
+          "flight_id": "F2"
+        }
+      },
+      "action": {
+        "tool": "select_flight",
+        "arguments": {
+          "flight_id": "F1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "selected": {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        }
+      },
+      "state_before_hash": "a4ecba43ac2d902c",
+      "state_after_hash": "c7cbbd7e3f708dc2",
+      "observation": {
+        "state": {
+          "task": "Book the cheapest refundable flight from A to B.",
+          "origin": "A",
+          "destination": "B",
+          "budget": 500,
+          "selected_flight": {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          "confirmed": false,
+          "events": [
+            "selected:F1"
+          ]
+        },
+        "state_hash": "c7cbbd7e3f708dc2",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking"
+        ],
+        "seed": 0,
+        "task_variant": "clean_success",
+        "variant": "clean_success",
+        "actions": [
+          {
+            "tool": "search_flights",
+            "arguments": {}
+          },
+          {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F2"
+            }
+          },
+          {
+            "tool": "confirm_booking",
+            "arguments": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "env_config": {
+          "actions": [
+            {
+              "tool": "search_flights",
+              "arguments": {}
+            },
+            {
+              "tool": "select_flight",
+              "arguments": {
+                "flight_id": "F2"
+              }
+            },
+            {
+              "tool": "confirm_booking",
+              "arguments": {
+                "user_confirmed": true
+              }
+            }
+          ]
+        },
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be the cheapest eligible refundable flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      },
+      "actor_id": "deterministic",
+      "actor_config_hash": "d45104d1ef33c6223962afcc063529fa1a95dfb3b9c7ff00be1c53a997334c79"
+    },
+    {
+      "requested_action": {
+        "tool": "confirm_booking",
+        "arguments": {
+          "user_confirmed": true
+        }
+      },
+      "action": {
+        "tool": "confirm_booking",
+        "arguments": {
+          "user_confirmed": true
+        }
+      },
+      "result": {
+        "ok": true,
+        "booking_id": "BK-001"
+      },
+      "state_before_hash": "c7cbbd7e3f708dc2",
+      "state_after_hash": "0537d007a5fcaedf",
+      "observation": {
+        "state": {
+          "task": "Book the cheapest refundable flight from A to B.",
+          "origin": "A",
+          "destination": "B",
+          "budget": 500,
+          "selected_flight": {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          "confirmed": true,
+          "events": [
+            "selected:F1",
+            "confirmed"
+          ]
+        },
+        "state_hash": "0537d007a5fcaedf",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking"
+        ],
+        "seed": 0,
+        "task_variant": "clean_success",
+        "variant": "clean_success",
+        "actions": [
+          {
+            "tool": "search_flights",
+            "arguments": {}
+          },
+          {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F2"
+            }
+          },
+          {
+            "tool": "confirm_booking",
+            "arguments": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "env_config": {
+          "actions": [
+            {
+              "tool": "search_flights",
+              "arguments": {}
+            },
+            {
+              "tool": "select_flight",
+              "arguments": {
+                "flight_id": "F2"
+              }
+            },
+            {
+              "tool": "confirm_booking",
+              "arguments": {
+                "user_confirmed": true
+              }
+            }
+          ]
+        },
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be the cheapest eligible refundable flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      },
+      "actor_id": "deterministic",
+      "actor_config_hash": "d45104d1ef33c6223962afcc063529fa1a95dfb3b9c7ff00be1c53a997334c79"
+    }
+  ],
+  "original_evaluation": {
+    "success": true,
+    "side_effect": false,
+    "constraints_satisfied": true,
+    "optimal_selection": true,
+    "state_hash": "0537d007a5fcaedf",
+    "seed": 0,
+    "env_seed": 0,
+    "run_id": "smoke-v2-ra-0"
+  },
+  "diagnosis": {
+    "candidates": [
+      {
+        "step_id": null,
+        "category": "unknown",
+        "cause": "no_localized_root_cause",
+        "confidence": 0.25,
+        "repair_options": [
+          "replan",
+          "ask_clarification",
+          "abstain"
+        ],
+        "evidence": {
+          "trace_length": 3
+        },
+        "source": "diagnoser",
+        "constraint": null
+      }
+    ],
+    "diagnosis_confidence": 0.25
+  },
+  "decision": {
+    "decision": "abstain",
+    "reason": "low diagnosis confidence",
+    "confidence": 0.25,
+    "baseline_id": "recovery"
+  },
+  "counterfactual": null,
+  "baselines": {
+    "raw": {
+      "decision": {
+        "baseline_id": "raw",
+        "decision": "abstain",
+        "reason": "raw baseline does not repair",
+        "patch": null
+      },
+      "counterfactual": null
+    },
+    "recovery": {
+      "decision": {
+        "decision": "abstain",
+        "reason": "low diagnosis confidence",
+        "confidence": 0.25,
+        "baseline_id": "recovery"
+      },
+      "counterfactual": null
+    },
+    "oracle": {
+      "decision": {
+        "baseline_id": "oracle",
+        "decision": "oracle_repair",
+        "patch": {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F1"
+          }
+        },
+        "reason": "explicit patch from fault truth",
+        "step_id": 1,
+        "fault_id": "smoke-ra-0"
+      },
+      "counterfactual": {
+        "trace": [
+          {
+            "requested_action": {
+              "tool": "search_flights",
+              "arguments": {}
+            },
+            "action": {
+              "tool": "search_flights",
+              "arguments": {}
+            },
+            "result": {
+              "flights": [
+                {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                {
+                  "id": "F2",
+                  "price": 360,
+                  "refundable": false
+                },
+                {
+                  "id": "F3",
+                  "price": 480,
+                  "refundable": true
+                }
+              ]
+            },
+            "state_before_hash": "a4ecba43ac2d902c",
+            "state_after_hash": "a4ecba43ac2d902c",
+            "observation": {
+              "state": {
+                "task": "Book the cheapest refundable flight from A to B.",
+                "origin": "A",
+                "destination": "B",
+                "budget": 500,
+                "selected_flight": null,
+                "confirmed": false,
+                "events": []
+              },
+              "state_hash": "a4ecba43ac2d902c",
+              "tools": [
+                "search_flights",
+                "select_flight",
+                "confirm_booking"
+              ],
+              "seed": 0,
+              "task_variant": "clean_success",
+              "variant": "clean_success",
+              "actions": [
+                {
+                  "tool": "search_flights",
+                  "arguments": {}
+                },
+                {
+                  "tool": "select_flight",
+                  "arguments": {
+                    "flight_id": "F2"
+                  }
+                },
+                {
+                  "tool": "confirm_booking",
+                  "arguments": {
+                    "user_confirmed": true
+                  }
+                }
+              ],
+              "env_config": {
+                "actions": [
+                  {
+                    "tool": "search_flights",
+                    "arguments": {}
+                  },
+                  {
+                    "tool": "select_flight",
+                    "arguments": {
+                      "flight_id": "F2"
+                    }
+                  },
+                  {
+                    "tool": "confirm_booking",
+                    "arguments": {
+                      "user_confirmed": true
+                    }
+                  }
+                ]
+              },
+              "invariants": [
+                "selected_flight must be refundable",
+                "price must be <= budget",
+                "selected_flight must be the cheapest eligible refundable flight",
+                "confirmation requires explicit user confirmation"
+              ]
+            }
+          },
+          {
+            "requested_action": {
+              "tool": "select_flight",
+              "arguments": {
+                "flight_id": "F1"
+              }
+            },
+            "action": {
+              "tool": "select_flight",
+              "arguments": {
+                "flight_id": "F1"
+              }
+            },
+            "result": {
+              "ok": true,
+              "selected": {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              }
+            },
+            "state_before_hash": "a4ecba43ac2d902c",
+            "state_after_hash": "c7cbbd7e3f708dc2",
+            "observation": {
+              "state": {
+                "task": "Book the cheapest refundable flight from A to B.",
+                "origin": "A",
+                "destination": "B",
+                "budget": 500,
+                "selected_flight": {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                "confirmed": false,
+                "events": [
+                  "selected:F1"
+                ]
+              },
+              "state_hash": "c7cbbd7e3f708dc2",
+              "tools": [
+                "search_flights",
+                "select_flight",
+                "confirm_booking"
+              ],
+              "seed": 0,
+              "task_variant": "clean_success",
+              "variant": "clean_success",
+              "actions": [
+                {
+                  "tool": "search_flights",
+                  "arguments": {}
+                },
+                {
+                  "tool": "select_flight",
+                  "arguments": {
+                    "flight_id": "F2"
+                  }
+                },
+                {
+                  "tool": "confirm_booking",
+                  "arguments": {
+                    "user_confirmed": true
+                  }
+                }
+              ],
+              "env_config": {
+                "actions": [
+                  {
+                    "tool": "search_flights",
+                    "arguments": {}
+                  },
+                  {
+                    "tool": "select_flight",
+                    "arguments": {
+                      "flight_id": "F2"
+                    }
+                  },
+                  {
+                    "tool": "confirm_booking",
+                    "arguments": {
+                      "user_confirmed": true
+                    }
+                  }
+                ]
+              },
+              "invariants": [
+                "selected_flight must be refundable",
+                "price must be <= budget",
+                "selected_flight must be the cheapest eligible refundable flight",
+                "confirmation requires explicit user confirmation"
+              ]
+            }
+          },
+          {
+            "requested_action": {
+              "tool": "confirm_booking",
+              "arguments": {
+                "user_confirmed": true
+              }
+            },
+            "action": {
+              "tool": "confirm_booking",
+              "arguments": {
+                "user_confirmed": true
+              }
+            },
+            "result": {
+              "ok": true,
+              "booking_id": "BK-001"
+            },
+            "state_before_hash": "c7cbbd7e3f708dc2",
+            "state_after_hash": "0537d007a5fcaedf",
+            "observation": {
+              "state": {
+                "task": "Book the cheapest refundable flight from A to B.",
+                "origin": "A",
+                "destination": "B",
+                "budget": 500,
+                "selected_flight": {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                "confirmed": true,
+                "events": [
+                  "selected:F1",
+                  "confirmed"
+                ]
+              },
+              "state_hash": "0537d007a5fcaedf",
+              "tools": [
+                "search_flights",
+                "select_flight",
+                "confirm_booking"
+              ],
+              "seed": 0,
+              "task_variant": "clean_success",
+              "variant": "clean_success",
+              "actions": [
+                {
+                  "tool": "search_flights",
+                  "arguments": {}
+                },
+                {
+                  "tool": "select_flight",
+                  "arguments": {
+                    "flight_id": "F2"
+                  }
+                },
+                {
+                  "tool": "confirm_booking",
+                  "arguments": {
+                    "user_confirmed": true
+                  }
+                }
+              ],
+              "env_config": {
+                "actions": [
+                  {
+                    "tool": "search_flights",
+                    "arguments": {}
+                  },
+                  {
+                    "tool": "select_flight",
+                    "arguments": {
+                      "flight_id": "F2"
+                    }
+                  },
+                  {
+                    "tool": "confirm_booking",
+                    "arguments": {
+                      "user_confirmed": true
+                    }
+                  }
+                ]
+              },
+              "invariants": [
+                "selected_flight must be refundable",
+                "price must be <= budget",
+                "selected_flight must be the cheapest eligible refundable flight",
+                "confirmation requires explicit user confirmation"
+              ]
+            }
+          }
+        ],
+        "evaluation": {
+          "success": true,
+          "side_effect": false,
+          "constraints_satisfied": true,
+          "optimal_selection": true,
+          "state_hash": "0537d007a5fcaedf",
+          "seed": 0,
+          "env_seed": 0,
+          "run_id": "smoke-v2-ra-0:cf",
+          "counterfactual_supported": true,
+          "replay_valid": true
+        },
+        "run_id": "smoke-v2-ra-0:cf",
+        "source_run_id": "smoke-v2-ra-0",
+        "episode_id": "smoke-v2-replace_action-seed-0",
+        "replay_provenance": {
+          "valid": true,
+          "strict": true,
+          "source_contract": {
+            "contract_version": "racer-v2-environment-contract",
+            "episode_id": "smoke-v2-replace_action-seed-0",
+            "source_run_id": "smoke-v2-ra-0",
+            "run_id": "smoke-v2-ra-0",
+            "env_seed": 0,
+            "initial_state_fingerprint": "5af2edc7d87cf5879418814a3f7312a4fd5b3fea45afa56c1b0aa09b5661ad03",
+            "fault_schedule_fingerprint": "01434bd512d5b9ed66fccb07d3ee78b38e0098369a1becaeecc2af14a88907ea",
+            "environment_fingerprint": "c58619888492331da76bd5b65345ea387be57e89f52424eb48487eba5b480aea"
+          }
+        },
+        "patched_step_id": 1
+      }
+    }
+  },
+  "source_manifest_sha256": "e5527d7f8d90b0c33f4023035814c40dc52486bf40e214b09f6e2a1451ac42ab"
+}

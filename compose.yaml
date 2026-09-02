@@ -1,0 +1,74 @@
+services:
+  task-env:
+    build:
+      context: ./services/task_env
+    environment:
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "18080:8080"
+    volumes:
+      - trajectories:/data/trajectories
+
+  agent-runner:
+    build:
+      context: .
+      dockerfile: services/agent_runner/Dockerfile
+    environment:
+      TASK_ENV_URL: http://task-env:8080
+      DIAGNOSER_URL: http://diagnoser:8080
+      RECOVERY_URL: http://recovery-policy:8080
+      REPLAYER_URL: http://counterfactual:8080
+      PYTHONUNBUFFERED: "1"
+    depends_on:
+      - task-env
+      - diagnoser
+      - recovery-policy
+      - counterfactual
+    volumes:
+      - trajectories:/data/trajectories
+      - oracle_truth:/data/oracle
+
+  diagnoser:
+    build:
+      context: ./services/diagnoser
+    environment:
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "18081:8080"
+
+  recovery-policy:
+    build:
+      context: ./services/recovery_policy
+    environment:
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "18082:8080"
+
+  counterfactual:
+    build:
+      context: .
+      dockerfile: services/counterfactual/Dockerfile
+    environment:
+      TASK_ENV_URL: http://task-env:8080
+      PYTHONUNBUFFERED: "1"
+    depends_on:
+      - task-env
+    ports:
+      - "18083:8080"
+
+  evaluator:
+    build:
+      context: .
+      dockerfile: services/evaluator/Dockerfile
+    environment:
+      PYTHONUNBUFFERED: "1"
+      ORACLE_DIR: /data/oracle
+    volumes:
+      - trajectories:/data/trajectories
+      - oracle_truth:/data/oracle
+    profiles:
+      - analysis
+
+volumes:
+  trajectories:
+  oracle_truth:

@@ -1,0 +1,126 @@
+{
+  "artifact_status": "admission-pilot_not_a_benchmark_result",
+  "experiment": "gemma-fault-admission-pilot",
+  "version": 1,
+  "description": "Single-task, single-seed Gemma force_error confirmation admission-pilot; not a benchmark result.",
+  "environment": "task-env",
+  "tasks": [
+    {
+      "task_id": "gemma-fault-admission-pilot-force_error_confirm-seed-0",
+      "run_id": "gemma-fault-admission-pilot-force_error_confirm-20260901T060841Z-seed-0",
+      "seed": 0,
+      "task_variant": "force_error_confirm",
+      "variant": "force_error_confirm",
+      "cell": "force_error_confirm",
+      "env_config": {
+        "budget": 500,
+        "flights": [
+          {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          {
+            "id": "F2",
+            "price": 360,
+            "refundable": false
+          },
+          {
+            "id": "F3",
+            "price": 480,
+            "refundable": true
+          }
+        ],
+        "task_variant": "force_error_confirm",
+        "variant": "force_error_confirm",
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be cheapest eligible flight",
+          "confirmation requires explicit user confirmation"
+        ],
+        "faults": [
+          {
+            "fault_id": "force-error-confirm",
+            "type": "force_error",
+            "step_id": 1,
+            "tool": "confirm_booking",
+            "error": "injected force_error_confirm"
+          }
+        ]
+      },
+      "reset": {
+        "budget": 500,
+        "flights": [
+          {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          {
+            "id": "F2",
+            "price": 360,
+            "refundable": false
+          },
+          {
+            "id": "F3",
+            "price": 480,
+            "refundable": true
+          }
+        ],
+        "task_variant": "force_error_confirm",
+        "variant": "force_error_confirm",
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be cheapest eligible flight",
+          "confirmation requires explicit user confirmation"
+        ],
+        "faults": [
+          {
+            "fault_id": "force-error-confirm",
+            "type": "force_error",
+            "step_id": 1,
+            "tool": "confirm_booking",
+            "error": "injected force_error_confirm"
+          }
+        ]
+      },
+      "faults": [
+        {
+          "fault_id": "force-error-confirm",
+          "type": "force_error",
+          "step_id": 1,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "fault_truth": [
+        {
+          "fault_id": "force-error-confirm",
+          "type": "force_error",
+          "step_id": 1,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm",
+          "patch": {
+            "tool": "confirm_booking",
+            "arguments": {
+              "user_confirmed": true
+            }
+          }
+        }
+      ],
+      "actor": {
+        "type": "python",
+        "path": "experiments/actors/ollama-local-actor.py",
+        "actor_id": "ollama-gemma4-e2b-fault-admission-pilot"
+      },
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "max_actor_steps": 3
+    }
+  ]
+}

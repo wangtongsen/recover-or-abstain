@@ -1,0 +1,41 @@
+{
+  "blockers": [
+    "G0_MODEL_REGISTRY_MISSING",
+    "G8_EXECUTED_ARTIFACTS_MISSING"
+  ],
+  "checks": {
+    "G0_protocol_matrix_model_lock": "FAIL",
+    "G1_executed_provenance": "PASS",
+    "G2_G3_planned_identity_and_replay": "PASS",
+    "G5_secret_isolation": "PASS",
+    "G8_executed_evidence": "FAIL"
+  },
+  "counts": {
+    "errors": 2,
+    "executed_artifacts": 0,
+    "model_resources": 0,
+    "planned_cells": 495,
+    "warnings": 0
+  },
+  "input": {
+    "manifest_sha256": "405275164863cf4770ecb51f5391279fada1cd895e27078a6ded0ac47f95c5da",
+    "protocol_id": "racer-v2-benchmark-protocol-0.1"
+  },
+  "issues": [
+    {
+      "code": "G0_MODEL_REGISTRY_MISSING",
+      "message": "尚未登记无密钥的 model_resource registry。",
+      "path": "$.model_registry",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G8_EXECUTED_ARTIFACTS_MISSING",
+      "message": "尚无 executed v2 artifact；预检必须保持 NO-GO。",
+      "path": "$.executed_artifacts",
+      "severity": "ERROR"
+    }
+  ],
+  "return_code": 2,
+  "schema_version": "racer-v2-preflight-audit-v1",
+  "verdict": "NO-GO"
+}

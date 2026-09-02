@@ -1,0 +1,33 @@
+{
+  "registry_version": "racer-v2-model-registry-v1",
+  "protocol_id": "racer-v2-benchmark-protocol-0.1",
+  "status": "active-partial",
+  "notes": "无密钥 model resource registry。本文件不得包含任何 token、Authorization header 或 model.json 原文；远程 LLM 资源在锁定 revision 前仅登记于 planned_resources，不可绑定 planned cell。deterministic-local-actor-v1 仅适用于 evaluation_tier=pilot。",
+  "model_resources": [
+    {
+      "model_resource_id": "deterministic-local-actor-v1",
+      "kind": "deterministic_script",
+      "provider": "local",
+      "model_name": "deterministic-flight-actor",
+      "model_version": "1",
+      "credential_source": null,
+      "config_sha256": "d45104d1ef33c6223962afcc063529fa1a95dfb3b9c7ff00be1c53a997334c79",
+      "eligible_tiers": ["pilot"],
+      "status": "active"
+    }
+  ],
+  "planned_resources": [
+    {
+      "model_resource_id": "anthropic-oneapi-relay",
+      "kind": "remote_llm",
+      "provider": "anthropic-compatible",
+      "endpoint_alias": "oneapi-relay",
+      "model_name": null,
+      "model_version": null,
+      "credential_source": "env:ANTHROPIC_AUTH_TOKEN",
+      "eligible_tiers": ["main"],
+      "status": "planned-revision-not-locked",
+      "notes": "provider/model revision、tokenizer/prompt/tool schema hash 未锁定前，不得进入主会 planned cell。凭据仅经运行时环境变量注入。"
+    }
+  ]
+}

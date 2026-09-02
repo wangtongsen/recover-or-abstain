@@ -1,0 +1,100 @@
+{
+  "count": 1,
+  "results": [
+    {
+      "run_id": "local-llm-qwen3-0.6b-smoke-0",
+      "task_id": "local-llm-qwen3-0.6b-smoke",
+      "seed": 0,
+      "task_variant": "clean_success",
+      "cell": "clean_success",
+      "actor_id": "ollama-qwen3-0.6b",
+      "actor_config_hash": "2f77e11ac9537a45b7e7fe16df93d7bf20a3ab0eb4e8a53e2f6aa29c84b1adaa",
+      "actor_usage": {
+        "provider": "ollama",
+        "model": "qwen3:0.6b",
+        "base_url": "http://host.docker.internal:11434",
+        "calls": 1,
+        "prompt_tokens": 438,
+        "completion_tokens": 6,
+        "total_tokens": 444,
+        "cost_usd": null,
+        "latency_ms": 155.549,
+        "last_call": {
+          "prompt_tokens": 438,
+          "completion_tokens": 6,
+          "total_tokens": 444,
+          "latency_ms": 155.549,
+          "call_index": 1
+        }
+      },
+      "trace": [],
+      "original_evaluation": {
+        "success": false,
+        "side_effect": false,
+        "constraints_satisfied": false,
+        "optimal_selection": false,
+        "state_hash": "a4ecba43ac2d902c",
+        "seed": 0,
+        "env_seed": 0,
+        "run_id": "local-llm-qwen3-0.6b-smoke-0"
+      },
+      "diagnosis": {
+        "candidates": [
+          {
+            "step_id": null,
+            "category": "unknown",
+            "cause": "no_localized_root_cause",
+            "confidence": 0.25,
+            "repair_options": [
+              "replan",
+              "ask_clarification",
+              "abstain"
+            ],
+            "evidence": {
+              "trace_length": 0
+            },
+            "source": "diagnoser",
+            "constraint": null
+          }
+        ],
+        "diagnosis_confidence": 0.25
+      },
+      "decision": {
+        "decision": "abstain",
+        "reason": "low diagnosis confidence",
+        "confidence": 0.25,
+        "baseline_id": "recovery"
+      },
+      "counterfactual": null,
+      "baselines": {
+        "raw": {
+          "decision": {
+            "baseline_id": "raw",
+            "decision": "abstain",
+            "reason": "raw baseline does not repair",
+            "patch": null
+          },
+          "counterfactual": null
+        },
+        "recovery": {
+          "decision": {
+            "decision": "abstain",
+            "reason": "low diagnosis confidence",
+            "confidence": 0.25,
+            "baseline_id": "recovery"
+          },
+          "counterfactual": null
+        },
+        "oracle": {
+          "decision": {
+            "baseline_id": "oracle",
+            "decision": "abstain",
+            "reason": "fault truth has no usable patch",
+            "patch": null
+          },
+          "counterfactual": null
+        }
+      }
+    }
+  ]
+}

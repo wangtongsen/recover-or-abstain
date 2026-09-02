@@ -1,0 +1,28 @@
+{
+  "registry_version": "racer-v2-main-baselines-v1",
+  "protocol_id": "racer-v2-benchmark-protocol-0.1",
+  "status": "frozen-catalog-partial-implementation",
+  "notes": "主会 baseline registry（协议第 7 节）。implemented=false 的条目尚无可执行实现，不得进入主会 planned cell 或结果表；oracle_* 仅作上限参考，永远 main_comparison=false。pilot 的 raw/recovery/oracle 不在本 registry 中，由 local-flight-pilot-v1 单独管理且不得自动映射。",
+  "baselines": [
+    {"baseline_id": "raw_react", "role": "main_comparison", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "fixed_retry", "role": "main_comparison", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "exponential_backoff", "role": "main_comparison", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "generic_reflection", "role": "primary_comparison", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "full_trace_judge", "role": "main_comparison", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "step_by_step_diagnosis", "role": "main_comparison", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "binary_search_diagnosis", "role": "main_comparison", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "agentdebug_targeted_feedback", "role": "main_comparison", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "always_recover", "role": "ablation", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "racer", "role": "method", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "racer_no_abstain", "role": "ablation", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "racer_no_counterfactual", "role": "ablation", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "oracle_root_cause", "role": "oracle_upper_bound", "implemented": false, "implementation_sha256": null},
+    {"baseline_id": "oracle_recovery", "role": "oracle_upper_bound", "implemented": false, "implementation_sha256": null}
+  ],
+  "shared_service_hashes": {
+    "diagnoser_app_sha256": "da9410e5ef7c876420c6cf783151874937f89a089c28608eb892bf1a9d811894",
+    "recovery_policy_app_sha256": "bf3a36f1fefbdd863ff7e2ee450354a81910d82496ed6dc09e480b1129afc5f1",
+    "agent_runner_app_sha256": "e225d1e301c4d6efc183835bfc86887db8693c91271bb38a8adac6c12f58fb87",
+    "note": "当前 deterministic pilot 实现的源文件哈希；主会 LLM baseline 实现完成后须逐 baseline 重新登记其实现 hash。"
+  }
+}

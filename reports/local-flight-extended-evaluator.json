@@ -1,0 +1,57 @@
+{
+  "experiment": "local-flight-extended",
+  "artifact_status": "historical_12_task",
+  "scope": "historical 12-task extension; excluded from final 18-task results",
+  "source": "docker evaluator output",
+  "task_count": 12,
+  "cells": {
+    "clean_success": {
+      "tasks": 2,
+      "original_success": 2,
+      "recovery_success": 0,
+      "decisions": {
+        "abstain": 2
+      }
+    },
+    "drop_confirm": {
+      "tasks": 2,
+      "original_success": 0,
+      "recovery_success": 0,
+      "decisions": {
+        "abstain": 2
+      }
+    },
+    "force_error_confirm": {
+      "tasks": 2,
+      "original_success": 0,
+      "recovery_success": 2,
+      "decisions": {
+        "retry": 2
+      }
+    },
+    "missing_confirmation": {
+      "tasks": 2,
+      "original_success": 0,
+      "recovery_success": 0,
+      "decisions": {
+        "ask_clarification": 2
+      }
+    },
+    "non_refundable": {
+      "tasks": 2,
+      "original_success": 0,
+      "recovery_success": 2,
+      "decisions": {
+        "replace_argument": 2
+      }
+    },
+    "suboptimal_refundable": {
+      "tasks": 2,
+      "original_success": 0,
+      "recovery_success": 0,
+      "decisions": {
+        "abstain": 2
+      }
+    }
+  }
+}

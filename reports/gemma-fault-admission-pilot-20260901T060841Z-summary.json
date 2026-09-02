@@ -1,0 +1,151 @@
+{
+  "artifact_status": "admission-pilot_not_a_benchmark_result",
+  "admission": "GO_FOR_FAULT_ACTIVATION",
+  "experiment": "gemma-fault-admission-pilot",
+  "description": "Single-task, single-seed Gemma force_error confirmation admission-pilot; fault activated; not a benchmark result.",
+  "source_spec": "experiments/gemma-fault-admission-pilot-20260901T060841Z.json",
+  "source_runner": "output/gemma-fault-admission-pilot-20260901T060841Z-runner.json",
+  "source_evaluator": "reports/gemma-fault-admission-pilot-20260901T060841Z-evaluator.json",
+  "source_public_trajectory": "output/gemma-fault-admission-pilot-20260901T060841Z/trajectories/gemma-fault-admission-pilot-force_error_confirm-20260901T060841Z-seed-0.json",
+  "source_oracle": "output/gemma-fault-admission-pilot-20260901T060841Z/oracle/gemma-fault-admission-pilot-force_error_confirm-20260901T060841Z-seed-0.json",
+  "run": {
+    "run_id": "gemma-fault-admission-pilot-force_error_confirm-20260901T060841Z-seed-0",
+    "task_id": "gemma-fault-admission-pilot-force_error_confirm-seed-0",
+    "seed": 0,
+    "model": "gemma4:e2b",
+    "provider": "ollama",
+    "termination_reason": "tool_error",
+    "actor_termination": "action_error",
+    "trace_length": 2,
+    "trace_tools": [
+      "select_flight",
+      "confirm_booking"
+    ],
+    "third_step_present": false,
+    "note": "force fault triggered on second action; runner terminated immediately on tool error, so no third trace step was produced."
+  },
+  "fault_activation": {
+    "configured": true,
+    "fault_triggered": true,
+    "fault_id": "force-error-confirm",
+    "type": "force_error",
+    "step_id": 1,
+    "tool": "confirm_booking",
+    "error": "injected force_error_confirm",
+    "observed_error_steps": [
+      {
+        "index": 1,
+        "step_id": 1,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "observed_fault_count": 1
+  },
+  "original_evaluation": {
+    "original_success": false,
+    "side_effect": false,
+    "constraints_satisfied": true,
+    "optimal_selection": true
+  },
+  "recovery": {
+    "recovered_success": true,
+    "decision": {
+      "decision": "retry",
+      "confidence": 0.71,
+      "step_id": 1,
+      "patch": {
+        "tool": "confirm_booking",
+        "arguments": {
+          "user_confirmed": true
+        }
+      },
+      "expected_cost": 1,
+      "expected_risk": 0.29,
+      "baseline_id": "recovery"
+    },
+    "counterfactual_evaluation": {
+      "success": true,
+      "side_effect": false,
+      "constraints_satisfied": true,
+      "optimal_selection": true,
+      "state_hash": "0537d007a5fcaedf",
+      "seed": 0,
+      "env_seed": 0,
+      "run_id": "gemma-fault-admission-pilot-force_error_confirm-20260901T060841Z-seed-0:cf"
+    },
+    "allowed_no_recovery": true,
+    "status": "recovered"
+  },
+  "trace_visibility": {
+    "public_trace_contains_fault_truth": false,
+    "public_trace_contains_faults": false,
+    "public_trace_contains_faults_applied": false,
+    "public_forbidden_key_paths": [],
+    "oracle_contains_fault_truth": true,
+    "oracle_has_patch": true,
+    "oracle_fault_truth_step_id": 1
+  },
+  "usage": {
+    "provider": "ollama",
+    "model": "gemma4:e2b",
+    "base_url": "http://host.docker.internal:11434",
+    "calls": 2,
+    "attempts": 2,
+    "responses": 2,
+    "terminal_responses": 2,
+    "valid_actions": 2,
+    "invalid_actions": 0,
+    "endpoint_errors": 0,
+    "failed_attempts": 0,
+    "prompt_tokens": 1632,
+    "completion_tokens": 40,
+    "total_tokens": 1672,
+    "cost_usd": null,
+    "latency_ms": 3077.082,
+    "last_call": {
+      "prompt_tokens": 1093,
+      "completion_tokens": 19,
+      "total_tokens": 1112,
+      "latency_ms": 785.136,
+      "call_index": 2
+    },
+    "invariants": [
+      {
+        "name": "attempts = terminal_responses + failed_attempts",
+        "holds": true
+      },
+      {
+        "name": "responses = terminal_responses + invalid_actions",
+        "holds": true
+      },
+      {
+        "name": "failed_attempts = endpoint_errors + invalid_actions",
+        "holds": true
+      },
+      {
+        "name": "total_tokens = prompt_tokens + completion_tokens",
+        "holds": true
+      },
+      {
+        "name": "calls = attempts",
+        "holds": true
+      },
+      {
+        "name": "valid_actions = responses - invalid_actions",
+        "holds": true
+      }
+    ],
+    "all_invariants_hold": true
+  },
+  "acceptance": {
+    "fault_triggered": true,
+    "original_success": false,
+    "trace_error_exact": true,
+    "public_trace_redacted": true,
+    "oracle_manifest_truth_and_patch": true,
+    "usage_invariants": true,
+    "side_effect": false
+  },
+  "conclusion": "GO: real fault activation confirmed; recovery restored success in clean counterfactual; artifact is an admission pilot only, not a benchmark result."
+}

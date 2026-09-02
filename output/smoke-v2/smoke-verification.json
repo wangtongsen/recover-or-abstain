@@ -1,0 +1,54 @@
+{
+  "admission_verdict": "NO-GO",
+  "checks": {
+    "admission_codes": [
+      "G2_NON_MAIN_RECORD",
+      "G2_NO_MAIN_COMPARISON_ROWS"
+    ],
+    "admission_rejects_pilot_envelope": true,
+    "at_least_one_verified_replay": true,
+    "evaluator_oracle_join_valid": true,
+    "g5_trajectory_truth_free": true,
+    "oracle_has_contract": true,
+    "oracle_has_source_anchor": true,
+    "oracle_has_truth": true,
+    "oracle_identity_fields_match": true,
+    "strict_replay_branches": [
+      {
+        "baseline_id": "raw",
+        "has_source_contract": false,
+        "provenance_strict": false,
+        "provenance_valid": false,
+        "replay_run_id": null
+      },
+      {
+        "baseline_id": "recovery",
+        "has_source_contract": false,
+        "provenance_strict": false,
+        "provenance_valid": false,
+        "replay_run_id": null
+      },
+      {
+        "baseline_id": "oracle",
+        "has_source_contract": true,
+        "provenance_strict": true,
+        "provenance_valid": true,
+        "replay_run_id": "smoke-v2-ra-0:cf"
+      }
+    ],
+    "trajectory_main_comparison_false": true,
+    "trajectory_tier_is_pilot": true
+  },
+  "counts": {
+    "replay_branches": 3,
+    "verified_replay_branches": 1
+  },
+  "input": {
+    "oracle": "output/smoke-v2/oracle/smoke-v2-ra-0.json",
+    "trajectory": "output/smoke-v2/trajectories/smoke-v2-ra-0.json"
+  },
+  "issues": [],
+  "schema_version": "racer-v2-smoke-verification-v1",
+  "smoke_tier": "pilot",
+  "verdict": "PASS"
+}

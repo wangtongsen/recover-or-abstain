@@ -1,0 +1,9 @@
+services:
+  task-env:
+    ports: !override []
+  diagnoser:
+    ports: !override []
+  recovery-policy:
+    ports: !override []
+  counterfactual:
+    ports: !override []

@@ -1,0 +1,28 @@
+{
+  "experiment": "actor-smoke",
+  "status": "passed",
+  "spec": "experiments/actor-smoke-spec.json",
+  "actor_config": "experiments/actors/basic-recovery-actions.json",
+  "runner_report": "reports/actor-smoke-agent-runner.json",
+  "evaluator_report": "reports/actor-smoke-evaluator.json",
+  "trajectory_dir": "output/actor-smoke-trajectories",
+  "oracle_dir": "output/actor-smoke-oracle",
+  "commands": {
+    "runner": "BATCH_SPEC=experiments/actor-smoke-spec.json TRAJECTORY_DIR=output/actor-smoke-trajectories ORACLE_DIR=output/actor-smoke-oracle PROJECT_ROOT=. TASK_ENV_URL=http://127.0.0.1:19080 DIAGNOSER_URL=http://127.0.0.1:19081 RECOVERY_URL=http://127.0.0.1:19082 REPLAYER_URL=http://127.0.0.1:19084 python services/agent_runner/app.py",
+    "evaluator": "docker compose --profile analysis run --rm -T -v output/actor-smoke-trajectories:/data/trajectories -v output/actor-smoke-oracle:/data/oracle evaluator"
+  },
+  "exit_codes": {"runner": 0, "evaluator": 0, "unit_tests": 0, "metadata_validation": 0},
+  "checks": {
+    "actor_id": "basic-recovery-actions",
+    "actor_config_hash": "1a6f4d21ec947d06c03361a4a4c21bd224ed791b60d3a2c661628008c7ec33d0",
+    "trace_count": 1,
+    "trace_steps": 3,
+    "public_trace_excludes_fault_truth": true,
+    "public_trace_excludes_faults_applied": true,
+    "oracle_manifest_separate": true,
+    "frozen_reports_untouched": true,
+    "main_experiment_not_overwritten": true,
+    "services_verified_from_current_code": true
+  },
+  "note": "Docker 镜像重建因 registry 网络超时未执行；smoke 使用当前工作区代码启动的独立本地服务，且通过当前源码运行、actor hash、轨迹/manifest 和健康端点校验。"
+}

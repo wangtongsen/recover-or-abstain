@@ -1,0 +1,21 @@
+{
+  "experiment": "actor-smoke",
+  "version": 1,
+  "description": "独立 agent-runner actor smoke；唯一 actor 配置为 basic-recovery-actions.json",
+  "environment": "task-env",
+  "tasks": [
+    {
+      "task_id": "actor-smoke-basic-recovery",
+      "run_id": "actor-smoke-basic-recovery-0",
+      "seed": 0,
+      "actor": {
+        "actor_id": "basic-recovery-actions",
+        "type": "json",
+        "path": "experiments/actors/basic-recovery-actions.json"
+      },
+      "faults": [],
+      "fault_truth": [],
+      "baselines": ["recovery"]
+    }
+  ]
+}

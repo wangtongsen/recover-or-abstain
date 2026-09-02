@@ -1,0 +1,33 @@
+request_id: racer-paper
+entry_type: beautify_only
+output_docx_path: /Users/infoflow/WorkBuddy/2026-08-31-17-40-04/output/racer-paper/stage3/recover-or-abstain-paper.docx
+current_stage: 3
+stages:
+  stage_2:
+    status: completed
+    completed_at: '2026-08-31T17:45:00+08:00'
+    route: html
+    html_sub: template
+    genre: academic-paper
+    output_path: stage2/formatted-recover-or-abstain-paper.html
+    output_format: html
+    skills_invoked:
+      - design-token
+      - doc-typeset
+      - html-review
+    design_tokens_path: null
+    template_used: academic-paper
+    html_review_attempts: 1
+    fallback: false
+    fallback_reason: null
+  stage_3:
+    status: completed
+    completed_at: '2026-08-31T17:46:00+08:00'
+    executor: doc-converter
+    input_format: html
+    output_path: /Users/infoflow/WorkBuddy/2026-08-31-17-40-04/output/racer-paper/stage3/recover-or-abstain-paper.docx
+    skill_used:
+      - html-to-docx
+    present_files_opened: true
+    fallback: false
+    fallback_reason: null

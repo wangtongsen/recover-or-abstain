@@ -1,0 +1,24 @@
+{
+  "checks": {
+    "G2_paired_identity": "PASS",
+    "G3_strict_replay": "PASS",
+    "G4_refund_witness": "PASS",
+    "G5_truth_and_secret_isolation": "PASS",
+    "G7_canonical_envelope": "PASS"
+  },
+  "counts": {
+    "errors": 0,
+    "legacy_or_incomplete_rows": 0,
+    "main_comparison_rows": 2,
+    "warnings": 0
+  },
+  "input": {
+    "canonical_envelope": true,
+    "container": "records",
+    "path": "/Users/infoflow/Desktop/agent-recovery-plan/output/admission-fixture/canonical-baselines.json",
+    "row_count": 2
+  },
+  "issues": [],
+  "schema_version": "racer-v2-artifact-admission-v1",
+  "verdict": "PASS"
+}

@@ -1,0 +1,45 @@
+{
+  "experiment": "smoke-v2",
+  "version": 1,
+  "description": "Single isolated-container end-to-end smoke for the v2 contract chain (deterministic actor, no remote models)",
+  "environment": "task-env",
+  "experiment_role": "pilot",
+  "main_comparison": false,
+  "baseline_registry_version": "local-flight-pilot-v1",
+  "baseline_catalog": {
+    "raw": {"role": "pilot_reference", "maps_to_protocol_id": null, "eligible_for_main": false},
+    "recovery": {"role": "pilot_local_recovery", "maps_to_protocol_id": null, "eligible_for_main": false},
+    "oracle": {"role": "oracle_upper_bound", "maps_to_protocol_id": null, "eligible_for_main": false}
+  },
+  "model_registry_version": "racer-v2-model-registry-v1",
+  "tasks": [
+    {
+      "protocol_id": "racer-v2-benchmark-protocol-0.1",
+      "task_id": "smoke-v2-replace_action-seed-0",
+      "run_id": "smoke-v2-ra-0",
+      "episode_id": "smoke-v2-replace_action-seed-0",
+      "seed": 0,
+      "trial_id": 0,
+      "model_resource_id": "deterministic-local-actor-v1",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "replace_action",
+      "faults": [
+        {
+          "fault_id": "smoke-ra-0",
+          "type": "replace_action",
+          "step_id": 1,
+          "replacement": {"tool": "select_flight", "arguments": {"flight_id": "F1"}}
+        }
+      ],
+      "baselines": ["raw", "recovery", "oracle"],
+      "actions": [
+        {"tool": "search_flights", "arguments": {}},
+        {"tool": "select_flight", "arguments": {"flight_id": "F2"}},
+        {"tool": "confirm_booking", "arguments": {"user_confirmed": true}}
+      ]
+    }
+  ]
+}

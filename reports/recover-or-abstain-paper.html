@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="docx-page-size" content="A4">
+<title>Recover or Abstain：面向工具调用智能体的风险感知反事实修复原型</title>
+<style>
+  @page { @bottom-center { content: counter(page); } }
+  @page cover { @bottom-center { content: none; } }
+  section[role="cover"] { page: cover; }
+  :root {
+    --typography-fontFamily-heading: "黑体", SimHei, sans-serif;
+    --typography-fontFamily-body: "宋体", SimSun, serif;
+    --typography-fontFamily-bodyLatin: "Times New Roman", serif;
+    --typography-fontFamily-code: "Courier New", Consolas, monospace;
+    --fs-body: 12pt;
+    --ff-body: "宋体", SimSun, serif;
+    --typography-fontSize-title: 18pt;
+    --typography-fontSize-h1: 15pt;
+    --typography-fontSize-h2: 14pt;
+    --typography-fontSize-h3: 12pt;
+    --typography-fontSize-body: 12pt;
+    --typography-fontSize-abstract: 11pt;
+    --typography-fontSize-caption: 10.5pt;
+    --typography-fontSize-footnote: 9pt;
+    --typography-lineHeight-body: 1.5;
+    --typography-lineHeight-heading: 1.5;
+    --typography-fontWeight-heading: 700;
+    --typography-fontWeight-body: 400;
+    --color-primary: #000000;
+    --color-text: #000000;
+    --color-muted: #555555;
+    --color-tableHeaderBg: #f0f0f0;
+    --color-tableBorder: #000000;
+    --color-background: #ffffff;
+    --color-scopeBg: #f7f7f7;
+    --spacing-paragraph: 0.5em;
+    --spacing-sectionGap: 1.5em;
+    --spacing-block: 1em;
+    --spacing-indent: 2em;
+    --spacing-coverTop: 8em;
+    --spacing-cell: 0.4em;
+    --spacing-cellX: 0.6em;
+    --border-scope: 3px;
+    --border-tableTop: 1.5pt;
+    --border-tableMid: 0.75pt;
+    --border-tableBottom: 1.5pt;
+    --page-content-width: 16cm;
+    --margin-page-top: 3cm;
+    --margin-page-bottom: 2.5cm;
+    --margin-page-left: 2.5cm;
+    --margin-page-right: 2.5cm;
+  }
+  * { box-sizing: border-box; }
+  body { max-width: var(--page-content-width); margin-left: auto; margin-right: auto; padding: var(--margin-page-top) var(--margin-page-right) var(--margin-page-bottom) var(--margin-page-left); font-family: var(--ff-body); font-size: var(--fs-body); line-height: var(--typography-lineHeight-body); color: var(--color-text); background: var(--color-background); }
+  section[role="cover"] { min-height: 22cm; }
+  .cover-body { text-align: center; padding-top: var(--spacing-coverTop); }
+  .cover-title { text-align: center; font-family: var(--typography-fontFamily-heading); font-size: var(--typography-fontSize-title); line-height: var(--typography-lineHeight-heading); font-weight: var(--typography-fontWeight-heading); color: var(--color-primary); margin-bottom: var(--spacing-sectionGap); }
+  .cover-subtitle { text-align: center; font-family: var(--typography-fontFamily-bodyLatin); font-size: var(--typography-fontSize-abstract); margin-bottom: var(--spacing-sectionGap); }
+  .paper-body { text-align: left; }
+  .references { text-align: left; }
+  .section-transition { text-align: left; font-size: var(--typography-fontSize-footnote); line-height: var(--typography-lineHeight-body); color: var(--color-background); margin-bottom: var(--spacing-paragraph); text-indent: 0; }
+  h2 { text-align: left; font-family: var(--typography-fontFamily-heading); font-size: var(--typography-fontSize-h1); line-height: var(--typography-lineHeight-heading); font-weight: var(--typography-fontWeight-heading); color: var(--color-primary); margin-top: var(--spacing-sectionGap); margin-bottom: var(--spacing-paragraph); }
+  h3 { text-align: left; font-family: var(--typography-fontFamily-heading); font-size: var(--typography-fontSize-h2); line-height: var(--typography-lineHeight-heading); font-weight: var(--typography-fontWeight-heading); color: var(--color-primary); margin-top: var(--spacing-block); margin-bottom: var(--spacing-paragraph); }
+  h4 { text-align: left; font-family: var(--typography-fontFamily-heading); font-size: var(--typography-fontSize-h3); line-height: var(--typography-lineHeight-heading); font-weight: var(--typography-fontWeight-heading); color: var(--color-primary); margin-top: var(--spacing-block); margin-bottom: var(--spacing-paragraph); }
+  p { text-align: left; font-family: var(--typography-fontFamily-body); font-size: var(--typography-fontSize-body); line-height: var(--typography-lineHeight-body); color: var(--color-text); margin-bottom: var(--spacing-paragraph); text-indent: var(--spacing-indent); }
+  strong { font-weight: var(--typography-fontWeight-heading); }
+  em { font-family: var(--typography-fontFamily-bodyLatin); }
+  code { font-family: var(--typography-fontFamily-code); font-size: var(--typography-fontSize-abstract); }
+  pre { text-align: left; font-family: var(--typography-fontFamily-code); font-size: var(--typography-fontSize-abstract); line-height: var(--typography-lineHeight-body); white-space: pre-wrap; margin: var(--spacing-block) 0; padding: var(--spacing-block); border: var(--border-tableMid) solid var(--color-tableBorder); background: var(--color-scopeBg); }
+  pre code { font-family: var(--typography-fontFamily-code); font-size: var(--typography-fontSize-abstract); }
+  .scope-note { text-align: left; margin-bottom: var(--spacing-sectionGap); padding: var(--spacing-block); border-left: var(--border-scope) solid var(--color-primary); background: var(--color-scopeBg); }
+  .scope-note p { text-align: left; font-size: var(--typography-fontSize-abstract); line-height: var(--typography-lineHeight-body); text-indent: 0; margin-bottom: 0; }
+  .abstract { text-align: left; margin: var(--spacing-sectionGap) 0; padding: var(--spacing-block); border: var(--border-tableMid) solid var(--color-tableBorder); background: var(--color-background); }
+  .abstract h2 { text-align: center; font-size: var(--typography-fontSize-h2); margin-top: 0; }
+  .abstract p { text-align: left; font-size: var(--typography-fontSize-abstract); line-height: var(--typography-lineHeight-body); text-indent: var(--spacing-indent); }
+  ul, ol { text-align: left; font-family: var(--typography-fontFamily-body); font-size: var(--typography-fontSize-body); line-height: var(--typography-lineHeight-body); margin: 0 0 var(--spacing-paragraph) var(--spacing-indent); padding-left: var(--spacing-indent); }
+  li { text-align: left; font-family: var(--typography-fontFamily-body); font-size: var(--typography-fontSize-body); line-height: var(--typography-lineHeight-body); margin-bottom: var(--spacing-paragraph); }
+  .three-line-table { width: 100%; border-collapse: collapse; margin: var(--spacing-block) 0 var(--spacing-sectionGap); font-family: var(--typography-fontFamily-body); font-size: var(--typography-fontSize-abstract); line-height: var(--typography-lineHeight-body); color: var(--color-text); }
+  .three-line-table thead tr:first-child { border-top: var(--border-tableTop) solid var(--color-tableBorder); }
+  .three-line-table thead tr:last-child { border-bottom: var(--border-tableMid) solid var(--color-tableBorder); }
+  .three-line-table tbody tr:last-child { border-bottom: var(--border-tableBottom) solid var(--color-tableBorder); }
+  .three-line-table th { text-align: left; font-family: var(--typography-fontFamily-heading); font-size: var(--typography-fontSize-abstract); font-weight: var(--typography-fontWeight-heading); background: var(--color-tableHeaderBg); padding: var(--spacing-cell) var(--spacing-cellX); }
+  .three-line-table td { text-align: left; font-family: var(--typography-fontFamily-body); font-size: var(--typography-fontSize-abstract); padding: var(--spacing-cell) var(--spacing-cellX); vertical-align: top; }
+  .three-line-table th:nth-child(n+2), .three-line-table td:nth-child(n+2) { text-align: center; }
+</style>
+</head>
+<body>
+<section role="cover">
+  <div class="cover-body">
+    <h1 class="cover-title">Recover or Abstain：面向工具调用智能体的风险感知反事实修复原型</h1>
+    <p class="cover-subtitle">RACER · deterministic local flight prototype</p>
+  </div>
+</section>
+<section role="body" data-page-restart="1">
+<aside class="scope-note"><p>&nbsp;&nbsp;<strong>范围声明。</strong> 本文报告的是一个 deterministic local flight prototype（确定性的本地航班原型），用于验证诊断、修复决策、反事实重放与结果评估的系统闭环。本文<strong>不是</strong> LLM benchmark，不声称代表任何大模型、公开基准或真实航空生产系统的性能。</p></aside>
+<div class="abstract"><h2>摘要</h2>
+<p>工具调用智能体在执行过程中可能遭遇动作替换、工具错误、限流或动作丢失。仅给出一个根因标签并不足以保证恢复安全：错误修复可能造成副作用，而在证据不足时继续执行又可能放大损失。本文提出 RACER（Risk-Aware Counterfactual Repair，风险感知反事实修复）方法的一个确定性本地原型。RACER 将轨迹诊断、带置信度的恢复策略选择、隔离的反事实重放以及恢复后验证连接为闭环；当诊断置信度低于阈值或缺乏可验证补丁时，策略显式选择 abstain。系统通过公共轨迹与评估器专用真值清单隔离故障真值，避免智能体直接查询注入配置，并用状态哈希支持重放一致性检查。</p>
+<p>最终结果采用冻结的 <code>reports/local-flight-results.json</code>，而非混入额外 smoke 运行的 <code>local-flight-evaluator.json</code>。冻结报告覆盖 5 类故障、3 个 seed、共 15 个唯一任务单元，并展开为 raw、recovery、explicit-patch oracle（patch-availability-conditional reference）三类基线的 45 条基线记录。在该确定性原型上，recovery 基线在 12 条原始失败中恢复 3 条（25.00%），记录的有害修复为 0；raw 基线不修复，explicit-patch oracle（patch-availability-conditional reference）仅对故障真值含显式可用补丁的情形执行参考上界修复。上述数字只描述当前固定任务、规则策略和故障注入设置，不构成 LLM benchmark、统计显著性或跨环境泛化结论。</p>
+</div><h2>1. 引言</h2>
+<p>工具调用智能体需要在外部环境中连续执行搜索、选择和确认等动作。一次错误的工具调用可能使后续状态偏离任务约束，且错误并不总能由单次重试消除。恢复系统因而需要回答两个问题：第一，当前轨迹中最可能的可干预根因是什么；第二，在不确定性、恢复成本和潜在副作用约束下，是否应当修复、重试、请求澄清，还是拒绝继续执行。</p>
+<p>本文围绕上述问题实现一个最小但可审计的闭环。系统不依赖在线大模型推理，而使用确定性的本地服务模拟诊断器、恢复策略、反事实重放器和评估器。该设计有两个目的：其一，隔离“方法流程是否闭环”与“语言模型能力”这两个因素；其二，确保每次故障注入、轨迹记录和反事实执行均可复现。</p>
+<p>本文的贡献限定为以下工程和方法学要点：</p>
+<ul><li>给出 RACER 的诊断—决策—重放—验证接口及其风险感知 abstain 规则；</li><li>实现公共轨迹与 evaluator-only oracle manifest 的真值隔离，防止评测真值泄漏给智能体；</li><li>在确定性的 local-flight 环境中定义 5 类故障、3 个 seed 的可复现实验矩阵，并提供可追溯的逐基线汇总；</li><li>明确区分 truth-guided fault replay 与 explicit-patch、patch-availability-conditional reference upper bound，避免将评估辅助信息误报为可用智能体能力。</li></ul>
+<h2>2. 相关工作</h2>
+<p>相关工作覆盖失败诊断、归因、反事实修复、工具交互与安全评估。AgentDebug 对应 <em>Where LLM Agents Fail and How They can Learn From Failures</em>（arXiv:2509.25370，2025，预印本）；Who&amp;When 对应 <em>Which Agent Causes Task Failures and When? On Automated Failure Attribution of LLM Multi-Agent Systems</em>（ICML 2025，PMLR 267:76583–76599）；AgentFail 当前 v2 对应 <em>Demystifying the Lifecycle of Failures in Platform-Orchestrated Agentic Workflows</em>（arXiv:2509.23735，2025；</p>
+<p>v1 标题为 <em>Diagnosing Failure Root Causes in Platform-Orchestrated Agentic Systems: Dataset, Taxonomy, and Benchmark</em>）；AgenTracer 对应 <em>AgenTracer: Who Is Inducing Failure in the LLM Agentic Systems?</em>（ICLR 2026；arXiv 预印本年份为 2025）；CausalFlow 对应 <em>CausalFlow: Causal Attribution and Counterfactual Repair for LLM Agent Failures</em>（arXiv:2605.25338，2026，预印本）；</p>
+<p>工具交互环境 <code>$\tau$-bench</code> 对应 <em>A Benchmark for Tool-Agent-User Interaction in Real-World Domains</em>（ICLR 2025；arXiv 预印本年份为 2024）；安全评估环境 AgentDojo 对应 <em>AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents</em>（NeurIPS 2024，Datasets and Benchmarks Track）。本文仅据已核验的正式标题、venue 与版本信息定位这些工作，不引入其未在本项目中运行的 benchmark 数字或实验结论。与这些方向相比，本文关注点被限定在恢复决策而非单纯诊断准确率：在根因不确定时是否采取修复动作、如何用反事实重放验证候选补丁，以及如何将成本与风险纳入决策。</p>
+<h2>3. 问题定义</h2>
+<p>设智能体在环境中的动作轨迹为 <code>τ = (a0, o0, a1, o1, …, aT−1, oT−1)</code>，其中动作包括工具名及参数，观测包含环境状态摘要、可用工具、任务不变量和状态哈希。环境可能在指定步骤注入故障 <code>f</code>，但公共轨迹不得暴露 <code>fault_truth</code> 或 <code>faults_applied</code>。诊断器根据公共轨迹输出候选根因集合 <code>D(τ) = {(ci, si, pi, ei)}</code>，其中 <code>ci</code> 为根因，<code>si</code> 为关联步骤，<code>pi</code> 为置信度，<code>ei</code> 为可审计证据。恢复策略从候选集合中选择 <code>retry</code>、<code>replace_argument</code>、<code>ask_clarification</code> 或 <code>abstain</code>，并可生成补丁 <code>δ</code>。</p>
+<p>对补丁的验证在隔离的干净会话中进行：重放原轨迹前缀、插入补丁、再重放后缀，得到反事实结果 <code>E(τcf)</code>。只有在满足任务成功条件、约束条件和无有害副作用时，修复才被视为有效。原型中，若最高置信度低于 0.55，策略默认 abstain；该阈值是当前实现参数，不是经过独立校准得到的普适阈值。</p>
+<h2>4. RACER 方法</h2>
+<p class="section-transition" aria-hidden="true">&#8203;</p>
+<h3>4.1 诊断与证据</h3>
+<p>诊断器逐步读取轨迹，优先使用 <code>requested_action</code> 与实际生效的 <code>action</code> 之间的可观察差异。当工具名不一致时，生成 <code>effective_tool_mismatch</code> 候选；当环境返回违反任务约束的错误时，定位到导致约束违反的选择步骤，而不是仅将错误归因到最后一次确认动作。每个候选附带 <code>evidence</code>、<code>source</code> 和 <code>constraint</code> 字段，并按“根因—步骤”键去重。</p>
+<h3>4.2 风险感知恢复策略</h3>
+<p>恢复策略选取置信度最高的候选。对选择不可退款航班的候选，策略生成将航班参数替换为 F1 的补丁；对带有明确请求动作证据的工具错误，策略生成同一工具调用的 retry 补丁；对低置信度诊断，策略返回 abstain。每个决策可记录预期成本和预期风险，其中当前原型使用 <code>expected_risk = 1 - confidence</code> 作为简单代理，并不将其解释为校准概率。</p>
+<h3>4.3 隔离反事实重放</h3>
+<p>反事实重放器为每个源运行建立 <code>&lt;run_id&gt;:cf</code> 会话，以源 seed 初始化，但显式使用 <code>faults=[]</code>，从而在干净环境中执行前缀—补丁—后缀顺序。重放过程优先采用轨迹中的 <code>requested_action</code>，避免把故障注入后的生效动作再次当作智能体原始意图。每个会话返回轨迹、评估结果和状态哈希，源运行状态不会被覆盖。</p>
+<h3>4.4 验证与 abstain</h3>
+<p>评估器检查 <code>success</code>、约束满足、最优航班选择和 <code>side_effect</code>。在航班任务中，成功要求已确认、所选航班可退款、价格不超过预算，并且是符合约束的最低价格航班。若补丁无法定位到有效步骤、重放未成功或出现副作用，系统不将其计为安全恢复。raw 基线不执行修复；recovery 基线使用公共轨迹诊断；explicit-patch oracle 仅在评估器专用真值中存在可用显式补丁时执行，作为补丁可用性条件下的参考上界。</p>
+<h2>5. 系统实现</h2>
+<p>原型由六个可独立运行的服务组成：<code>task-env</code>、<code>agent-runner</code>、<code>diagnoser</code>、<code>recovery-policy</code>、<code>counterfactual</code> 和 <code>evaluator</code>，通过 Docker Compose 编排。所有服务使用 Python 标准库 HTTP 服务实现。<code>task-env</code> 提供 <code>/reset</code>、<code>/step</code>、<code>/observe</code> 和 <code>/evaluate</code> 接口；<code>agent-runner</code> 负责运行批量任务、保存轨迹和调用其余服务；<code>diagnoser</code> 暴露 <code>/diagnose</code>；<code>recovery-policy</code> 暴露 <code>/choose</code> 与 <code>/baseline</code>；<code>counterfactual</code> 暴露 <code>/replay</code>。</p>
+<p>环境状态包含任务描述、预算、已选航班、确认标记和事件列表。状态哈希由排序后的 JSON 状态计算 SHA-256 截断值。公共 <code>/evaluate</code> 始终返回脱敏结果；<code>required_flight_id</code>、<code>fault_truth</code> 和 <code>faults_applied</code> 仅保存在 evaluator-only 的独立 oracle manifest 或受控进程内测试中。该隔离使诊断和恢复只能使用轨迹证据，而不能读取注入器配置。</p>
+<h2>6. 实验设置</h2>
+<p class="section-transition" aria-hidden="true">&#8203;</p>
+<h3>6.1 任务与环境</h3>
+<p>任务为“预订从 A 到 B 的最低价可退款航班”。候选航班如下：</p>
+<table class="three-line-table"><thead><tr><th>航班</th><th>价格</th><th>可退款</th><th>角色</th></tr></thead><tbody><tr><td>F1</td><td>420</td><td>是</td><td>满足约束的最低价可退款航班</td></tr><tr><td>F2</td><td>360</td><td>否</td><td>价格更低但违反可退款约束</td></tr><tr><td>F3</td><td>480</td><td>是</td><td>可退款但不是最低价</td></tr></tbody></table>
+<p>预算为 500，确认动作要求显式用户确认。默认动作序列为 <code>search_flights</code>、选择 F2、<code>confirm_booking</code>；该序列用于制造可诊断的约束违反。</p>
+<h3>6.2 故障矩阵与基线</h3>
+<p>实验规范 <code>experiments/local-flight-matrix.json</code> 声明 5 类故障：<code>replace_action</code>、<code>force_error</code>、<code>rate_limit</code>、<code>wrong_tool</code> 和 <code>drop_action</code>，每类使用 seed 0、1、2，因此设计矩阵为 <code>5 × 3 = 15</code> 个任务单元。每个单元展开 raw、recovery 和 explicit-patch oracle（patch-availability-conditional reference）三类基线。</p>
+<p>冻结主结果由 <code>reports/local-flight-results.json</code> 与对应逐任务评估记录共同核验，覆盖 15 个 task、45 条 baseline rows（<code>trajectory_count=15</code>、<code>baseline_row_count=45</code>、<code>fault_type_count=5</code>、<code>baseline_count=3</code>），并为每个故障类型—基线组合保留任务、seed 与 run ID 列表。含额外 smoke 或重复任务的历史工程报告不纳入本文主表或汇总计算。</p>
+<h3>6.3 评估指标</h3>
+<ul><li><strong>原始失败数</strong>：<code>original_success=false</code> 的记录数；</li><li><strong>恢复率</strong>：原始失败记录中 <code>recovered_success=true</code> 的比例；</li><li><strong>有害修复率</strong>：原始失败记录中 <code>harmful_repair=true</code> 的比例；</li><li><strong>abstention rate</strong>：选择 abstain 的记录占全部记录的比例；</li><li><strong>诊断置信度</strong>：报告提供的 <code>diagnosis_confidence</code>，用于描述策略输入，不等同于概率校准指标；</li><li><strong>step exact、repair steps、latency</strong>：逐任务评估记录包含这些字段；本文仅在有直接记录时引用，不据此添加未核验的 benchmark 数字；</li><li><strong>LLM usage（仅准入预检）</strong>：真实本地模型产物记录 <code>attempts</code>、<code>responses</code>、<code>terminal_responses</code>、<code>valid_actions</code>、<code>invalid_actions</code>、<code>endpoint_errors</code>、<code>failed_attempts</code>、token、cost 与 latency；这些字段用于审计调用开销和失败类型，不将单任务/少量 seed 的 admission preflight 当作性能 benchmark。</li></ul>
+<h2>7. 结果</h2>
+<p class="section-transition" aria-hidden="true">&#8203;</p>
+<h3>7.1 已核验的实验口径</h3>
+<p>本文的定量结果<strong>仅</strong>来自冻结文件 <code>reports/local-flight-results.json</code>。该文件覆盖 15 个唯一轨迹任务，展开为 45 条基线记录；每个故障类型—基线组合都列出 seed、<code>task_id</code> 和 <code>run_id</code>。以下工程性事实也由代码、实验规范或测试输出直接支持：</p>
+<table class="three-line-table"><thead><tr><th>项目</th><th>已核验内容</th><th>证据来源</th></tr></thead><tbody><tr><td>实验矩阵</td><td>5 种故障 × 3 个 seed = 15 个设计单元</td><td><code>experiments/local-flight-matrix.json</code></td></tr><tr><td>结果展开</td><td>15 条轨迹 × 3 条基线 = 45 条基线记录</td><td><code>reports/local-flight-results.json</code></td></tr><tr><td>基线接口</td><td>raw、recovery、explicit-patch oracle（patch-availability-conditional reference）三类基线均被声明</td><td>实验规范与 <code>agent_runner</code></td></tr><tr><td>LLM 准入边界</td><td>Gemma 三 seed clean admission preflight 通过，但该结果不是 fault-recovery benchmark；Qwen、云 provider 和 tau2 live 均未形成可报告 benchmark 指标</td><td><code>reports/local-llm-admission-clean-gemma4-e2b-20260901-summary.json</code>、阻塞报告</td></tr><tr><td>真值隔离</td><td>公共轨迹与公共 HTTP 评估接口不暴露 <code>fault_truth</code></td><td><code>task_env</code>、<code>agent_runner</code>、测试</td></tr><tr><td>反事实会话</td><td>使用 <code>&lt;run_id&gt;:cf</code>、源 seed 与 <code>faults=[]</code></td><td><code>counterfactual</code>、测试</td></tr><tr><td>工程回归</td><td>90 项标准库单元测试通过</td><td>本稿更新时执行的 <code>python3 -B -m unittest discover -s tests -p 'test_*.py'</code></td></tr></tbody></table>
+<h3>7.2 冻结主结果</h3>
+<table class="three-line-table"><thead><tr><th>基线</th><th>任务数</th><th>原始失败数</th><th>原始成功数</th><th>恢复成功数（仅原始失败）</th><th>恢复率</th><th>有害修复数</th><th>有害修复率</th><th>abstain 数</th><th>abstention rate</th></tr></thead><tbody><tr><td>raw</td><td>15</td><td>12</td><td>3</td><td>0</td><td>0.00%</td><td>0</td><td>0.00%</td><td>15</td><td>100.00%</td></tr><tr><td>recovery（RACER）</td><td>15</td><td>12</td><td>3</td><td>3</td><td>25.00%</td><td>0</td><td>0.00%</td><td>3</td><td>20.00%</td></tr><tr><td>explicit-patch oracle / patch-availability-conditional reference</td><td>15</td><td>12</td><td>3</td><td>0</td><td>0.00%</td><td>0</td><td>0.00%</td><td>12</td><td>80.00%</td></tr></tbody></table>
+<p>表中恢复率的分母为原始失败数。recovery 基线的 3 个恢复成功均来自 <code>drop_action</code> 故障的 3 个 seed；其余 <code>force_error</code>、<code>rate_limit</code>、<code>wrong_tool</code> 三类故障在当前规则和轨迹条件下均未恢复成功。<code>replace_action</code> 的 3 个冻结单元原始执行已成功，故不构成恢复率分母。所有基线在冻结报告中记录的有害修复数均为 0。</p>
+<p>该表应被解释为原型的诊断与反事实恢复链路在一组固定、确定性故障上的行为记录，而非对智能体总体能力的排序。样本量很小，且运行之间仅改变预先指定的 seed；本文不报告显著性检验，统计脚本中的 Wilson 区间仅作观测行的描述性信息，不作总体推断。</p>
+<h3>7.3 真值重放与 explicit-patch 条件性参考的严格区分</h3>
+<p>本文中的 oracle 相关术语包含两类不同机制，必须分开：</p>
+<ol><li><strong>Truth-guided fault replay（真值引导的故障重放）</strong>：评估器从独立 oracle manifest 读取注入故障真值，用于标注故障、在受控评测中核对诊断，并确保反事实会话在相同 seed 下以 <code>faults=[]</code> 进行干净重放。这是评估和实验控制机制，不是智能体可查询的信息，也不是一种修复策略。</li><li><strong>Explicit-patch oracle / patch-availability-conditional reference（显式补丁 oracle／补丁可用性条件下的参考上界）</strong>：oracle 基线只在故障真值中存在显式可用补丁（如 <code>patch</code>、<code>replacement</code> 或 <code>action</code>）时执行该补丁；没有可用补丁时，该基线 abstain。因而它是“当前显式真值补丁接口”的条件参考上界，而不是保证能修复所有故障的万能 oracle。</li></ol>
+<p>在冻结报告中，explicit-patch oracle（补丁可用性条件参考）的 0 个恢复成功、12 个 abstain 反映了当前故障规范中多数 <code>force_error</code>、<code>rate_limit</code>、<code>wrong_tool</code> 和 <code>drop_action</code> 条目不携带可用显式补丁；这不能被解释为真值引导的故障重放失败，也不能据此推导 RACER 优于理论完美修复器。含 smoke、历史或重复任务的工程报告均明确排除在本节所有汇总和比较之外。</p>
+<h2>8. 消融、威胁与局限</h2>
+<p class="section-transition" aria-hidden="true">&#8203;</p>
+<h3>8.1 计划中的消融</h3>
+<p>当前冻结报告已形成 raw、recovery、explicit-patch oracle（patch-availability-conditional reference）三类基线的可比汇总；由于样本规模有限，仍不足以支撑完整消融。后续应至少完成以下消融：</p>
+<ul><li>去除 abstain 阈值，比较强制修复与风险感知策略的恢复率和有害修复率；</li><li>禁用 requested/effective action 差异证据，测量 <code>wrong_tool</code> 诊断与恢复的下降；</li><li>禁用 clean counterfactual suffix replay，仅验证补丁单步结果，比较验证充分性；</li><li>比较 raw、recovery 与 explicit-patch oracle / patch-availability-conditional reference 的恢复率、修复步数、延迟和副作用；</li><li>在相同 fault matrix 上改变 seed，并报告置信区间或至少报告每 seed 的结果。</li></ul>
+<h3>8.2 威胁有效性</h3>
+<p>首先，当前环境只有三个航班和一个短动作序列，根因模式与约束均为人工设计，不能代表真实工具 API 的复杂分布。其次，故障在指定步骤注入，可能使定位问题比自然发生的生产故障更容易。再次，冻结主表按 15 个唯一任务和三类基线汇总；其他含 smoke、历史或重复任务标识的工程报告已明确排除，若后续混用仍会产生重复计数。最后，诊断置信度是规则系统输出，尚未通过独立校准集验证。</p>
+<h3>8.3 局限</h3>
+<p>本原型不包含 LLM、学习参数或在线策略优化，因此不能回答模型能力、提示设计或跨模型迁移问题。它也没有覆盖多智能体协作、长时程依赖、部分可观测状态、真实网络波动、支付副作用或人工审批流程。当前实验任务数量较小，seed 主要用于可复现而非独立同分布抽样；explicit-patch oracle / patch-availability-conditional reference 只覆盖带显式补丁的故障形式，且尚未完成独立置信度校准和成本统计；统计脚本已提供描述性 Wilson 区间与置信度分桶。恢复策略中的 F1 补丁是任务特定规则，不应外推为通用航班推荐算法。</p>
+<h2>9. 结论</h2>
+<p>本文实现并记录了 RACER 的 deterministic local flight prototype：公共轨迹驱动诊断，风险感知策略在低置信度下 abstain，候选补丁在隔离 clean session 中进行前缀—补丁—后缀反事实重放，并由任务约束和副作用检查验证。冻结主结果口径为 <strong>15 tasks、45 baseline rows、recovery 3/12=25.00%、harmful repair=0</strong>；其中 recovery 基线在 12 条原始失败中恢复 3 条，raw 不修复，而当前 explicit-patch oracle / patch-availability-conditional reference 接口只覆盖具备可用真值补丁的故障形式，冻结报告中未产生恢复成功。这些结果只说明固定规则和固定故障矩阵下的原型行为，不能解释为 LLM benchmark、oracle 理论上限、显著性结论或跨环境性能。</p>
+<p>后续工作应在扩大任务、增加自然故障和完善 evaluator-only 真值清单中的 explicit-patch 规范的同时，基于现有 15 tasks、45 baseline rows 的逐基线结果继续补充可核验的 step/latency/repair-cost 汇总，并对已生成的描述性统计开展消融；Gemma 的三 seed clean admission 只验证本地 actor 的基础协议和成功后停止安全性，尚未验证 fault recovery，仍需受控 fault pilot；Qwen、云 provider 与 <code>$\tau$-bench</code> live 仍须满足各自准入条件后才可报告模型或 benchmark 指标。</p>
+<h2>10. 复现说明</h2>
+<p>在项目根目录执行：</p>
+<pre><code class="language-bash">cd /Users/infoflow/WorkBuddy/2026-08-31-17-40-04
+python scripts/local_experiment.py --write-spec experiments/local-flight-matrix.json</code></pre>
+<p>使用 Docker Compose 构建并启动服务：</p>
+<pre><code class="language-bash">docker compose --profile analysis build
+docker compose --profile analysis up -d task-env diagnoser recovery-policy counterfactual</code></pre>
+<p>将批量规范传给 <code>agent-runner</code>：</p>
+<pre><code class="language-bash">docker compose --profile analysis run --rm \
+  -v "$PWD/experiments/local-flight-matrix.json:/tmp/local-flight-matrix.json:ro" \
+  -e BATCH_SPEC=/tmp/local-flight-matrix.json agent-runner</code></pre>
+<p>完成运行后，轨迹写入同一 Compose project 的 named volumes（公共轨迹与 evaluator-only oracle manifest 分开保存）。随后启动分析 profile：</p>
+<pre><code class="language-bash">docker compose --profile analysis run --rm evaluator</code></pre>
+<p>也可使用本地汇总脚本读取结果目录：</p>
+<pre><code class="language-bash">python scripts/local_experiment.py \
+  --summarize trajectories reports/local-flight-summary.json</code></pre>
+<p>当前代码还提供标准库测试套件；本稿更新时执行 <code>python3 -B -m unittest discover -s tests -p 'test_*.py'</code>，结果为 90 项测试通过。复现时应保留 <code>run_id</code>、seed、fault matrix、代码版本和报告生成时间，并单独保存公共轨迹与 evaluator-only oracle manifest；禁止将 <code>fault_truth</code> 写入智能体可见轨迹或通过公共 HTTP <code>/evaluate</code> 查询。</p>
+<h3>10.1 冻结主表的推荐流程</h3>
+<p>当前主表使用 <code>reports/local-flight-results.json</code>，其报告元数据为 15 个唯一任务、45 条基线记录、5 种故障和 3 个基线。为防止后续 smoke 或历史文件混入，应在空的结果目录中仅运行冻结矩阵，随后以 run manifest 对照 <code>task_id</code>、seed 和 baseline 集合，确认恰有 15 个唯一任务单元及其三类基线，再生成新报告。不要将历史 <code>local-flight-evaluator.json</code> 或 <code>docker-evaluator.json</code> 的行级输出直接拼接到主表；这两份文件在本文中仅作为工程调试历史。报告中应注明该次运行的 Compose 镜像版本、矩阵文件哈希、运行时间与输出目录。</p>
+<div class="references"><h2>11. 参考文献与核验说明</h2>
+<p>以下参考文献条目仅采用工作区书目核验文件中已确认的正式标题、venue、版本和出版信息；除书目定位所需信息外，不引入这些工作的 benchmark 数字或实验结论。</p>
+<ol><li>Zhu, Kunlun, et al. <em>Where LLM Agents Fail and How They can Learn From Failures</em>. arXiv preprint arXiv:2509.25370, 2025（AgentDebug；截至核验时未核到正式会议/期刊 venue）。</li><li>Zhang, Shaokun, et al. <em>Which Agent Causes Task Failures and When? On Automated Failure Attribution of LLM Multi-Agent Systems</em>. In <em>Proceedings of the 42nd International Conference on Machine Learning</em>, PMLR 267:76583–76599, 2025（Who&amp;When）。</li><li>Ma, Xuyan, et al. <em>Demystifying the Lifecycle of Failures in Platform-Orchestrated Agentic Workflows</em>. arXiv preprint arXiv:2509.23735, 2025（AgentFail，当前 v2；v1 标题为 <em>Diagnosing Failure Root Causes in Platform-Orchestrated Agentic Systems: Dataset, Taxonomy, and Benchmark</em>）。</li><li>Zhang, Guibin, et al. <em>AgenTracer: Who Is Inducing Failure in the LLM Agentic Systems?</em> In <em>International Conference on Learning Representations</em> (ICLR 2026), 2026（AgenTracer；arXiv 预印本 arXiv:2509.03312，2025）。</li><li>Bonagiri, Akash, et al. <em>CausalFlow: Causal Attribution and Counterfactual Repair for LLM Agent Failures</em>. arXiv preprint arXiv:2605.25338, 2026（截至核验时未核到正式会议/期刊 venue）。</li><li>Yao, Shunyu, et al. <em>$\tau$-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains</em>. In <em>The Thirteenth International Conference on Learning Representations</em> (ICLR 2025), 2025（预印本 arXiv:2406.12045，2024）。</li><li>Debenedetti, Edoardo, et al. <em>AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents</em>. In <em>Advances in Neural Information Processing Systems 37</em> (NeurIPS 2024), Datasets and Benchmarks Track, pp. 82895–82920, 2024。</li></ol>
+<p>正式投稿时应以 <code>reports/related-work-bibliography.md</code> 中的完整作者、链接和 BibTeX 为准；其中 AgentFail 的 v1/v2 标题、AgenTracer 与 <code>$\tau$-bench</code> 的预印本年份和正式 venue 年份均应按上述版本区分。</p></div>
+</section>
+</body>
+</html>

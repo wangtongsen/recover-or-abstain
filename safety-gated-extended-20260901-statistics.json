@@ -1,0 +1,2539 @@
+{
+  "artifact_status": "executed_safety_gated_18_task_statistics",
+  "baseline_row_count": 54,
+  "experiment": "local-flight-extended",
+  "groups": {
+    "clean_success": {
+      "oracle": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 0,
+        "failures": 0,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": null,
+        "harmful_rate_ci95": null,
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": null,
+        "recovery_rate_ci95": null,
+        "repair_attempted": 0
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 0,
+        "failures": 0,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": null,
+        "harmful_rate_ci95": null,
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": null,
+        "recovery_rate_ci95": null,
+        "repair_attempted": 0
+      },
+      "recovery": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 0,
+        "failures": 0,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": null,
+        "harmful_rate_ci95": null,
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": null,
+        "recovery_rate_ci95": null,
+        "repair_attempted": 0
+      }
+    },
+    "drop_confirm": {
+      "oracle": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      },
+      "recovery": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      }
+    },
+    "force_error_confirm": {
+      "oracle": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.71,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.71,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      },
+      "recovery": {
+        "abstain": 0,
+        "abstain_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "abstain_count": 0,
+        "abstain_rate": 0.0,
+        "attempted_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "attempted_count": 3,
+        "attempted_rate": 1.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 3,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.71,
+            "n": 3,
+            "recovered_count": 3
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 3,
+        "recovered_count": 3,
+        "recovery_rate": 1.0,
+        "recovery_rate_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "repair_attempted": 3
+      }
+    },
+    "missing_confirmation": {
+      "oracle": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.92,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.92,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      },
+      "recovery": {
+        "abstain": 0,
+        "abstain_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "abstain_count": 0,
+        "abstain_rate": 0.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.92,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      }
+    },
+    "non_refundable": {
+      "oracle": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 0,
+        "failures": 0,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": null,
+        "harmful_rate_ci95": null,
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": null,
+        "recovery_rate_ci95": null,
+        "repair_attempted": 0
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 0,
+        "failures": 0,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": null,
+        "harmful_rate_ci95": null,
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": null,
+        "recovery_rate_ci95": null,
+        "repair_attempted": 0
+      },
+      "recovery": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 0,
+        "failures": 0,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": null,
+        "harmful_rate_ci95": null,
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": null,
+        "recovery_rate_ci95": null,
+        "repair_attempted": 0
+      }
+    },
+    "suboptimal_refundable": {
+      "oracle": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      },
+      "recovery": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0
+      }
+    }
+  },
+  "inputs": {
+    "evaluator": "reports/safety-gated-extended-20260901-evaluator.json",
+    "results": "reports/safety-gated-extended-20260901-summary.json"
+  },
+  "reference_summary": {
+    "baseline_row_count": 54,
+    "group_counts": {
+      "clean_success": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      },
+      "drop_confirm": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      },
+      "force_error_confirm": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      },
+      "missing_confirmation": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      },
+      "non_refundable": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      },
+      "suboptimal_refundable": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      }
+    },
+    "trajectory_count": 18
+  },
+  "seed_note": "seed 仅是可复现标识而非 iid 样本；Wilson 区间仅描述观测行，不代表独立同分布总体推断。",
+  "trajectory_count": 18
+}

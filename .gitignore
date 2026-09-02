@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+venv/
+.venv/
+env/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local workspace state (keep on disk, exclude from remote)
+.workbuddy/
+
+# Secrets — never commit
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.json

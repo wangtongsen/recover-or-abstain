@@ -1,0 +1,75 @@
+{
+  "experiment": "local-flight-extended",
+  "artifact_status": "historical_12_task",
+  "scope": "historical 12-task extension; excluded from final 18-task results",
+  "source": "docker compose run --rm agent-runner with experiments/local-flight-extended.json",
+  "task_count": 12,
+  "seeds_per_cell": 2,
+  "cells": {
+    "clean_success": {
+      "tasks": 2,
+      "original_success": 2,
+      "recovery_success": 0,
+      "recovery_rate": null,
+      "decisions": {"abstain": 2},
+      "diagnoses": {"no_localized_root_cause": 2},
+      "harmful_repairs": 0
+    },
+    "non_refundable": {
+      "tasks": 2,
+      "original_success": 0,
+      "recovery_success": 2,
+      "recovery_rate": 1.0,
+      "decisions": {"replace_argument": 2},
+      "diagnoses": {"selected_non_refundable_flight": 2},
+      "harmful_repairs": 0
+    },
+    "suboptimal_refundable": {
+      "tasks": 2,
+      "original_success": 0,
+      "recovery_success": 0,
+      "recovery_rate": 0.0,
+      "decisions": {"abstain": 2},
+      "diagnoses": {"no_localized_root_cause": 2},
+      "harmful_repairs": 0
+    },
+    "missing_confirmation": {
+      "tasks": 2,
+      "original_success": 0,
+      "recovery_success": 0,
+      "recovery_rate": 0.0,
+      "decisions": {"ask_clarification": 2},
+      "diagnoses": {"missing_explicit_confirmation": 2},
+      "harmful_repairs": 0
+    },
+    "force_error_confirm": {
+      "tasks": 2,
+      "original_success": 0,
+      "recovery_success": 2,
+      "recovery_rate": 1.0,
+      "decisions": {"retry": 2},
+      "diagnoses": {"injected confirm failure": 2},
+      "harmful_repairs": 0
+    },
+    "drop_confirm": {
+      "tasks": 2,
+      "original_success": 0,
+      "recovery_success": 0,
+      "recovery_rate": 0.0,
+      "decisions": {"abstain": 2},
+      "diagnoses": {"no_localized_root_cause": 2},
+      "harmful_repairs": 0
+    }
+  },
+  "baselines": {
+    "raw": {"tasks": 12, "failure_count": 10, "recovered_count": 0, "recovery_rate": 0.0, "harmful_count": 0},
+    "recovery": {"tasks": 12, "failure_count": 10, "recovered_count": 4, "recovery_rate": 0.4, "harmful_count": 0},
+    "oracle": {"tasks": 12, "failure_count": 10, "recovered_count": 0, "recovery_rate": 0.0, "harmful_count": 0}
+  },
+  "truth_isolation": {
+    "trajectory_fault_truth_exposed": false,
+    "trajectory_faults_applied_exposed": false,
+    "oracle_truth_manifest_used": true
+  },
+  "docker_smoke": {"status": "passed", "agent_runner_count": 12, "evaluator_extended_rows": 12}
+}

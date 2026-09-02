@@ -1,0 +1,32 @@
+{
+  "run_id": "smoke-v2-ra-0",
+  "source_run_id": "smoke-v2-ra-0",
+  "episode_id": "smoke-v2-replace_action-seed-0",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "smoke-v2-replace_action-seed-0",
+    "source_run_id": "smoke-v2-ra-0",
+    "run_id": "smoke-v2-ra-0",
+    "env_seed": 0,
+    "initial_state_fingerprint": "5af2edc7d87cf5879418814a3f7312a4fd5b3fea45afa56c1b0aa09b5661ad03",
+    "fault_schedule_fingerprint": "01434bd512d5b9ed66fccb07d3ee78b38e0098369a1becaeecc2af14a88907ea",
+    "environment_fingerprint": "c58619888492331da76bd5b65345ea387be57e89f52424eb48487eba5b480aea"
+  },
+  "task_id": "smoke-v2-replace_action-seed-0",
+  "seed": 0,
+  "env_seed": 0,
+  "source_manifest_sha256": "e5527d7f8d90b0c33f4023035814c40dc52486bf40e214b09f6e2a1451ac42ab",
+  "fault_truth": [
+    {
+      "fault_id": "smoke-ra-0",
+      "type": "replace_action",
+      "step_id": 1,
+      "replacement": {
+        "tool": "select_flight",
+        "arguments": {
+          "flight_id": "F1"
+        }
+      }
+    }
+  ]
+}

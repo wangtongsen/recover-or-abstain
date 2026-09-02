@@ -1,0 +1,684 @@
+{
+  "experiment": "local-flight",
+  "version": 1,
+  "description": "Deterministic local flight fault matrix",
+  "environment": "task-env",
+  "experiment_role": "pilot",
+  "main_comparison": false,
+  "baseline_registry_version": "local-flight-pilot-v1",
+  "baseline_catalog": {
+    "raw": {
+      "role": "pilot_reference",
+      "maps_to_protocol_id": null,
+      "eligible_for_main": false
+    },
+    "recovery": {
+      "role": "pilot_local_recovery",
+      "maps_to_protocol_id": null,
+      "eligible_for_main": false
+    },
+    "oracle": {
+      "role": "oracle_upper_bound",
+      "maps_to_protocol_id": null,
+      "eligible_for_main": false
+    }
+  },
+  "baselines": [
+    "raw",
+    "recovery",
+    "oracle"
+  ],
+  "fault_types": [
+    "replace_action",
+    "force_error",
+    "rate_limit",
+    "wrong_tool",
+    "drop_action"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "tasks": [
+    {
+      "task_id": "local-flight-replace_action-seed-0",
+      "run_id": "local-flight-replace_action-0",
+      "seed": 0,
+      "episode_id": "local-flight-replace_action-seed-0",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "replace_action",
+      "faults": [
+        {
+          "fault_id": "replace_action-0",
+          "type": "replace_action",
+          "step_id": 1,
+          "replacement": {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F1"
+            }
+          }
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-replace_action-seed-1",
+      "run_id": "local-flight-replace_action-1",
+      "seed": 1,
+      "episode_id": "local-flight-replace_action-seed-1",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "replace_action",
+      "faults": [
+        {
+          "fault_id": "replace_action-1",
+          "type": "replace_action",
+          "step_id": 1,
+          "replacement": {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F1"
+            }
+          }
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-replace_action-seed-2",
+      "run_id": "local-flight-replace_action-2",
+      "seed": 2,
+      "episode_id": "local-flight-replace_action-seed-2",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "replace_action",
+      "faults": [
+        {
+          "fault_id": "replace_action-2",
+          "type": "replace_action",
+          "step_id": 1,
+          "replacement": {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F1"
+            }
+          }
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-force_error-seed-0",
+      "run_id": "local-flight-force_error-0",
+      "seed": 0,
+      "episode_id": "local-flight-force_error-seed-0",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "force_error",
+      "faults": [
+        {
+          "fault_id": "force_error-0",
+          "type": "force_error",
+          "step_id": 1,
+          "error": "injected force_error"
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-force_error-seed-1",
+      "run_id": "local-flight-force_error-1",
+      "seed": 1,
+      "episode_id": "local-flight-force_error-seed-1",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "force_error",
+      "faults": [
+        {
+          "fault_id": "force_error-1",
+          "type": "force_error",
+          "step_id": 1,
+          "error": "injected force_error"
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-force_error-seed-2",
+      "run_id": "local-flight-force_error-2",
+      "seed": 2,
+      "episode_id": "local-flight-force_error-seed-2",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "force_error",
+      "faults": [
+        {
+          "fault_id": "force_error-2",
+          "type": "force_error",
+          "step_id": 1,
+          "error": "injected force_error"
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-rate_limit-seed-0",
+      "run_id": "local-flight-rate_limit-0",
+      "seed": 0,
+      "episode_id": "local-flight-rate_limit-seed-0",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "rate_limit",
+      "faults": [
+        {
+          "fault_id": "rate_limit-0",
+          "type": "rate_limit",
+          "step_id": 1,
+          "error": "injected rate_limit"
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-rate_limit-seed-1",
+      "run_id": "local-flight-rate_limit-1",
+      "seed": 1,
+      "episode_id": "local-flight-rate_limit-seed-1",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "rate_limit",
+      "faults": [
+        {
+          "fault_id": "rate_limit-1",
+          "type": "rate_limit",
+          "step_id": 1,
+          "error": "injected rate_limit"
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-rate_limit-seed-2",
+      "run_id": "local-flight-rate_limit-2",
+      "seed": 2,
+      "episode_id": "local-flight-rate_limit-seed-2",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "rate_limit",
+      "faults": [
+        {
+          "fault_id": "rate_limit-2",
+          "type": "rate_limit",
+          "step_id": 1,
+          "error": "injected rate_limit"
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-wrong_tool-seed-0",
+      "run_id": "local-flight-wrong_tool-0",
+      "seed": 0,
+      "episode_id": "local-flight-wrong_tool-seed-0",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "wrong_tool",
+      "faults": [
+        {
+          "fault_id": "wrong_tool-0",
+          "type": "wrong_tool",
+          "step_id": 1
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-wrong_tool-seed-1",
+      "run_id": "local-flight-wrong_tool-1",
+      "seed": 1,
+      "episode_id": "local-flight-wrong_tool-seed-1",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "wrong_tool",
+      "faults": [
+        {
+          "fault_id": "wrong_tool-1",
+          "type": "wrong_tool",
+          "step_id": 1
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-wrong_tool-seed-2",
+      "run_id": "local-flight-wrong_tool-2",
+      "seed": 2,
+      "episode_id": "local-flight-wrong_tool-seed-2",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "wrong_tool",
+      "faults": [
+        {
+          "fault_id": "wrong_tool-2",
+          "type": "wrong_tool",
+          "step_id": 1
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-drop_action-seed-0",
+      "run_id": "local-flight-drop_action-0",
+      "seed": 0,
+      "episode_id": "local-flight-drop_action-seed-0",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "drop_action",
+      "faults": [
+        {
+          "fault_id": "drop_action-0",
+          "type": "drop_action",
+          "step_id": 1
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-drop_action-seed-1",
+      "run_id": "local-flight-drop_action-1",
+      "seed": 1,
+      "episode_id": "local-flight-drop_action-seed-1",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "drop_action",
+      "faults": [
+        {
+          "fault_id": "drop_action-1",
+          "type": "drop_action",
+          "step_id": 1
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    },
+    {
+      "task_id": "local-flight-drop_action-seed-2",
+      "run_id": "local-flight-drop_action-2",
+      "seed": 2,
+      "episode_id": "local-flight-drop_action-seed-2",
+      "strict_replay": true,
+      "evaluation_tier": "pilot",
+      "baseline_registry_version": "local-flight-pilot-v1",
+      "main_comparison": false,
+      "fault_type": "drop_action",
+      "faults": [
+        {
+          "fault_id": "drop_action-2",
+          "type": "drop_action",
+          "step_id": 1
+        }
+      ],
+      "baselines": [
+        "raw",
+        "recovery",
+        "oracle"
+      ],
+      "actions": [
+        {
+          "tool": "search_flights",
+          "arguments": {}
+        },
+        {
+          "tool": "select_flight",
+          "arguments": {
+            "flight_id": "F2"
+          }
+        },
+        {
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          }
+        }
+      ]
+    }
+  ]
+}

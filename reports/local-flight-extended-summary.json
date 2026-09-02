@@ -1,0 +1,16 @@
+{
+  "experiment": "local-flight-extended",
+  "artifact_status": "historical_12_task",
+  "scope": "historical 12-task extension; excluded from final 18-task results",
+  "cells": [
+    {"cell": "clean_success", "seeds": 2, "success_count": 2, "side_effect_count": 0, "recovery_success_count": 0},
+    {"cell": "non_refundable", "seeds": 2, "success_count": 0, "side_effect_count": 0, "recovery_success_count": 2},
+    {"cell": "suboptimal_refundable", "seeds": 2, "success_count": 0, "side_effect_count": 2, "recovery_success_count": 0},
+    {"cell": "missing_confirmation", "seeds": 2, "success_count": 0, "side_effect_count": 0, "recovery_success_count": 0},
+    {"cell": "force_error_confirm", "seeds": 2, "success_count": 0, "side_effect_count": 0, "recovery_success_count": 2},
+    {"cell": "drop_confirm", "seeds": 2, "success_count": 0, "side_effect_count": 0, "recovery_success_count": 0}
+  ],
+  "coverage": {"cells": 6, "seeds_per_cell": 2, "tasks": 12},
+  "public_trace_invariant": "step responses expose requested/effective actions and observations but no fault_truth or faults_applied",
+  "docker_smoke": {"status": "passed", "agent_runner_count": 12, "evaluator_extended_rows": 12}
+}

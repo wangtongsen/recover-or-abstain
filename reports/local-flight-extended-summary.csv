@@ -1,0 +1,7 @@
+﻿cell,tasks,original_success,recovery_success,recovery_rate,decision,diagnosis,harmful_repairs
+clean_success,2,2,0,,abstain,no_localized_root_cause,0
+non_refundable,2,0,2,1.0,replace_argument,selected_non_refundable_flight,0
+suboptimal_refundable,2,0,0,0.0,abstain,no_localized_root_cause,0
+missing_confirmation,2,0,0,0.0,ask_clarification,missing_explicit_confirmation,0
+force_error_confirm,2,0,2,1.0,retry,injected confirm failure,0
+drop_confirm,2,0,0,0.0,abstain,no_localized_root_cause,0

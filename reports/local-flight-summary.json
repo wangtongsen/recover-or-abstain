@@ -1,0 +1,425 @@
+{
+  "experiment": "local-flight",
+  "trajectory_count": 15,
+  "baseline_row_count": 45,
+  "count": 45,
+  "fault_type_count": 5,
+  "baseline_count": 3,
+  "groups": {
+    "drop_action": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-drop_action-seed-0",
+          "local-flight-drop_action-seed-1",
+          "local-flight-drop_action-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-drop_action-0",
+          "local-flight-drop_action-1",
+          "local-flight-drop_action-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-drop_action-seed-0",
+          "local-flight-drop_action-seed-1",
+          "local-flight-drop_action-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-drop_action-0",
+          "local-flight-drop_action-1",
+          "local-flight-drop_action-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 3,
+        "harmful_count": 0,
+        "abstained_count": 0,
+        "recovery_rate": 1.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 0.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-drop_action-seed-0",
+          "local-flight-drop_action-seed-1",
+          "local-flight-drop_action-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-drop_action-0",
+          "local-flight-drop_action-1",
+          "local-flight-drop_action-2"
+        ]
+      }
+    },
+    "force_error": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-force_error-seed-0",
+          "local-flight-force_error-seed-1",
+          "local-flight-force_error-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-force_error-0",
+          "local-flight-force_error-1",
+          "local-flight-force_error-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-force_error-seed-0",
+          "local-flight-force_error-seed-1",
+          "local-flight-force_error-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-force_error-0",
+          "local-flight-force_error-1",
+          "local-flight-force_error-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 0,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 0.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-force_error-seed-0",
+          "local-flight-force_error-seed-1",
+          "local-flight-force_error-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-force_error-0",
+          "local-flight-force_error-1",
+          "local-flight-force_error-2"
+        ]
+      }
+    },
+    "rate_limit": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-rate_limit-seed-0",
+          "local-flight-rate_limit-seed-1",
+          "local-flight-rate_limit-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-rate_limit-0",
+          "local-flight-rate_limit-1",
+          "local-flight-rate_limit-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-rate_limit-seed-0",
+          "local-flight-rate_limit-seed-1",
+          "local-flight-rate_limit-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-rate_limit-0",
+          "local-flight-rate_limit-1",
+          "local-flight-rate_limit-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 0,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 0.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-rate_limit-seed-0",
+          "local-flight-rate_limit-seed-1",
+          "local-flight-rate_limit-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-rate_limit-0",
+          "local-flight-rate_limit-1",
+          "local-flight-rate_limit-2"
+        ]
+      }
+    },
+    "replace_action": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 0,
+        "original_success_count": 3,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 0,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 0.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-replace_action-seed-0",
+          "local-flight-replace_action-seed-1",
+          "local-flight-replace_action-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-replace_action-0",
+          "local-flight-replace_action-1",
+          "local-flight-replace_action-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 0,
+        "original_success_count": 3,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-replace_action-seed-0",
+          "local-flight-replace_action-seed-1",
+          "local-flight-replace_action-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-replace_action-0",
+          "local-flight-replace_action-1",
+          "local-flight-replace_action-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 0,
+        "original_success_count": 3,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-replace_action-seed-0",
+          "local-flight-replace_action-seed-1",
+          "local-flight-replace_action-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-replace_action-0",
+          "local-flight-replace_action-1",
+          "local-flight-replace_action-2"
+        ]
+      }
+    },
+    "wrong_tool": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-wrong_tool-seed-0",
+          "local-flight-wrong_tool-seed-1",
+          "local-flight-wrong_tool-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-wrong_tool-0",
+          "local-flight-wrong_tool-1",
+          "local-flight-wrong_tool-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-wrong_tool-seed-0",
+          "local-flight-wrong_tool-seed-1",
+          "local-flight-wrong_tool-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-wrong_tool-0",
+          "local-flight-wrong_tool-1",
+          "local-flight-wrong_tool-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 0,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 0.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-wrong_tool-seed-0",
+          "local-flight-wrong_tool-seed-1",
+          "local-flight-wrong_tool-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-wrong_tool-0",
+          "local-flight-wrong_tool-1",
+          "local-flight-wrong_tool-2"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,2874 @@
+{
+  "baseline_row_count": 45,
+  "experiment": "local-flight",
+  "groups": {
+    "drop_action": {
+      "oracle": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      },
+      "recovery": {
+        "abstain": 0,
+        "abstain_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "abstain_count": 0,
+        "abstain_rate": 0.0,
+        "attempted_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "attempted_count": 3,
+        "attempted_rate": 1.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 3,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 3
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 3,
+        "recovered_count": 3,
+        "recovery_rate": 1.0,
+        "recovery_rate_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "repair_attempted": 3,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      }
+    },
+    "force_error": {
+      "oracle": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      },
+      "recovery": {
+        "abstain": 0,
+        "abstain_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "abstain_count": 0,
+        "abstain_rate": 0.0,
+        "attempted_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "attempted_count": 3,
+        "attempted_rate": 1.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 3,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 3,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      }
+    },
+    "rate_limit": {
+      "oracle": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      },
+      "recovery": {
+        "abstain": 0,
+        "abstain_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "abstain_count": 0,
+        "abstain_rate": 0.0,
+        "attempted_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "attempted_count": 3,
+        "attempted_rate": 1.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 3,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.89,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 3,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      }
+    },
+    "replace_action": {
+      "oracle": {
+        "abstain": 0,
+        "abstain_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "abstain_count": 0,
+        "abstain_rate": 0.0,
+        "attempted_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "attempted_count": 3,
+        "attempted_rate": 1.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 3,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 0,
+        "failures": 0,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": null,
+        "harmful_rate_ci95": null,
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": null,
+        "recovery_rate_ci95": null,
+        "repair_attempted": 3,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 0,
+        "failures": 0,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": null,
+        "harmful_rate_ci95": null,
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": null,
+        "recovery_rate_ci95": null,
+        "repair_attempted": 0,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      },
+      "recovery": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.25,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 0,
+        "failures": 0,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": null,
+        "harmful_rate_ci95": null,
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": null,
+        "recovery_rate_ci95": null,
+        "repair_attempted": 0,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      }
+    },
+    "wrong_tool": {
+      "oracle": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.86,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      },
+      "raw": {
+        "abstain": 3,
+        "abstain_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "abstain_count": 3,
+        "abstain_rate": 1.0,
+        "attempted_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "attempted_count": 0,
+        "attempted_rate": 0.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 3,
+            "attempted_count": 0,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.86,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 0,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      },
+      "recovery": {
+        "abstain": 0,
+        "abstain_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "abstain_count": 0,
+        "abstain_rate": 0.0,
+        "attempted_ci95": {
+          "lower": 0.4385029682449546,
+          "n": 3,
+          "successes": 3,
+          "upper": 1.0
+        },
+        "attempted_count": 3,
+        "attempted_rate": 1.0,
+        "calibration": {
+          "bootstrap_ci": {
+            "brier_score": null,
+            "expected_calibration_error": null
+          },
+          "brier_score": {
+            "brier": null,
+            "n": 0
+          },
+          "descriptive": true,
+          "expected_calibration_error": {
+            "bins": [],
+            "ece": null,
+            "n": 0
+          },
+          "n": 0,
+          "note": "校准指标仅描述有效观测行；seed 不是 iid 抽样标识。",
+          "risk_coverage": {
+            "aurc": null,
+            "coverage": [],
+            "curve": [],
+            "n": 0,
+            "points": [],
+            "risk": []
+          }
+        },
+        "confidence_reliability": [
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.0, 0.2)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.2, 0.4)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.4, 0.6)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "[0.6, 0.8)",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 3,
+            "bucket": "[0.8, 1.0]",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": 0.86,
+            "n": 3,
+            "recovered_count": 0
+          },
+          {
+            "abstain_count": 0,
+            "attempted_count": 0,
+            "bucket": "missing",
+            "diagnosis_exact_count": 0,
+            "diagnosis_exact_n": 0,
+            "diagnosis_exact_rate": null,
+            "mean_confidence": null,
+            "n": 0,
+            "recovered_count": 0
+          }
+        ],
+        "failure_count": 3,
+        "failures": 3,
+        "harmful": 0,
+        "harmful_count": 0,
+        "harmful_rate": 0.0,
+        "harmful_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "latency": {
+          "availability_rate": 0.0,
+          "available_count": 0,
+          "missing_count": 3,
+          "summary": null
+        },
+        "n": 3,
+        "recovered": 0,
+        "recovered_count": 0,
+        "recovery_rate": 0.0,
+        "recovery_rate_ci95": {
+          "lower": 0.0,
+          "n": 3,
+          "successes": 0,
+          "upper": 0.5614970317550454
+        },
+        "repair_attempted": 3,
+        "usage": {
+          "attempts": null,
+          "attempts_available_count": 0,
+          "attempts_missing_count": 3,
+          "calls": null,
+          "calls_available_count": 0,
+          "calls_missing_count": 3,
+          "completion_tokens": null,
+          "completion_tokens_available_count": 0,
+          "completion_tokens_missing_count": 3,
+          "cost_usd": null,
+          "cost_usd_available_count": 0,
+          "cost_usd_missing_count": 3,
+          "endpoint_errors": null,
+          "endpoint_errors_available_count": 0,
+          "endpoint_errors_missing_count": 3,
+          "failed_attempts": null,
+          "failed_attempts_available_count": 0,
+          "failed_attempts_missing_count": 3,
+          "invalid_actions": null,
+          "invalid_actions_available_count": 0,
+          "invalid_actions_missing_count": 3,
+          "latency_ms": 0,
+          "latency_ms_available_count": 3,
+          "latency_ms_missing_count": 0,
+          "missing_usage_count": 0,
+          "model": null,
+          "prompt_tokens": null,
+          "prompt_tokens_available_count": 0,
+          "prompt_tokens_missing_count": 3,
+          "provider": null,
+          "responses": null,
+          "responses_available_count": 0,
+          "responses_missing_count": 3,
+          "run_count": 3,
+          "terminal_responses": null,
+          "terminal_responses_available_count": 0,
+          "terminal_responses_missing_count": 3,
+          "total_tokens": null,
+          "total_tokens_available_count": 0,
+          "total_tokens_missing_count": 3,
+          "usage_run_count": 3,
+          "valid_actions": null,
+          "valid_actions_available_count": 0,
+          "valid_actions_missing_count": 3
+        }
+      }
+    }
+  },
+  "inputs": {
+    "evaluator": "reports/local-flight-evaluator.json",
+    "results": "reports/local-flight-results.json"
+  },
+  "reference_summary": {
+    "baseline_row_count": 45,
+    "group_counts": {
+      "drop_action": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      },
+      "force_error": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      },
+      "rate_limit": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      },
+      "replace_action": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      },
+      "wrong_tool": {
+        "oracle": 3,
+        "raw": 3,
+        "recovery": 3
+      }
+    },
+    "trajectory_count": 15
+  },
+  "seed_note": "seed 仅是可复现标识而非 iid 样本；Wilson 区间仅描述观测行，不代表独立同分布总体推断。",
+  "trajectory_count": 15,
+  "usage": {
+    "attempts": null,
+    "attempts_available_count": 0,
+    "attempts_missing_count": 15,
+    "calls": null,
+    "calls_available_count": 0,
+    "calls_missing_count": 15,
+    "completion_tokens": null,
+    "completion_tokens_available_count": 0,
+    "completion_tokens_missing_count": 15,
+    "cost_usd": null,
+    "cost_usd_available_count": 0,
+    "cost_usd_missing_count": 15,
+    "endpoint_errors": null,
+    "endpoint_errors_available_count": 0,
+    "endpoint_errors_missing_count": 15,
+    "failed_attempts": null,
+    "failed_attempts_available_count": 0,
+    "failed_attempts_missing_count": 15,
+    "invalid_actions": null,
+    "invalid_actions_available_count": 0,
+    "invalid_actions_missing_count": 15,
+    "latency_ms": 0,
+    "latency_ms_available_count": 15,
+    "latency_ms_missing_count": 0,
+    "missing_usage_count": 0,
+    "model": null,
+    "prompt_tokens": null,
+    "prompt_tokens_available_count": 0,
+    "prompt_tokens_missing_count": 15,
+    "provider": null,
+    "responses": null,
+    "responses_available_count": 0,
+    "responses_missing_count": 15,
+    "run_count": 15,
+    "terminal_responses": null,
+    "terminal_responses_available_count": 0,
+    "terminal_responses_missing_count": 15,
+    "total_tokens": null,
+    "total_tokens_available_count": 0,
+    "total_tokens_missing_count": 15,
+    "usage_run_count": 15,
+    "valid_actions": null,
+    "valid_actions_available_count": 0,
+    "valid_actions_missing_count": 15
+  }
+}

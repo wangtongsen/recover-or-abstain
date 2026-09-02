@@ -1,0 +1,54 @@
+{
+  "experiment": "local-llm-smoke",
+  "version": 1,
+  "description": "One-task local Ollama actor smoke; not a benchmark result",
+  "environment": "task-env",
+  "tasks": [
+    {
+      "task_id": "local-llm-qwen3-0.6b-smoke",
+      "run_id": "local-llm-qwen3-0.6b-smoke-0",
+      "seed": 0,
+      "task_variant": "clean_success",
+      "env_config": {
+        "budget": 500,
+        "flights": [
+          {"id": "F1", "price": 420, "refundable": true},
+          {"id": "F2", "price": 360, "refundable": false},
+          {"id": "F3", "price": 480, "refundable": true}
+        ],
+        "task_variant": "clean_success",
+        "variant": "clean_success",
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be cheapest eligible flight",
+          "confirmation requires explicit user confirmation"
+        ],
+        "faults": []
+      },
+      "reset": {
+        "budget": 500,
+        "flights": [
+          {"id": "F1", "price": 420, "refundable": true},
+          {"id": "F2", "price": 360, "refundable": false},
+          {"id": "F3", "price": 480, "refundable": true}
+        ],
+        "task_variant": "clean_success",
+        "variant": "clean_success",
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be cheapest eligible flight",
+          "confirmation requires explicit user confirmation"
+        ],
+        "faults": []
+      },
+      "actor": {
+        "type": "python",
+        "path": "experiments/actors/ollama-local-actor.py",
+        "actor_id": "ollama-qwen3-0.6b"
+      },
+      "baselines": ["raw", "recovery", "oracle"]
+    }
+  ]
+}

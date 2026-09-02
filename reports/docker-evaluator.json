@@ -1,0 +1,237 @@
+{
+  "count": 29,
+  "rows": [
+    {
+      "task_id": "flight-refundable-cheapest",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-drop_action-seed-0",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-wrong_tool-seed-2",
+      "original_success": false,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "retry",
+      "diagnosis_confidence": 0.86
+    },
+    {
+      "task_id": "local-flight-replace_action-seed-2",
+      "original_success": true,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "abstain",
+      "diagnosis_confidence": 0.25
+    },
+    {
+      "task_id": "fault-rate-limit",
+      "original_success": false,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "retry",
+      "diagnosis_confidence": 0.71
+    },
+    {
+      "task_id": "local-flight-rate_limit-seed-2",
+      "original_success": false,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "flight-refundable-cheapest",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-force_error-seed-0",
+      "original_success": false,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "fault-replace",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-drop_action-seed-2",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-wrong_tool-seed-1",
+      "original_success": false,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "retry",
+      "diagnosis_confidence": 0.86
+    },
+    {
+      "task_id": "flight-refundable-cheapest",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "flight-refundable-cheapest",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "multi-baseline-smoke",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "flight-refundable-cheapest",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "flight-refundable-cheapest",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "fault-multi-baseline",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "flight-refundable-cheapest",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-wrong_tool-seed-0",
+      "original_success": false,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "retry",
+      "diagnosis_confidence": 0.86
+    },
+    {
+      "task_id": "local-flight-force_error-seed-2",
+      "original_success": false,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-rate_limit-seed-0",
+      "original_success": false,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-rate_limit-seed-1",
+      "original_success": false,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-replace_action-seed-0",
+      "original_success": true,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "abstain",
+      "diagnosis_confidence": 0.25
+    },
+    {
+      "task_id": "flight-refundable-cheapest",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-force_error-seed-1",
+      "original_success": false,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "flight-refundable-cheapest",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-drop_action-seed-1",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "flight-refundable-cheapest",
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89
+    },
+    {
+      "task_id": "local-flight-replace_action-seed-1",
+      "original_success": true,
+      "recovered_success": false,
+      "harmful_repair": false,
+      "decision": "abstain",
+      "diagnosis_confidence": 0.25
+    }
+  ]
+}

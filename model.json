@@ -1,0 +1,15 @@
+{
+  "_comment": "无密钥模板：真实凭据已迁出本仓库，位于 ~/.config/agent-recovery-plan/model-resource.local.json（仅运行时通过环境变量注入，不得进入代码、轨迹、报告或提交物）。原 token 长期以明文存在于项目目录，建议尽快在 provider 侧轮换/撤销。",
+  "credential_source": {
+    "local_file": "~/.config/agent-recovery-plan/model-resource.local.json",
+    "injection": "runtime-environment-variables-only"
+  },
+  "registry": "experiments/racer-v2-model-registry.json",
+  "planned_remote_resource": {
+    "model_resource_id": "anthropic-oneapi-relay",
+    "provider": "anthropic-compatible",
+    "endpoint_alias": "oneapi-relay",
+    "status": "planned-revision-not-locked",
+    "env_keys": ["ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_BASE_URL"]
+  }
+}

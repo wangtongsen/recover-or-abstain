@@ -1,0 +1,46 @@
+{
+  "status": "blocked",
+  "benchmark_repository": "sierra-research/tau2-bench",
+  "benchmark_version": "1.0.1",
+  "benchmark_commit": "fc0055dc4e0a316c3f83133267fbd6faaa770992",
+  "official_tag_resolution": {
+    "v1.0.1_tag_object": "b711c1ead46f55111bf765cf44d5da8bacc2d28c",
+    "peeled_commit": "fc0055dc4e0a316c3f83133267fbd6faaa770992"
+  },
+  "python": "3.13.12",
+  "installation": {
+    "command": "python -m venv /tmp/tau2-airline-live && /tmp/tau2-airline-live/bin/python -m pip install -e /tmp/tau2-bench-v1.0.1",
+    "result": "success",
+    "extra_compatibility_package": "audioop-lts==0.2.2",
+    "reason": "Python 3.13 removed stdlib audioop; tau2 import otherwise failed"
+  },
+  "stage_a": {
+    "script": "scripts/tau2_airline_live_smoke.py",
+    "command": "TAU2_SOURCE_DIR=/tmp/tau2-bench-v1.0.1 PYTHONPATH=/tmp/tau2-bench-v1.0.1/src /tmp/tau2-airline-live/bin/python scripts/tau2_airline_live_smoke.py",
+    "result": "passed",
+    "base_task_count": 50,
+    "task_split_names": ["base", "test", "train"],
+    "first_task_id": "0",
+    "assistant_tool_count": 14,
+    "read_only_call": "list_all_airports",
+    "read_result_count": 20,
+    "official_environment_api": ["get_tools", "make_tool_call", "set_state", "get_db_hash"],
+    "missing_methods_expected_by_adapter": ["observe", "step", "evaluate"]
+  },
+  "stage_c": {
+    "command": "/tmp/tau2-airline-live/bin/tau2 run --domain airline --agent-llm gpt-4.1 --user-llm gpt-4.1 --num-trials 1 --num-tasks 1 --max-concurrency 1 --max-steps 2 --max-errors 1 --save-to /tmp/tau2-airline-smoke-results.json",
+    "result": "blocked",
+    "termination_reason": "infrastructure_error",
+    "error": "OpenAIException: Missing credentials; OPENAI_API_KEY/OPENAI_ADMIN_KEY not set",
+    "raw_result": "/tmp/tau2-airline-smoke-results.json/results.json",
+    "simulations": 1,
+    "evaluated": 0,
+    "benchmark_metric_reported": false
+  },
+  "stage_b": {
+    "result": "not_run",
+    "reason": "No authorized historical tau2 trajectory supplied"
+  },
+  "paper_data_changed": false,
+  "live_benchmark_executed": false
+}

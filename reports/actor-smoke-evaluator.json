@@ -1,0 +1,52 @@
+{
+  "count": 1,
+  "rows": [
+    {
+      "task_id": "actor-smoke-basic-recovery",
+      "run_id": "actor-smoke-basic-recovery-0",
+      "seed": 0,
+      "abstained": false,
+      "diagnosis_top1": "selected_non_refundable_flight",
+      "step_exact": null,
+      "repair_steps": 1,
+      "latency_ms": 0,
+      "decision": "replace_argument",
+      "diagnosis_confidence": 0.89,
+      "original_success": false,
+      "recovered_success": true,
+      "harmful_repair": false,
+      "baselines": {
+        "recovery": {
+          "task_id": "actor-smoke-basic-recovery",
+          "run_id": "actor-smoke-basic-recovery-0",
+          "seed": 0,
+          "abstained": false,
+          "diagnosis_top1": "selected_non_refundable_flight",
+          "step_exact": null,
+          "repair_steps": 1,
+          "latency_ms": 0,
+          "decision": "replace_argument",
+          "diagnosis_confidence": 0.89,
+          "original_success": false,
+          "recovered_success": true,
+          "harmful_repair": false,
+          "baseline_id": "recovery"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "failure_count": 1,
+    "recovery_rate": 1.0,
+    "harm_rate": 0.0,
+    "abstention_rate": 0.0,
+    "baselines": {
+      "recovery": {
+        "failure_count": 1,
+        "recovery_rate": 1.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 0.0
+      }
+    }
+  }
+}

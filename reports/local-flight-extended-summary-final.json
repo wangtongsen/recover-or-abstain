@@ -1,0 +1,510 @@
+{
+  "experiment": "local-flight",
+  "artifact_status": "historical_intermediate_18_task",
+  "scope": "intermediate 18-task summary; excluded from final frozen results",
+  "trajectory_count": 18,
+  "baseline_row_count": 54,
+  "count": 54,
+  "fault_type_count": 6,
+  "baseline_count": 3,
+  "groups": {
+    "clean_success": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 0,
+        "original_success_count": 3,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-clean_success-seed-0",
+          "local-flight-extended-clean_success-seed-1",
+          "local-flight-extended-clean_success-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-clean_success-0",
+          "local-flight-extended-clean_success-1",
+          "local-flight-extended-clean_success-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 0,
+        "original_success_count": 3,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-clean_success-seed-0",
+          "local-flight-extended-clean_success-seed-1",
+          "local-flight-extended-clean_success-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-clean_success-0",
+          "local-flight-extended-clean_success-1",
+          "local-flight-extended-clean_success-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 0,
+        "original_success_count": 3,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-clean_success-seed-0",
+          "local-flight-extended-clean_success-seed-1",
+          "local-flight-extended-clean_success-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-clean_success-0",
+          "local-flight-extended-clean_success-1",
+          "local-flight-extended-clean_success-2"
+        ]
+      }
+    },
+    "drop_confirm": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-drop_confirm-seed-0",
+          "local-flight-extended-drop_confirm-seed-1",
+          "local-flight-extended-drop_confirm-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-drop_confirm-0",
+          "local-flight-extended-drop_confirm-1",
+          "local-flight-extended-drop_confirm-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-drop_confirm-seed-0",
+          "local-flight-extended-drop_confirm-seed-1",
+          "local-flight-extended-drop_confirm-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-drop_confirm-0",
+          "local-flight-extended-drop_confirm-1",
+          "local-flight-extended-drop_confirm-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-drop_confirm-seed-0",
+          "local-flight-extended-drop_confirm-seed-1",
+          "local-flight-extended-drop_confirm-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-drop_confirm-0",
+          "local-flight-extended-drop_confirm-1",
+          "local-flight-extended-drop_confirm-2"
+        ]
+      }
+    },
+    "force_error_confirm": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-force_error_confirm-seed-0",
+          "local-flight-extended-force_error_confirm-seed-1",
+          "local-flight-extended-force_error_confirm-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-force_error_confirm-0",
+          "local-flight-extended-force_error_confirm-1",
+          "local-flight-extended-force_error_confirm-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-force_error_confirm-seed-0",
+          "local-flight-extended-force_error_confirm-seed-1",
+          "local-flight-extended-force_error_confirm-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-force_error_confirm-0",
+          "local-flight-extended-force_error_confirm-1",
+          "local-flight-extended-force_error_confirm-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 3,
+        "harmful_count": 0,
+        "abstained_count": 0,
+        "recovery_rate": 1.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 0.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-force_error_confirm-seed-0",
+          "local-flight-extended-force_error_confirm-seed-1",
+          "local-flight-extended-force_error_confirm-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-force_error_confirm-0",
+          "local-flight-extended-force_error_confirm-1",
+          "local-flight-extended-force_error_confirm-2"
+        ]
+      }
+    },
+    "missing_confirmation": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-missing_confirmation-seed-0",
+          "local-flight-extended-missing_confirmation-seed-1",
+          "local-flight-extended-missing_confirmation-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-missing_confirmation-0",
+          "local-flight-extended-missing_confirmation-1",
+          "local-flight-extended-missing_confirmation-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-missing_confirmation-seed-0",
+          "local-flight-extended-missing_confirmation-seed-1",
+          "local-flight-extended-missing_confirmation-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-missing_confirmation-0",
+          "local-flight-extended-missing_confirmation-1",
+          "local-flight-extended-missing_confirmation-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 0,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 0.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-missing_confirmation-seed-0",
+          "local-flight-extended-missing_confirmation-seed-1",
+          "local-flight-extended-missing_confirmation-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-missing_confirmation-0",
+          "local-flight-extended-missing_confirmation-1",
+          "local-flight-extended-missing_confirmation-2"
+        ]
+      }
+    },
+    "non_refundable": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 0,
+        "original_success_count": 3,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-non_refundable-seed-0",
+          "local-flight-extended-non_refundable-seed-1",
+          "local-flight-extended-non_refundable-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-non_refundable-0",
+          "local-flight-extended-non_refundable-1",
+          "local-flight-extended-non_refundable-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 0,
+        "original_success_count": 3,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-non_refundable-seed-0",
+          "local-flight-extended-non_refundable-seed-1",
+          "local-flight-extended-non_refundable-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-non_refundable-0",
+          "local-flight-extended-non_refundable-1",
+          "local-flight-extended-non_refundable-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 0,
+        "original_success_count": 3,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 0,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 0.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-non_refundable-seed-0",
+          "local-flight-extended-non_refundable-seed-1",
+          "local-flight-extended-non_refundable-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-non_refundable-0",
+          "local-flight-extended-non_refundable-1",
+          "local-flight-extended-non_refundable-2"
+        ]
+      }
+    },
+    "suboptimal_refundable": {
+      "oracle": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-suboptimal_refundable-seed-0",
+          "local-flight-extended-suboptimal_refundable-seed-1",
+          "local-flight-extended-suboptimal_refundable-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-suboptimal_refundable-0",
+          "local-flight-extended-suboptimal_refundable-1",
+          "local-flight-extended-suboptimal_refundable-2"
+        ]
+      },
+      "raw": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-suboptimal_refundable-seed-0",
+          "local-flight-extended-suboptimal_refundable-seed-1",
+          "local-flight-extended-suboptimal_refundable-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-suboptimal_refundable-0",
+          "local-flight-extended-suboptimal_refundable-1",
+          "local-flight-extended-suboptimal_refundable-2"
+        ]
+      },
+      "recovery": {
+        "count": 3,
+        "failure_count": 3,
+        "original_success_count": 0,
+        "recovered_count": 0,
+        "harmful_count": 0,
+        "abstained_count": 3,
+        "recovery_rate": 0.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 1.0,
+        "seed_count": 3,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "task_ids": [
+          "local-flight-extended-suboptimal_refundable-seed-0",
+          "local-flight-extended-suboptimal_refundable-seed-1",
+          "local-flight-extended-suboptimal_refundable-seed-2"
+        ],
+        "run_ids": [
+          "local-flight-extended-suboptimal_refundable-0",
+          "local-flight-extended-suboptimal_refundable-1",
+          "local-flight-extended-suboptimal_refundable-2"
+        ]
+      }
+    }
+  }
+}

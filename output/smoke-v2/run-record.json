@@ -1,0 +1,46 @@
+{
+  "schema_version": "racer-v2-smoke-run-record-v1",
+  "date": "2026-09-02",
+  "purpose": "G8 evidence: one isolated-container end-to-end v2 smoke with deterministic actor (no remote models, no provider credentials)",
+  "compose_files": ["compose.yaml", "compose.smoke.yaml"],
+  "spec": "output/smoke-v2/spec.json",
+  "container_provenance": {
+    "images": {
+      "agent-runner": "833fc6ec255c",
+      "counterfactual": "4fc5dd7f5848",
+      "diagnoser": "09a5807edf4d",
+      "evaluator": "1227c6a9a075",
+      "recovery-policy": "7b5153fe7781",
+      "task-env": "401f21506e2b"
+    },
+    "base_image": "python:3.13-slim",
+    "host": "Apple Silicon (darwin), Docker Compose v5.4.0",
+    "port_publishing": "none (smoke override strips host ports)"
+  },
+  "executed_run": {
+    "run_id": "smoke-v2-ra-0",
+    "episode_id": "smoke-v2-replace_action-seed-0",
+    "task_id": "smoke-v2-replace_action-seed-0",
+    "evaluation_tier": "pilot",
+    "main_comparison": false,
+    "model_resource_id": "deterministic-local-actor-v1",
+    "baselines": ["raw", "recovery", "oracle"],
+    "trajectory": "output/smoke-v2/trajectories/smoke-v2-ra-0.json",
+    "oracle_manifest": "output/smoke-v2/oracle/smoke-v2-ra-0.json",
+    "verification": "output/smoke-v2/smoke-verification.json"
+  },
+  "verification_summary": {
+    "verdict": "PASS",
+    "g5_trajectory_truth_free": true,
+    "oracle_identity_join_valid": true,
+    "oracle_has_source_anchor": true,
+    "verified_strict_replay_branches": 1,
+    "verified_replay_run_id": "smoke-v2-ra-0:cf",
+    "admission_verdict": "NO-GO (expected: pilot tier must not enter the main table)"
+  },
+  "fixes_applied_during_smoke": [
+    "evaluator _fault_truth_with_cause_and_step now accepts runner oracle-writer fault entries whose cause is spelled as 'type'",
+    "scripts/verify_smoke_v2.py reads counterfactual receipts from the raw trajectory instead of evaluator metric rows"
+  ],
+  "non_claims": "该 smoke 是 G8 接口/隔离证据，不是 benchmark 结果；其数字不得进入任何结果表或覆盖率声明。"
+}

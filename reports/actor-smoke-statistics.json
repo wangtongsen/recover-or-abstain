@@ -1,0 +1,33 @@
+{
+  "experiment": "local-flight",
+  "trajectory_count": 1,
+  "baseline_row_count": 1,
+  "count": 1,
+  "fault_type_count": 1,
+  "baseline_count": 3,
+  "groups": {
+    "clean_success": {
+      "recovery": {
+        "count": 1,
+        "failure_count": 1,
+        "original_success_count": 0,
+        "recovered_count": 1,
+        "harmful_count": 0,
+        "abstained_count": 0,
+        "recovery_rate": 1.0,
+        "harm_rate": 0.0,
+        "abstention_rate": 0.0,
+        "seed_count": 1,
+        "seeds": [
+          0
+        ],
+        "task_ids": [
+          "actor-smoke-basic-recovery"
+        ],
+        "run_ids": [
+          "actor-smoke-basic-recovery-0"
+        ]
+      }
+    }
+  }
+}
