@@ -397,7 +397,11 @@ def run_task(task, index=0):
                 baseline_payload["fault_truth"] = oracle_fault_truth
             baseline_decision = post(RECOVERY_URL, "/baseline", baseline_payload)
         baseline_counterfactual = None
-        if baseline_decision.get("patch") is not None:
+        # racer_no_counterfactual ablation: the patch is applied without
+        # counterfactual verification; the runner must not call /replay and
+        # the branch records counterfactual_supported=false by construction.
+        skip_counterfactual = baseline_decision.get("skip_counterfactual") is True
+        if baseline_decision.get("patch") is not None and not skip_counterfactual:
             step_id = baseline_decision.get("step_id")
             if isinstance(step_id, int) and 0 <= step_id < len(trace):
                 baseline_counterfactual = post(
@@ -418,6 +422,10 @@ def run_task(task, index=0):
                     },
                 )
                 baseline_counterfactual["patched_step_id"] = step_id
+        if skip_counterfactual:
+            baseline_decision["counterfactual_supported"] = False
+            baseline_decision["replay_valid"] = False
+            baseline_decision["strict_replay"] = False
         decisions[baseline_id] = baseline_decision
         counterfactuals[baseline_id] = baseline_counterfactual
     # Keep the legacy top-level fields as aliases for the recovery baseline.

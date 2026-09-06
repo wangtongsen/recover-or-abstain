@@ -37,7 +37,7 @@ _TIMEOUT_S = float(os.environ.get("RELAY_LLM_TIMEOUT_S", "60"))
 _MAX_EMPTY_RETRIES = int(os.environ.get("RELAY_LLM_EMPTY_RETRIES", "4"))
 _MAX_ACTOR_STEPS = int(os.environ.get("RELAY_LLM_MAX_ACTOR_STEPS", "3"))
 _TEMPERATURE = 0.0
-_MAX_TOKENS = 256
+_MAX_TOKENS = int(os.environ.get("RELAY_LLM_MAX_TOKENS", "1024"))
 ANTHROPIC_VERSION = "2023-06-01"
 
 SYSTEM_PROMPT = (
@@ -166,13 +166,13 @@ def _validate_tool_choice(choice: Mapping[str, Any] | None) -> dict[str, Any] | 
     return {"tool": tool, "arguments": arguments}
 
 
-def _post_messages(messages: list[dict[str, Any]]) -> Mapping[str, Any]:
+def _post_messages(messages: list[dict[str, Any]], temperature: float = _TEMPERATURE) -> Mapping[str, Any]:
     if not _BASE_URL or not _API_KEY:
         raise RelayActorError("ANTHROPIC_BASE_URL and ANTHROPIC_AUTH_TOKEN must be set in the environment")
     payload = {
         "model": _MODEL,
         "max_tokens": _MAX_TOKENS,
-        "temperature": _TEMPERATURE,
+        "temperature": temperature,
         "system": SYSTEM_PROMPT,
         "messages": messages,
         "tools": _tool_definitions(),
@@ -193,12 +193,20 @@ def _post_messages(messages: list[dict[str, Any]]) -> Mapping[str, Any]:
             body = exc.read().decode("utf-8", "replace")[:300]
         except Exception:
             pass
+        # Relay overload / gateway errors are retryable infrastructure
+        # conditions; surface the code so the caller can back off and retry.
+        if exc.code in (429, 502, 503, 529):
+            raise RelayOverloadedError(f"relay HTTP {exc.code}: {body}") from exc
         raise RelayActorError(f"relay HTTP {exc.code}: {body}") from exc
     except (URLError, TimeoutError, OSError, ValueError) as exc:
         raise RelayActorError(f"relay request failed: {type(exc).__name__}") from exc
     if not isinstance(raw, Mapping):
         raise RelayActorError("relay response must be a JSON object")
     return raw
+
+
+class RelayOverloadedError(RelayActorError):
+    """Relay returned a retryable overload/gateway status (429/502/503/529)."""
 
 
 # --- actor-level usage ledger -------------------------------------------------
@@ -334,12 +342,26 @@ def act(observation, context):
     messages.append({"role": "user", "content": _build_user_content(observation, context)})
 
     last_error: Exception | None = None
-    for _attempt in range(_MAX_EMPTY_RETRIES + 1):
+    total_attempts = _MAX_EMPTY_RETRIES + 1 + 12  # content retries + overload backoff budget
+    backoff_s = 1.0
+    temperature = _TEMPERATURE
+    for _attempt in range(total_attempts):
         _ledger["calls"] += 1
         _ledger["attempts"] += 1
         started = time.perf_counter()
         try:
-            payload = _post_messages(messages)
+            # Deterministic first attempt; later attempts (empty-content
+            # defects) escalate sampling temperature so the model can escape
+            # a truncated-thinking loop that repeats identically at t=0.
+            payload = _post_messages(messages, temperature=temperature)
+        except RelayOverloadedError as exc:
+            # Infrastructure overload: exponential backoff, then retry the
+            # same request. Counted as endpoint errors in the usage ledger.
+            last_error = exc
+            _record_endpoint_error()
+            time.sleep(min(backoff_s, 30.0))
+            backoff_s *= 2
+            continue
         except RelayActorError as exc:
             last_error = exc
             _record_endpoint_error()
@@ -347,14 +369,19 @@ def act(observation, context):
         latency_ms = (time.perf_counter() - started) * 1000.0
         choice = _extract_tool_use(payload)
         if choice is None:
-            # Relay defect: stop_reason=tool_use with empty content.
+            # Relay defect: stop_reason=tool_use with empty content, or
+            # max_tokens truncated all thinking before a tool_use block.
             _record_empty(latency_ms)
+            temperature = min(0.0 + 0.1 * (_attempt + 1), 0.7)
+            time.sleep(min(backoff_s, 8.0))
+            backoff_s = min(backoff_s * 2, 8.0)
             continue
         try:
             action = _validate_tool_choice(choice)
         except RelayActorError as exc:
             last_error = exc
             _record_invalid(payload, latency_ms)
+            temperature = min(temperature + 0.1, 0.7)
             continue
         _record_terminal(payload, latency_ms)
         if action is None:
@@ -364,7 +391,7 @@ def act(observation, context):
             _ledger["valid_actions"] += 1
         return action
     raise RelayActorError(
-        f"relay did not produce a usable tool call after {_MAX_EMPTY_RETRIES + 1} attempts: {last_error}"
+        f"relay did not produce a usable tool call after {total_attempts} attempts: {last_error}"
     )
 
 

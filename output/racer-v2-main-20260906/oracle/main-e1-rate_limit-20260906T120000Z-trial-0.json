@@ -1,0 +1,28 @@
+{
+  "run_id": "main-e1-rate_limit-20260906T120000Z-trial-0",
+  "source_run_id": "main-e1-rate_limit-20260906T120000Z-trial-0",
+  "episode_id": "main-e1-rate_limit-trial-0",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e1-rate_limit-trial-0",
+    "source_run_id": "main-e1-rate_limit-20260906T120000Z-trial-0",
+    "run_id": "main-e1-rate_limit-20260906T120000Z-trial-0",
+    "env_seed": 0,
+    "initial_state_fingerprint": "e8ca73be77be5b956ba0eb8b29daaa924136ea2b0886331c3474166fa46008d1",
+    "fault_schedule_fingerprint": "ab5072b3149f7f51c86d7363ff97cda07a53a943f358a925a6c394e5880a0d05",
+    "environment_fingerprint": "08e4f82ae3a6e4a63f61297ad5b107073dd5412438d61a0472fd17ca62bc2f70"
+  },
+  "task_id": "main-e1-rate_limit-trial-0",
+  "seed": 0,
+  "env_seed": 0,
+  "source_manifest_sha256": "22b8dc805805b56c0ac1b06a1a0390715bb774882bb91217dc75630b2c54142a",
+  "fault_truth": [
+    {
+      "fault_id": "rate_limit-0",
+      "type": "rate_limit",
+      "step_id": 1,
+      "error": "injected rate_limit",
+      "tool": "confirm_booking"
+    }
+  ]
+}

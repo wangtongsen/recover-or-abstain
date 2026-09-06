@@ -33,6 +33,8 @@ services:
       context: ./services/diagnoser
     environment:
       PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./services/diagnoser/app.py:/app/app.py:ro
     ports:
       - "18081:8080"
 
@@ -41,6 +43,8 @@ services:
       context: ./services/recovery_policy
     environment:
       PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./services/recovery_policy/app.py:/app/app.py:ro
     ports:
       - "18082:8080"
 

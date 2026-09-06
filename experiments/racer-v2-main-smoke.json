@@ -1,0 +1,130 @@
+{
+  "schema_version": "racer-v2-main-matrix-v1",
+  "experiment": "racer-v2-main-smoke",
+  "matrix_id": "racer-v2-main-matrix",
+  "protocol_id": "racer-v2-benchmark-protocol-0.1",
+  "description": "Single-cell main-tier smoke: one force_error cell with all 14 baselines; validates full chain before main execution; smoke tier label (evaluation_tier=main, main_comparison=true but smoke run_id prefix; NOT part of the main result envelope).",
+  "evaluation_tier": "main",
+  "main_comparison": true,
+  "tasks": [
+    {
+      "task_id": "main-e1-force_error-trial-0",
+      "run_id": "smoke-main-e1-force_error-20260906T120000Z-trial-0",
+      "seed": 0,
+      "episode_id": "main-e1-force_error-trial-0",
+      "protocol_id": "racer-v2-benchmark-protocol-0.1",
+      "trial_id": 0,
+      "model_resource_id": "oneapi-relay-glm-5.3-flash",
+      "strict_replay": true,
+      "evaluation_tier": "main",
+      "baseline_registry_version": "racer-v2-main-baselines-v1",
+      "main_comparison": true,
+      "task_variant": "e1_force_error",
+      "variant": "e1_force_error",
+      "cell": "force_error:e1_force_error",
+      "env_config": {
+        "budget": 500,
+        "flights": [
+          {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          {
+            "id": "F2",
+            "price": 360,
+            "refundable": false
+          },
+          {
+            "id": "F3",
+            "price": 480,
+            "refundable": true
+          }
+        ],
+        "task_variant": "e1_force_error",
+        "variant": "e1_force_error",
+        "faults": [
+          {
+            "fault_id": "force_error-0",
+            "type": "force_error",
+            "step_id": 1,
+            "error": "injected force_error",
+            "tool": "confirm_booking"
+          }
+        ]
+      },
+      "reset": {
+        "budget": 500,
+        "flights": [
+          {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          {
+            "id": "F2",
+            "price": 360,
+            "refundable": false
+          },
+          {
+            "id": "F3",
+            "price": 480,
+            "refundable": true
+          }
+        ],
+        "task_variant": "e1_force_error",
+        "variant": "e1_force_error",
+        "faults": [
+          {
+            "fault_id": "force_error-0",
+            "type": "force_error",
+            "step_id": 1,
+            "error": "injected force_error",
+            "tool": "confirm_booking"
+          }
+        ]
+      },
+      "faults": [
+        {
+          "fault_id": "force_error-0",
+          "type": "force_error",
+          "step_id": 1,
+          "error": "injected force_error",
+          "tool": "confirm_booking"
+        }
+      ],
+      "fault_type": "force_error",
+      "fault_truth": [
+        {
+          "fault_id": "force_error-0",
+          "type": "force_error",
+          "step_id": 1,
+          "error": "injected force_error",
+          "tool": "confirm_booking"
+        }
+      ],
+      "actor": {
+        "type": "python",
+        "path": "experiments/actors/remote-relay-actor.py",
+        "actor_id": "relay-llm-paired-pilot"
+      },
+      "baselines": [
+        "raw_react",
+        "fixed_retry",
+        "exponential_backoff",
+        "generic_reflection",
+        "full_trace_judge",
+        "step_by_step_diagnosis",
+        "binary_search_diagnosis",
+        "agentdebug_targeted_feedback",
+        "always_recover",
+        "racer",
+        "racer_no_abstain",
+        "racer_no_counterfactual",
+        "oracle_root_cause",
+        "oracle_recovery"
+      ],
+      "max_actor_steps": 6
+    }
+  ]
+}

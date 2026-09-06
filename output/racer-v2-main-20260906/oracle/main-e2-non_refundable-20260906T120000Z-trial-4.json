@@ -1,0 +1,20 @@
+{
+  "run_id": "main-e2-non_refundable-20260906T120000Z-trial-4",
+  "source_run_id": "main-e2-non_refundable-20260906T120000Z-trial-4",
+  "episode_id": "main-e2-non_refundable-trial-4",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e2-non_refundable-trial-4",
+    "source_run_id": "main-e2-non_refundable-20260906T120000Z-trial-4",
+    "run_id": "main-e2-non_refundable-20260906T120000Z-trial-4",
+    "env_seed": 4,
+    "initial_state_fingerprint": "d83b9ae351323e7a75551faefa7cee0729821d30be99bf94bd511426bdeb041b",
+    "fault_schedule_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "environment_fingerprint": "41766fcd726dbd0a8fa8c80dc40e0c90f62d40bc6acab96af65250576873b934"
+  },
+  "task_id": "main-e2-non_refundable-trial-4",
+  "seed": 4,
+  "env_seed": 4,
+  "source_manifest_sha256": "dfd7fdadc8a8daa12e5973e7408cda982a93e264906276f135b468c27f823964",
+  "fault_truth": []
+}

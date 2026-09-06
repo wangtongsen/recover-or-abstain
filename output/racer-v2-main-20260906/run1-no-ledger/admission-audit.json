@@ -1,0 +1,506 @@
+{
+  "checks": {
+    "G1_source_manifest_anchor": "PASS",
+    "G2_paired_identity": "PASS",
+    "G3_strict_replay": "PASS",
+    "G4_side_effect_witness": "FAIL",
+    "G5_truth_and_secret_isolation": "PASS",
+    "G7_canonical_envelope": "PASS"
+  },
+  "counts": {
+    "errors": 80,
+    "main_comparison_rows": 770,
+    "non_main_or_legacy_rows": 0,
+    "warnings": 0
+  },
+  "input": {
+    "canonical_envelope": true,
+    "path": "output/racer-v2-main-20260906/main-envelope.json",
+    "row_count": 770
+  },
+  "issues": [
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[31]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[31]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[32]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[32]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[33]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[33]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[34]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[34]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[35]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[35]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[36]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[36]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[37]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[37]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[38]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[38]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[185]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[185]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[186]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[186]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[187]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[187]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[188]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[188]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[189]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[189]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[190]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[190]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[191]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[191]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[192]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[192]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[297]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[297]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[298]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[298]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[299]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[299]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[300]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[300]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[301]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[301]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[302]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[302]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[303]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[303]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[304]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[304]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[563]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[563]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[564]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[564]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[565]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[565]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[566]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[566]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[567]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[567]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[568]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[568]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[569]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[569]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[570]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[570]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[759]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[759]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[760]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[760]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[761]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[761]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[762]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[762]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[763]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[763]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[764]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[764]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[765]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[765]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_INCOMPLETE_REFUND_WITNESS",
+      "message": "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。",
+      "path": "$.records[766]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_UNVERIFIED_REFUND_WITNESS",
+      "message": "副作用行必须显式标为 refund_witness_valid=true。",
+      "path": "$.records[766]",
+      "severity": "ERROR"
+    }
+  ],
+  "return_code": 2,
+  "schema_version": "racer-v2-artifact-admission-v2",
+  "verdict": "NO-GO"
+}

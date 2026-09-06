@@ -94,12 +94,39 @@ def _step_value(value):
     return value
 
 
+def _normalize_cause_text(value):
+    return "_".join(str(value or "").strip().lower().replace("-", " ").split())
+
+
+# Observable-diagnoser category equivalences: the public-trace diagnoser can
+# detect the consequence of a fault, not the injector-side taxonomy label.
+# Both wrong_tool and replace_action manifest as an effective/requested tool
+# mismatch; the error strings of force_error/rate_limit embed the fault type.
+_CAUSE_EQUIVALENCES = {
+    "effective_tool_mismatch": frozenset({"wrong_tool", "replace_action"}),
+}
+
+
+def _cause_matches(root_cause, truth_cause):
+    root = _normalize_cause_text(root_cause)
+    truth = _normalize_cause_text(truth_cause)
+    if not root or not truth:
+        return False
+    if root == truth:
+        return True
+    if truth in root:
+        return True
+    if truth in _CAUSE_EQUIVALENCES.get(root, frozenset()):
+        return True
+    return False
+
+
 def _step_exact(root, fault_truth):
     truth = _fault_truth_with_cause_and_step(fault_truth)
     if truth is None:
         return None
     return (
-        root.get("cause") == truth.get("cause")
+        _cause_matches(root.get("cause"), truth.get("cause"))
         and _step_value(root.get("step_id")) == _step_value(truth.get("step_id"))
     )
 

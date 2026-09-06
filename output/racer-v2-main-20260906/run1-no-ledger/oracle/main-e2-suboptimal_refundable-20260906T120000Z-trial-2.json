@@ -1,0 +1,20 @@
+{
+  "run_id": "main-e2-suboptimal_refundable-20260906T120000Z-trial-2",
+  "source_run_id": "main-e2-suboptimal_refundable-20260906T120000Z-trial-2",
+  "episode_id": "main-e2-suboptimal_refundable-trial-2",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e2-suboptimal_refundable-trial-2",
+    "source_run_id": "main-e2-suboptimal_refundable-20260906T120000Z-trial-2",
+    "run_id": "main-e2-suboptimal_refundable-20260906T120000Z-trial-2",
+    "env_seed": 2,
+    "initial_state_fingerprint": "b53a32debade2d043536bc2a47447c6cb4fad33e069e140cbde3409e06ec4708",
+    "fault_schedule_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "environment_fingerprint": "500ac4953c10b074fcb7a168263134f693cc7e794d3ecf1977cf830f49b6f688"
+  },
+  "task_id": "main-e2-suboptimal_refundable-trial-2",
+  "seed": 2,
+  "env_seed": 2,
+  "source_manifest_sha256": "d5d6b107013916d766e4947a563dcc5dc764aae9bd3e763c59228df38d1e76a8",
+  "fault_truth": []
+}

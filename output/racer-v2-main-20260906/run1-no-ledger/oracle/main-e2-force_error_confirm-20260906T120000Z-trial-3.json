@@ -1,0 +1,27 @@
+{
+  "run_id": "main-e2-force_error_confirm-20260906T120000Z-trial-3",
+  "source_run_id": "main-e2-force_error_confirm-20260906T120000Z-trial-3",
+  "episode_id": "main-e2-force_error_confirm-trial-3",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e2-force_error_confirm-trial-3",
+    "source_run_id": "main-e2-force_error_confirm-20260906T120000Z-trial-3",
+    "run_id": "main-e2-force_error_confirm-20260906T120000Z-trial-3",
+    "env_seed": 3,
+    "initial_state_fingerprint": "c36bf761275d9e2ff2c27c28b7710f0cb9d9c447f98590dbba2cebe04e69f2af",
+    "fault_schedule_fingerprint": "7e73eeb838b60af3791689d3d5a7e81fe7042dbc6f1073a5eeb599ea1697e3bd",
+    "environment_fingerprint": "5adc4df66c4d5b9e14d2009d442aadeda43e83bec14320677a0a5679b5685d2f"
+  },
+  "task_id": "main-e2-force_error_confirm-trial-3",
+  "seed": 3,
+  "env_seed": 3,
+  "source_manifest_sha256": "8876e94a45e8566302d7c27e291f5e993155a4db8d57eef8982f63a8457929f5",
+  "fault_truth": [
+    {
+      "fault_id": "force-error-confirm",
+      "type": "force_error",
+      "step_id": 2,
+      "tool": "confirm_booking"
+    }
+  ]
+}

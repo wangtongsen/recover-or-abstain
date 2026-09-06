@@ -1,0 +1,28 @@
+{
+  "run_id": "main-e1-force_error-20260906T120000Z-trial-1",
+  "source_run_id": "main-e1-force_error-20260906T120000Z-trial-1",
+  "episode_id": "main-e1-force_error-trial-1",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e1-force_error-trial-1",
+    "source_run_id": "main-e1-force_error-20260906T120000Z-trial-1",
+    "run_id": "main-e1-force_error-20260906T120000Z-trial-1",
+    "env_seed": 1,
+    "initial_state_fingerprint": "1447edfaa5e5751eb3e1934116dfae34f5d507479197e26f4bbd5113bd17964b",
+    "fault_schedule_fingerprint": "3f974143c8db6e3c6b6aeb6b67f29467e8c9e8985fc690ec3c71c98752eb8043",
+    "environment_fingerprint": "5d8e654dbae5c2a1f0762bd0064b5496c8c768db6945b68194022d3b8cb9e595"
+  },
+  "task_id": "main-e1-force_error-trial-1",
+  "seed": 1,
+  "env_seed": 1,
+  "source_manifest_sha256": "85817949a8e4ba6af559a3278751cbaf8dc8a12c13bf8917d045b12f20c30483",
+  "fault_truth": [
+    {
+      "fault_id": "force_error-0",
+      "type": "force_error",
+      "step_id": 1,
+      "error": "injected force_error",
+      "tool": "confirm_booking"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "run_id": "main-e1-replace_action-20260906T120000Z-trial-3",
+  "source_run_id": "main-e1-replace_action-20260906T120000Z-trial-3",
+  "episode_id": "main-e1-replace_action-trial-3",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e1-replace_action-trial-3",
+    "source_run_id": "main-e1-replace_action-20260906T120000Z-trial-3",
+    "run_id": "main-e1-replace_action-20260906T120000Z-trial-3",
+    "env_seed": 3,
+    "initial_state_fingerprint": "b5423f404d5e33fd38d24aa0c697c09ba9ba2c8eda8f3510682f87c3ca2e9419",
+    "fault_schedule_fingerprint": "f6c6fe524a4178049be9540ce0a997927c30ea53628a78a71e22f48792856dda",
+    "environment_fingerprint": "c8abb8a4602eca1037a233f09c5292866a4b259eccd57425dbf52fe0ed3cf608"
+  },
+  "task_id": "main-e1-replace_action-trial-3",
+  "seed": 3,
+  "env_seed": 3,
+  "source_manifest_sha256": "a8f10ec5b5500fd3236799f6f4c44a6bcaf5b1492d222aaec4a4d26f567e4bc3",
+  "fault_truth": [
+    {
+      "fault_id": "replace_action-0",
+      "type": "replace_action",
+      "step_id": 1,
+      "replacement": {
+        "tool": "select_flight",
+        "arguments": {
+          "flight_id": "F1"
+        }
+      },
+      "tool": "confirm_booking"
+    }
+  ]
+}

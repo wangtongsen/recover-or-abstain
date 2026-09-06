@@ -1,0 +1,27 @@
+{
+  "run_id": "main-e2-drop_confirm-20260906T120000Z-trial-4",
+  "source_run_id": "main-e2-drop_confirm-20260906T120000Z-trial-4",
+  "episode_id": "main-e2-drop_confirm-trial-4",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e2-drop_confirm-trial-4",
+    "source_run_id": "main-e2-drop_confirm-20260906T120000Z-trial-4",
+    "run_id": "main-e2-drop_confirm-20260906T120000Z-trial-4",
+    "env_seed": 4,
+    "initial_state_fingerprint": "6b1c7040c065a2571a951d5438d5b3ad2b5883417c174ccd486f648b27143832",
+    "fault_schedule_fingerprint": "23af80c389748f927ee29f213d11bd2df6e8844584ab94bb539e1f623cdd3726",
+    "environment_fingerprint": "47c83912e7d67f761cffd2564edddfd38e57ab55cc72a4fee4032593cbaed179"
+  },
+  "task_id": "main-e2-drop_confirm-trial-4",
+  "seed": 4,
+  "env_seed": 4,
+  "source_manifest_sha256": "a73ce1e91324dfac1b78d88d9783e9c0331bdd41adb7cde67136fed0ee265444",
+  "fault_truth": [
+    {
+      "fault_id": "drop-confirm",
+      "type": "drop_action",
+      "step_id": 2,
+      "tool": "confirm_booking"
+    }
+  ]
+}

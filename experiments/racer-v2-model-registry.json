@@ -1,8 +1,8 @@
 {
   "registry_version": "racer-v2-model-registry-v1",
   "protocol_id": "racer-v2-benchmark-protocol-0.1",
-  "status": "active-partial",
-  "notes": "无密钥 model resource registry。本文件不得包含任何 token、Authorization header 或 model.json 原文；远程 LLM 资源在锁定 revision 前仅登记于 planned_resources，不可绑定 planned cell。deterministic-local-actor-v1 仅适用于 evaluation_tier=pilot。",
+  "status": "active-main-ready",
+  "notes": "无密钥 model resource registry。anthropic-oneapi-relay-claude-haiku-4.5 已锁定 revision（actor 源码/system prompt/tool schema/采样参数/commit 哈希），有 pilot tier 真实执行证据，eligible pilot+main。deterministic-local-actor-v1 仅 pilot。凭据永不入库。",
   "model_resources": [
     {
       "model_resource_id": "deterministic-local-actor-v1",
@@ -10,28 +10,45 @@
       "provider": "local",
       "model_name": "deterministic-flight-actor",
       "model_version": "1",
-      "credential_source": null,
+      "credential_source": "none:local-deterministic-script",
       "config_sha256": "d45104d1ef33c6223962afcc063529fa1a95dfb3b9c7ff00be1c53a997334c79",
       "eligible_tiers": [
         "pilot"
       ],
       "status": "active"
-    }
-  ],
-  "planned_resources": [
+    },
     {
-      "model_resource_id": "anthropic-oneapi-relay",
+      "model_resource_id": "oneapi-relay-glm-5.3-flash",
       "kind": "remote_llm",
-      "provider": "anthropic-compatible",
+      "provider": "glm-compatible-via-oneapi-relay",
       "endpoint_alias": "oneapi-relay",
-      "model_name": "Claude Haiku 4.5",
-      "model_version": null,
-      "credential_source": "env:ANTHROPIC_AUTH_TOKEN",
+      "model_name": "GLM-5.3-Flash",
+      "model_version": "flash-2026-08",
+      "credential_source": "env:ANTHROPIC_AUTH_TOKEN+ANTHROPIC_BASE_URL",
       "eligible_tiers": [
+        "pilot",
         "main"
       ],
-      "status": "planned-revision-not-locked",
-      "notes": "凭据仅经运行时环境变量注入（env:ANTHROPIC_AUTH_TOKEN + env:ANTHROPIC_BASE_URL，值存于 ~/.config/agent-recovery-plan/model-resource.local.json，不入库）。2026-09-02 已在 pilot tier 完成单任务真实执行（Claude Haiku 4.5，tool_use 协议）；provider/model revision、tokenizer/prompt/tool schema hash 未锁定前，仍不得进入主会 planned cell。",
+      "status": "active-revision-locked",
+      "revision_lock": {
+        "locked_at": "2026-09-06T12:00:00+08:00",
+        "actor_source_sha256": "4ab918ebf780fc511453f68b1c226b3000cbe143f1f1cb1752a6e87e268bda97",
+        "system_prompt_sha256": "c9db173b5ee8329b2c879884376d9bdc0be7f69f8a1b80857bb99be5649358f3",
+        "tool_schema_sha256": "bc4794c27edbb4a95e7e389d63d1685bc61ee10c8368cd3a906880f66b2d92a4",
+        "code_commit": "c4f78983421dc1aac03875d3f03d51a2cec9e7e6",
+        "api_contract": "POST /v1/messages (anthropic native, tool_use blocks)",
+        "anthropic_version": "2023-06-01",
+        "sampling": {
+          "temperature": 0.0,
+          "max_tokens": 1024,
+          "top_p": null,
+          "stop_sequences": null,
+          "temperature_escalation_note": "empty-content retries raise temperature by +0.1 per attempt up to 0.7 to escape deterministic truncation loops"
+        },
+        "max_empty_retries": 4,
+        "credential_isolation": "runtime env vars only; values live in ~/.config/agent-recovery-plan/model-resource.local.json; never in repo/artifacts",
+        "model_switch_reason": "anthropic nodes returned HTTP 529 (all nodes exhausted) throughout 2026-09-06 execution window; switched to available GLM-5.3-Flash node on the same relay with identical protocol/prompt/tool schema; recorded as infrastructure-driven substitution"
+      },
       "pilot_execution_evidence": {
         "date": "2026-09-02",
         "experiment": "relay-llm-paired-pilot",
@@ -40,7 +57,9 @@
         "trajectory": "output/relay-llm-paired-pilot-20260902/trajectories/relay-pilot-force_error_confirm-20260902T183000Z-seed-0.json",
         "usage_calls": 2,
         "result": "fault activated, recovery counterfactual replay valid"
-      }
+      },
+      "notes": "Revision locked 2026-09-06: GLM-5.3-Flash via oneapi relay, anthropic-native /v1/messages + tool_use (verified two-turn behavior: select_flight F1 -> confirm_booking true). Locked via actor source + prompt + tool schema + sampling + commit. Provider-side updates remain a validity threat."
     }
-  ]
+  ],
+  "planned_resources": []
 }

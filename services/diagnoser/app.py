@@ -109,21 +109,37 @@ def diagnose(trace):
                 "source": "environment_error",
                 "constraint": "selected_flight must be refundable",
             })
-        elif tool == "select_flight" and args.get("flight_id") == "F2":
-            add_candidate({
-                "step_id": index,
-                "category": "planning_error",
-                "cause": "selected_non_refundable_flight",
-                "confidence": 0.89,
-                "repair_options": ["replace_argument", "replan"],
-                "evidence": {
-                    "tool": tool,
-                    "flight_id": args.get("flight_id"),
-                    "result_ok": result.get("ok", True),
-                },
-                "source": "trajectory_action",
-                "constraint": "selected_flight must be refundable",
-            })
+        elif tool == "select_flight":
+            # Flight-constraint candidates must follow the task's actual
+            # refundability requirement, which is public in the observation
+            # (task text + invariants) and the select_flight result. A
+            # non-refundable flight is only a planning error when the task
+            # itself requires refundability; hardcoding flight semantics would
+            # fabricate false-positive repairs on variants where the cheap
+            # non-refundable flight is the correct choice.
+            selected = result.get("selected") if isinstance(result.get("selected"), dict) else None
+            observation = item.get("observation") if isinstance(item.get("observation"), dict) else {}
+            state = observation.get("state") if isinstance(observation.get("state"), dict) else {}
+            task_text = str(state.get("task", ""))
+            invariants = [str(inv) for inv in (observation.get("invariants") or [])]
+            variant_text = " ".join([task_text] + invariants).lower()
+            requires_refundable = "non-refundable" not in variant_text and "non_refundable" not in variant_text
+            if requires_refundable and selected is not None and selected.get("refundable") is False:
+                add_candidate({
+                    "step_id": index,
+                    "category": "planning_error",
+                    "cause": "selected_non_refundable_flight",
+                    "confidence": 0.89,
+                    "repair_options": ["replace_argument", "replan"],
+                    "evidence": {
+                        "tool": tool,
+                        "flight_id": args.get("flight_id"),
+                        "selected": selected,
+                        "result_ok": result.get("ok", True),
+                    },
+                    "source": "trajectory_action",
+                    "constraint": "selected_flight must be refundable",
+                })
         elif not result.get("ok", True):
             add_candidate({
                 "step_id": index,

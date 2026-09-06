@@ -1,0 +1,20 @@
+{
+  "run_id": "main-e2-missing_confirmation-20260906T120000Z-trial-0",
+  "source_run_id": "main-e2-missing_confirmation-20260906T120000Z-trial-0",
+  "episode_id": "main-e2-missing_confirmation-trial-0",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e2-missing_confirmation-trial-0",
+    "source_run_id": "main-e2-missing_confirmation-20260906T120000Z-trial-0",
+    "run_id": "main-e2-missing_confirmation-20260906T120000Z-trial-0",
+    "env_seed": 0,
+    "initial_state_fingerprint": "52ea9654557ce828714c56cf9bf5d8e4f9a56170571286fbbb793c67a3db8751",
+    "fault_schedule_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "environment_fingerprint": "2e5413611c7585a1598bb50d9317a08dab8c2fd89db24da6efad59177c39253a"
+  },
+  "task_id": "main-e2-missing_confirmation-trial-0",
+  "seed": 0,
+  "env_seed": 0,
+  "source_manifest_sha256": "9bd33b0799945fd9c2e53ba5a81d1eb645925e722b5ab35e186cc483033adcfe",
+  "fault_truth": []
+}

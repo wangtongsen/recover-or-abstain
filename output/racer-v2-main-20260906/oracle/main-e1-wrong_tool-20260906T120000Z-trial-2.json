@@ -1,0 +1,27 @@
+{
+  "run_id": "main-e1-wrong_tool-20260906T120000Z-trial-2",
+  "source_run_id": "main-e1-wrong_tool-20260906T120000Z-trial-2",
+  "episode_id": "main-e1-wrong_tool-trial-2",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e1-wrong_tool-trial-2",
+    "source_run_id": "main-e1-wrong_tool-20260906T120000Z-trial-2",
+    "run_id": "main-e1-wrong_tool-20260906T120000Z-trial-2",
+    "env_seed": 2,
+    "initial_state_fingerprint": "b32c78337fa65fb08a7f6a2cca51db0af29d4516187d9b93b768ded29c088c32",
+    "fault_schedule_fingerprint": "3450972bc99ce1ab9ae26ae5cf59a7a73c2e852448835ee73fb12c4bd43ebe2e",
+    "environment_fingerprint": "1b96ecb8e399a14c79186825706820d7c135c7c0e20d0073d642f84740380f4d"
+  },
+  "task_id": "main-e1-wrong_tool-trial-2",
+  "seed": 2,
+  "env_seed": 2,
+  "source_manifest_sha256": "a9254bb5e568bc5b927bec38ae39c8d1f36190ee470bda24e0fc3d1030eccdc1",
+  "fault_truth": [
+    {
+      "fault_id": "wrong_tool-0",
+      "type": "wrong_tool",
+      "step_id": 1,
+      "tool": "confirm_booking"
+    }
+  ]
+}

@@ -1,0 +1,444 @@
+{
+  "run_id": "main-e2-suboptimal_refundable-20260906T120000Z-trial-3",
+  "source_run_id": "main-e2-suboptimal_refundable-20260906T120000Z-trial-3",
+  "episode_id": "main-e2-suboptimal_refundable-trial-3",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e2-suboptimal_refundable-trial-3",
+    "source_run_id": "main-e2-suboptimal_refundable-20260906T120000Z-trial-3",
+    "run_id": "main-e2-suboptimal_refundable-20260906T120000Z-trial-3",
+    "env_seed": 3,
+    "initial_state_fingerprint": "d86b92b07cc59650c6f72e07e0d9333385c868bd94ae72d75d22335ce53c6ad2",
+    "fault_schedule_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "environment_fingerprint": "768e51212121e30ad1e501fff9c0c384410389aca262005f1a068063f3b783ba"
+  },
+  "strict_replay": true,
+  "protocol_id": "racer-v2-benchmark-protocol-0.1",
+  "trial_id": 3,
+  "model_resource_id": "oneapi-relay-glm-5.3-flash",
+  "main_comparison": true,
+  "legacy": false,
+  "evaluation_tier": "main",
+  "baseline_registry_version": "racer-v2-main-baselines-v1",
+  "task_id": "main-e2-suboptimal_refundable-trial-3",
+  "seed": 3,
+  "task_variant": "suboptimal_refundable",
+  "cell": "suboptimal_refundable",
+  "actor_id": "relay-llm-paired-pilot",
+  "actor_config_hash": "4ab918ebf780fc511453f68b1c226b3000cbe143f1f1cb1752a6e87e268bda97",
+  "termination_reason": "actor_returned_none",
+  "actor_usage": {
+    "provider": "anthropic-oneapi-relay",
+    "model": "GLM-5.3-Flash",
+    "base_url": "http://oneapi.ai-chat.host:8602",
+    "calls": 2,
+    "attempts": 2,
+    "responses": 2,
+    "terminal_responses": 2,
+    "invalid_actions": 0,
+    "endpoint_errors": 0,
+    "empty_tool_use": 0,
+    "failed_attempts": 0,
+    "valid_actions": 2,
+    "finish_terminations": 0,
+    "prompt_tokens": 879,
+    "completion_tokens": 322,
+    "latency_ms": 10259.276754999973,
+    "last_call": {
+      "latency_ms": 4696.448,
+      "call_index": 2,
+      "stop_reason": "tool_use"
+    },
+    "total_tokens": 1201,
+    "termination_reason": "confirmed",
+    "invariants": [
+      {
+        "name": "calls = attempts",
+        "holds": true
+      },
+      {
+        "name": "attempts = terminal_responses + failed_attempts",
+        "holds": true
+      },
+      {
+        "name": "responses = terminal_responses + invalid_actions + empty_tool_use",
+        "holds": true
+      },
+      {
+        "name": "failed_attempts = endpoint_errors + invalid_actions + empty_tool_use",
+        "holds": true
+      },
+      {
+        "name": "responses + endpoint_errors = attempts",
+        "holds": true
+      },
+      {
+        "name": "valid_actions + finish_terminations = terminal_responses",
+        "holds": true
+      }
+    ],
+    "all_invariants_hold": true
+  },
+  "trace": [
+    {
+      "requested_action": {
+        "tool": "select_flight",
+        "arguments": {
+          "flight_id": "F1"
+        }
+      },
+      "action": {
+        "tool": "select_flight",
+        "arguments": {
+          "flight_id": "F1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "selected": {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        }
+      },
+      "state_before_hash": "f474a386981d6f4c",
+      "state_after_hash": "045e69767fff7e2c",
+      "observation": {
+        "state": {
+          "task": "Book the cheapest refundable flight from A to B.",
+          "origin": "A",
+          "destination": "B",
+          "budget": 500,
+          "selected_flight": {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          "confirmed": false,
+          "events": [
+            "selected:F1"
+          ],
+          "booking_id": "BK-001",
+          "refund_ledger": []
+        },
+        "state_hash": "045e69767fff7e2c",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking",
+          "refund_booking",
+          "get_refund_status"
+        ],
+        "seed": 3,
+        "task_variant": "suboptimal_refundable",
+        "variant": "suboptimal_refundable",
+        "actions": [],
+        "env_config": {
+          "budget": 500,
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F2",
+              "price": 360,
+              "refundable": false
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ],
+          "task_variant": "suboptimal_refundable",
+          "variant": "suboptimal_refundable",
+          "enable_refund_ledger": true
+        },
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be the cheapest eligible refundable flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      },
+      "actor_id": "relay-llm-paired-pilot",
+      "actor_config_hash": "4ab918ebf780fc511453f68b1c226b3000cbe143f1f1cb1752a6e87e268bda97"
+    },
+    {
+      "requested_action": {
+        "tool": "confirm_booking",
+        "arguments": {
+          "user_confirmed": true
+        }
+      },
+      "action": {
+        "tool": "confirm_booking",
+        "arguments": {
+          "user_confirmed": true
+        }
+      },
+      "result": {
+        "ok": true,
+        "booking_id": "BK-001"
+      },
+      "state_before_hash": "045e69767fff7e2c",
+      "state_after_hash": "8dcd56965950a48c",
+      "observation": {
+        "state": {
+          "task": "Book the cheapest refundable flight from A to B.",
+          "origin": "A",
+          "destination": "B",
+          "budget": 500,
+          "selected_flight": {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          "confirmed": true,
+          "events": [
+            "selected:F1",
+            "confirmed"
+          ],
+          "booking_id": "BK-001",
+          "refund_ledger": []
+        },
+        "state_hash": "8dcd56965950a48c",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking",
+          "refund_booking",
+          "get_refund_status"
+        ],
+        "seed": 3,
+        "task_variant": "suboptimal_refundable",
+        "variant": "suboptimal_refundable",
+        "actions": [],
+        "env_config": {
+          "budget": 500,
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F2",
+              "price": 360,
+              "refundable": false
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ],
+          "task_variant": "suboptimal_refundable",
+          "variant": "suboptimal_refundable",
+          "enable_refund_ledger": true
+        },
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be the cheapest eligible refundable flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      },
+      "actor_id": "relay-llm-paired-pilot",
+      "actor_config_hash": "4ab918ebf780fc511453f68b1c226b3000cbe143f1f1cb1752a6e87e268bda97"
+    }
+  ],
+  "original_evaluation": {
+    "success": true,
+    "side_effect": false,
+    "constraints_satisfied": true,
+    "optimal_selection": true,
+    "state_hash": "8dcd56965950a48c",
+    "seed": 3,
+    "env_seed": 3,
+    "run_id": "main-e2-suboptimal_refundable-20260906T120000Z-trial-3"
+  },
+  "diagnosis": {
+    "candidates": [
+      {
+        "step_id": null,
+        "category": "unknown",
+        "cause": "no_localized_root_cause",
+        "confidence": 0.25,
+        "repair_options": [
+          "replan",
+          "ask_clarification",
+          "abstain"
+        ],
+        "evidence": {
+          "trace_length": 2
+        },
+        "source": "diagnoser",
+        "constraint": null
+      }
+    ],
+    "diagnosis_confidence": 0.25
+  },
+  "decision": {
+    "baseline_id": "raw_react",
+    "decision": "abstain",
+    "reason": "raw_react performs no recovery; terminal state stands",
+    "patch": null
+  },
+  "counterfactual": null,
+  "baselines": {
+    "raw_react": {
+      "decision": {
+        "baseline_id": "raw_react",
+        "decision": "abstain",
+        "reason": "raw_react performs no recovery; terminal state stands",
+        "patch": null
+      },
+      "counterfactual": null
+    },
+    "fixed_retry": {
+      "decision": {
+        "baseline_id": "fixed_retry",
+        "decision": "abstain",
+        "reason": "failed step has no retryable requested action",
+        "patch": null
+      },
+      "counterfactual": null
+    },
+    "exponential_backoff": {
+      "decision": {
+        "baseline_id": "exponential_backoff",
+        "decision": "abstain",
+        "reason": "failed step has no retryable requested action",
+        "patch": null
+      },
+      "counterfactual": null
+    },
+    "generic_reflection": {
+      "decision": {
+        "baseline_id": "generic_reflection",
+        "decision": "abstain",
+        "reason": "reflection confidence below action threshold",
+        "patch": null,
+        "confidence": 0.25
+      },
+      "counterfactual": null
+    },
+    "full_trace_judge": {
+      "decision": {
+        "baseline_id": "full_trace_judge",
+        "decision": "abstain",
+        "reason": "insufficient corroborating trace evidence",
+        "patch": null,
+        "confidence": 0.25
+      },
+      "counterfactual": null
+    },
+    "step_by_step_diagnosis": {
+      "decision": {
+        "baseline_id": "step_by_step_diagnosis",
+        "decision": "abstain",
+        "reason": "earliest localized candidate below confidence threshold",
+        "patch": null,
+        "confidence": 0.25
+      },
+      "counterfactual": null
+    },
+    "binary_search_diagnosis": {
+      "decision": {
+        "baseline_id": "binary_search_diagnosis",
+        "decision": "abstain",
+        "reason": "binary-search midpoint candidate below threshold",
+        "patch": null,
+        "confidence": 0.25
+      },
+      "counterfactual": null
+    },
+    "agentdebug_targeted_feedback": {
+      "decision": {
+        "baseline_id": "agentdebug_targeted_feedback",
+        "decision": "abstain",
+        "reason": "targeted feedback contains no actionable repair",
+        "patch": null,
+        "confidence": 0.25
+      },
+      "counterfactual": null
+    },
+    "always_recover": {
+      "decision": {
+        "baseline_id": "always_recover",
+        "decision": "abstain",
+        "reason": "no actionable repair evidence available",
+        "patch": null,
+        "confidence": 0.25
+      },
+      "counterfactual": null
+    },
+    "racer": {
+      "decision": {
+        "baseline_id": "racer",
+        "decision": "abstain",
+        "reason": "risk-utility gate rejects repair",
+        "patch": null,
+        "confidence": 0.25,
+        "expected_utility": null,
+        "use_counterfactual": true
+      },
+      "counterfactual": null
+    },
+    "racer_no_abstain": {
+      "decision": {
+        "baseline_id": "racer_no_abstain",
+        "decision": "ask_clarification",
+        "patch": null,
+        "step_id": null,
+        "confidence": 0.25,
+        "expected_cost": 1,
+        "expected_risk": 0.75,
+        "reason": "clarification requested before any risky repair",
+        "use_counterfactual": true,
+        "expected_utility": null,
+        "ablation": "no_abstain"
+      },
+      "counterfactual": null
+    },
+    "racer_no_counterfactual": {
+      "decision": {
+        "baseline_id": "racer_no_counterfactual",
+        "decision": "abstain",
+        "reason": "risk-utility gate rejects repair",
+        "patch": null,
+        "confidence": 0.25,
+        "expected_utility": null,
+        "use_counterfactual": false,
+        "ablation": "no_counterfactual",
+        "skip_counterfactual": true,
+        "counterfactual_supported": false,
+        "replay_valid": false,
+        "strict_replay": false
+      },
+      "counterfactual": null
+    },
+    "oracle_root_cause": {
+      "decision": {
+        "baseline_id": "oracle_root_cause",
+        "decision": "abstain",
+        "reason": "no fault truth or no candidates",
+        "patch": null
+      },
+      "counterfactual": null
+    },
+    "oracle_recovery": {
+      "decision": {
+        "baseline_id": "oracle_recovery",
+        "decision": "abstain",
+        "reason": "fault truth has no usable patch",
+        "patch": null
+      },
+      "counterfactual": null
+    }
+  },
+  "source_manifest_sha256": "e00a8d96a148a5ccfb3291598df4d33219d3d8b7f9a2209fa26e8ccb1bb654cd"
+}

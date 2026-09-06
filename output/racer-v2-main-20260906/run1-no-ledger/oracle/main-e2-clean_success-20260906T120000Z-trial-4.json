@@ -1,0 +1,20 @@
+{
+  "run_id": "main-e2-clean_success-20260906T120000Z-trial-4",
+  "source_run_id": "main-e2-clean_success-20260906T120000Z-trial-4",
+  "episode_id": "main-e2-clean_success-trial-4",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e2-clean_success-trial-4",
+    "source_run_id": "main-e2-clean_success-20260906T120000Z-trial-4",
+    "run_id": "main-e2-clean_success-20260906T120000Z-trial-4",
+    "env_seed": 4,
+    "initial_state_fingerprint": "e1517d228f8c45bfcc27650c9e8554ac4b1e727e5631b8a32ab72595be6e2170",
+    "fault_schedule_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "environment_fingerprint": "7b05c2bb6fe2030a7f423e297a77a1c7c3b3076a2c567ffe99fff6b59095076b"
+  },
+  "task_id": "main-e2-clean_success-trial-4",
+  "seed": 4,
+  "env_seed": 4,
+  "source_manifest_sha256": "7285ee81d19659ad1859e3fa6e716eb241e6ed71c70c8d2d5cb4614d6c6ab9c9",
+  "fault_truth": []
+}
