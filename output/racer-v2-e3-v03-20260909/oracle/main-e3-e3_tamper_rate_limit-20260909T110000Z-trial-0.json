@@ -1,0 +1,48 @@
+{
+  "run_id": "main-e3-e3_tamper_rate_limit-20260909T110000Z-trial-0",
+  "source_run_id": "main-e3-e3_tamper_rate_limit-20260909T110000Z-trial-0",
+  "episode_id": "main-e3-e3_tamper_rate_limit-trial-0",
+  "environment_contract": {
+    "contract_version": "racer-v2-environment-contract",
+    "episode_id": "main-e3-e3_tamper_rate_limit-trial-0",
+    "source_run_id": "main-e3-e3_tamper_rate_limit-20260909T110000Z-trial-0",
+    "run_id": "main-e3-e3_tamper_rate_limit-20260909T110000Z-trial-0",
+    "env_seed": 0,
+    "initial_state_fingerprint": "d6d021b236f1663225932abc43bb3f60cec45598eac90deed473223f24a7a0b0",
+    "fault_schedule_fingerprint": "00f94e7f1963c8c80cb8b3eb94cc5fabe88a181091f53646c2e70fa299593140",
+    "environment_fingerprint": "6ce792add6672c10d5329962213d04c80c8b18430aab09d41eefa0bc37032e81"
+  },
+  "task_id": "main-e3-e3_tamper_rate_limit-trial-0",
+  "seed": 0,
+  "env_seed": 0,
+  "source_manifest_sha256": "f73df4c59f24a8139156987f86ee9b1f8942cffdd1dba164a5c0071b8b5a994f",
+  "fault_truth": [
+    {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_flights",
+      "result": {
+        "flights": [
+          {
+            "id": "F1",
+            "price": 420,
+            "refundable": true
+          },
+          {
+            "id": "F3",
+            "price": 480,
+            "refundable": true
+          }
+        ]
+      }
+    },
+    {
+      "fault_id": "rl-1",
+      "type": "rate_limit",
+      "step_id": 2,
+      "tool": "confirm_booking",
+      "error": "injected rate_limit"
+    }
+  ]
+}

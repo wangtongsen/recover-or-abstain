@@ -26,6 +26,7 @@ PROTOCOL_ID = "racer-v2-benchmark-protocol-0.1"
 FROZEN_PROTOCOL_IDS = (
     "racer-v2-benchmark-protocol-0.1",
     "racer-v2-benchmark-protocol-0.2",
+    "racer-v2-benchmark-protocol-0.3",
 )
 SCHEMA_VERSION = "racer-v2-benchmark-preflight-v1"
 REQUIRED_TRIAL_IDS = tuple(range(5))

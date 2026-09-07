@@ -124,6 +124,14 @@ class TaskEnv:
         if self._refund_ledger_enabled:
             self.state["booking_id"] = self._booking_id
             self.state["refund_ledger"] = []
+        # Protocol v0.3: the direct-apply ledger records every patch the
+        # runner commits to the SOURCE environment without verification
+        # (racer_no_counterfactual). Entries are pending until evaluate()
+        # finalizes them into an immutable receipt; the receipt witness
+        # hashes the behavioral outcome so a forged self-attested harm
+        # claim cannot pass admission.
+        self._direct_apply_ledger = []
+        self._direct_apply_receipts = []
         self._flights = copy.deepcopy(task_config.get("flights")) if isinstance(task_config.get("flights"), list) else None
         # Named variants keep task semantics explicit while preserving the
         # default environment behavior used by existing callers.
@@ -292,6 +300,74 @@ class TaskEnv:
             "refund_witness_valid": entry is not None,
             "reconciled": entry is not None,
         }
+
+    @staticmethod
+    def _direct_apply_witness(material):
+        payload = json.dumps(material, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+        return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+    def record_direct_apply(self, action, step_result):
+        """Append a pending direct-apply entry (protocol v0.3).
+
+        Called by the HTTP layer when a step is marked as a direct-applied
+        patch. The entry captures the committed action and the post-state
+        hash; evaluate() later finalizes it into an immutable receipt whose
+        witness covers the behavioral outcome.
+        """
+        action = action if isinstance(action, dict) else {}
+        step_result = step_result if isinstance(step_result, dict) else {}
+        entry = {
+            "sequence": len(self._direct_apply_ledger) + 1,
+            "tool": action.get("tool"),
+            "arguments": copy.deepcopy(action.get("arguments", {})),
+            "state_after_hash": step_result.get("state_after_hash"),
+            "pending": True,
+        }
+        self._direct_apply_ledger.append(entry)
+        return {"ok": True, "apply_sequence": entry["sequence"]}
+
+    def _finalize_direct_apply_receipts(self, evaluation):
+        """Finalize pending direct-apply entries into immutable receipts.
+
+        The receipt witness hashes (sequence, tool, arguments, post-state
+        hash, success, side_effect, run_id). Because the behavioral outcome
+        is inside the hashed material, a runner cannot fabricate a receipt
+        for a harm that the environment did not observe.
+        """
+        finalized = []
+        for entry in self._direct_apply_ledger:
+            if not entry.get("pending"):
+                finalized.append(self._direct_apply_receipts[entry["sequence"] - 1])
+                continue
+            material = {
+                "sequence": entry["sequence"],
+                "tool": entry.get("tool"),
+                "arguments": entry.get("arguments"),
+                "state_after_hash": entry.get("state_after_hash"),
+                "success": bool(evaluation.get("success")),
+                "side_effect": bool(evaluation.get("side_effect")),
+                "run_id": self.run_id,
+            }
+            receipt = {
+                "apply_id": f"da-{entry['sequence']}",
+                "apply_sequence": entry["sequence"],
+                "tool": entry.get("tool"),
+                "arguments": entry.get("arguments"),
+                "state_after_hash": entry.get("state_after_hash"),
+                "success": bool(evaluation.get("success")),
+                "side_effect": bool(evaluation.get("side_effect")),
+                "run_id": self.run_id,
+                "finalized": True,
+            }
+            receipt["apply_witness"] = self._direct_apply_witness(material)
+            self._direct_apply_receipts.append(receipt)
+            entry["pending"] = False
+            finalized.append(receipt)
+        return finalized
+
+    def direct_apply_receipts(self):
+        """Return only finalized receipts (public, recomputable evidence)."""
+        return copy.deepcopy(self._direct_apply_receipts)
 
     @staticmethod
     def _fault_step(fault):
@@ -468,6 +544,10 @@ class TaskEnv:
             evaluation["fault_truth"] = copy.deepcopy(self.fault_truth)
             evaluation["faults_applied"] = copy.deepcopy(self.faults_applied)
             evaluation["fault_id"] = self.fault_truth[0].get("fault_id") if self.fault_truth else None
+        # Protocol v0.3: every evaluate() call finalizes pending direct-apply
+        # entries. The receipt is only issued by the environment that actually
+        # observed the behavioral outcome.
+        self._finalize_direct_apply_receipts(evaluation)
         return evaluation
 
 
@@ -522,6 +602,18 @@ class Handler(BaseHTTPRequestHandler):
             # Evaluator-only truth remains available to in-process trusted tests,
             # not to an agent that can query the running environment.
             return self._send(session.evaluate(include_truth=False))
+        if route == "/direct_apply_receipt":
+            # Protocol v0.3 public receipt endpoint: finalized receipts only.
+            # A receipt exists only after evaluate() observed the behavioral
+            # outcome, so a pre-commit query returns an empty list.
+            session = _get_session(run_id)
+            if session is None:
+                return self._send({"error": "unknown run_id"}, 404)
+            return self._send({
+                "ok": True,
+                "run_id": _session_key(run_id),
+                "receipts": session.direct_apply_receipts(),
+            })
         return self._send({"error": "not found"}, 404)
 
     def do_POST(self):
@@ -548,7 +640,15 @@ class Handler(BaseHTTPRequestHandler):
             # keep the action wrapped in an envelope.
             if isinstance(action.get("action"), dict) and "tool" not in action:
                 action = action["action"]
-            return self._send(session.step(action))
+            # Protocol v0.3: direct_apply=true marks this step as a patch the
+            # runner commits without verification (racer_no_counterfactual).
+            # The marker is stripped before execution; the environment records
+            # a pending ledger entry for receipt finalization at evaluate().
+            direct_apply_marked = action.pop("direct_apply", None) is True
+            response = session.step(action)
+            if direct_apply_marked:
+                session.record_direct_apply(action, response)
+            return self._send(response)
         return self._send({"error": "not found"}, 404)
 
     def log_message(self, *_):

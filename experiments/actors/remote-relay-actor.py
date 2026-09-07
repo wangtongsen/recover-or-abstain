@@ -320,7 +320,10 @@ def _conversation(trace) -> list[dict[str, Any]]:
         tool_use_id = f"toolu_{len(messages)}"
         messages.append({
             "role": "assistant",
-            "content": [{"type": "tool_use", "tool_use_id": tool_use_id, "name": action.get("tool"), "input": action.get("arguments", {})}],
+            # "id" duplicates tool_use_id: the relay's DeepSeek adapter requires
+            # a top-level content[i].id on replayed assistant tool_use blocks
+            # (non-standard but additive; GLM nodes ignore the extra field).
+            "content": [{"type": "tool_use", "tool_use_id": tool_use_id, "id": tool_use_id, "name": action.get("tool"), "input": action.get("arguments", {})}],
         })
         messages.append({
             "role": "user",

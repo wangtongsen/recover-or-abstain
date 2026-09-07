@@ -98,10 +98,12 @@ python3 scripts/build_e3_manifest.py      # E3 executed preflight manifest
 
 ### RACER v2 主会（预注册双轨道）
 
-- **协议：** v0.1（E1/E2 冻结，2026-09-02）+ v0.2（E3 预注册 + v0.1 执行对账，2026-09-07 冻结于 E3 执行前）——`reports/racer-v2-benchmark-protocol*.md`
+- **协议：** v0.1（E1/E2 冻结，2026-09-02）+ v0.2（E3 预注册 + v0.1 执行对账，2026-09-07 冻结于 E3 执行前）+ v0.3（direct-apply 环境回执条款，2026-09-07 冻结于 E3 回执版重跑前）——`reports/racer-v2-benchmark-protocol*.md`
 - **矩阵：** E1/E2 55 episode + E3 10 episode × 14 基线，GLM-5.3-Flash actor，模型/基线注册表无密钥
-- **产物：** `output/racer-v2-main-20260906/`（770 记录）与 `output/racer-v2-e3-20260907/`（140 记录 + 合并统计 910 记录），admission + preflight 双审计全 PASS
-- **核心结果：** E3 不可逆故障上无验证策略 10/10 有害提交、RACER 重放否决 0/10；合并 25 失败 episode 配对检验 RACER vs 11 个非 oracle 基线中的 10 组 Holm 显著（p=0.0011–0.0152，唯一不显著组为 racer_no_abstain——预期诚实结果）
+- **产物：** `output/racer-v2-main-20260906/`（770 记录，v0.1）与 `output/racer-v2-e3-v03-20260909/`（E3 回执版重跑 140 记录 + 合并统计 910 记录）；v0.3 审计器下三重回归：v0.1 主表 PASS / v0.2 旧 E3 表 NO-GO（无回执形态按设计拒收）/ v0.3 重跑表 PASS，admission + preflight 双审计全 PASS
+- **v0.3 回执机制：** direct-apply 补丁由任务环境签发不可变回执（apply_witness = SHA-256(canonical JSON{sequence, tool, arguments, state_after_hash, success, side_effect, run_id})），行为结局位于哈希材料内——消除 v0.2 自陈布尔的残余可博弈面
+- **核心结果：** E3 不可逆故障上无验证策略 10/10 有害提交（RACER−counterfactual 的有害行 10/10 携带有效环境回执）、RACER 重放否决 0/10；合并 25 失败 episode 配对检验 RACER vs 11 个非 oracle 基线中的 10 组 Holm 显著（p=0.0011–0.0152，唯一不显著组为 racer_no_abstain——预期诚实结果）
+- **第二模型 pilot（探索性，不进主表）：** DeepSeek-V4-Flash 在 E3 单 cell × 5 episode 上逐基线复现行为分离（重试族有害 5/5、RACER 否决弃权 5/5、直接应用回执 5/5 有效）——`reports/racer-v2-second-model-pilot.md`、`output/racer-v2-e3-v03-second-model-pilot/`
 
 ### 关于 τ² airline adapter
 

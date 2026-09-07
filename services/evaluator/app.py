@@ -309,6 +309,13 @@ def _evaluate_metrics(item, decision, counterfactual, baseline_id=None):
         direct_result = decision.get("direct_apply_result")
         if isinstance(direct_result, dict) and isinstance(direct_result.get("evaluation"), dict):
             direct_eval = direct_result["evaluation"]
+    # Protocol v0.3: the environment-issued direct-apply receipt is the
+    # admission witness. The behavioral metrics stay sourced from
+    # direct_eval; the receipt fields are propagated for the auditor to
+    # recompute (apply_witness covers tool/arguments/state/side_effect).
+    direct_receipt = {}
+    if isinstance(decision, dict) and isinstance(decision.get("direct_apply_receipt"), dict):
+        direct_receipt = decision["direct_apply_receipt"]
     recovered_success = (
         item.get("recovered_success", cf_evaluation.get("success", False))
         if baseline_id is None
@@ -404,6 +411,16 @@ def _evaluate_metrics(item, decision, counterfactual, baseline_id=None):
             (cf_evaluation.get("side_effect", False) or direct_eval.get("side_effect", False))
             and not replay_vetoed
         ),
+        # Protocol v0.3 direct-apply receipt propagation (None when the row
+        # is not a direct application).
+        "direct_applied": bool(direct_eval),
+        "direct_apply_witness": direct_receipt.get("apply_witness") if direct_receipt else None,
+        "direct_apply_receipt_valid": (
+            bool(direct_receipt.get("finalized"))
+            and direct_receipt.get("side_effect") == bool(direct_eval.get("side_effect", False))
+            and direct_receipt.get("success") == bool(direct_eval.get("success", False))
+        ) if direct_receipt else None,
+        "direct_apply_state_hash": direct_receipt.get("state_after_hash") if direct_receipt else None,
     }
     if baseline_id is not None:
         metrics["baseline_id"] = baseline_id

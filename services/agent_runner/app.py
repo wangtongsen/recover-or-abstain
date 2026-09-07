@@ -453,14 +453,23 @@ def run_task(task, index=0):
             # outcome (harmful suboptimal confirmation) is measured by the
             # source environment evaluate afterwards. Admission semantics
             # stay v0.1 G3: no replay receipt, no recovery claim.
-            direct_apply = post(TASK_ENV_URL, "/step", {**baseline_decision["patch"], "run_id": run_id})
+            # Protocol v0.3: the step carries direct_apply=true so the
+            # environment records a pending ledger entry; the subsequent
+            # evaluate() finalizes it into an immutable receipt (apply_witness
+            # over the behavioral outcome) which is fetched back here and
+            # embedded in the decision for admission audit.
+            direct_apply = post(TASK_ENV_URL, "/step", {**baseline_decision["patch"], "run_id": run_id, "direct_apply": True})
             direct_eval = get(f"/evaluate?run_id={quote(run_id, safe='')}")
+            direct_receipts = get(f"/direct_apply_receipt?run_id={quote(run_id, safe='')}")
+            receipts = direct_receipts.get("receipts", []) if isinstance(direct_receipts, dict) else []
             baseline_decision = dict(baseline_decision)
             baseline_decision["direct_applied"] = True
             baseline_decision["direct_apply_result"] = {
                 "step": direct_apply,
                 "evaluation": direct_eval,
+                "receipts": receipts,
             }
+            baseline_decision["direct_apply_receipt"] = receipts[-1] if receipts else None
         if skip_counterfactual:
             baseline_decision["counterfactual_supported"] = False
             baseline_decision["replay_valid"] = False

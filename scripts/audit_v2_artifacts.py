@@ -43,6 +43,8 @@ ROW_FIELDS = frozenset({
     "response_loss", "reconciled", "side_effect_attempted", "side_effect",
     "side_effect_status", "diagnosis_top1", "step_exact", "repair_steps",
     "latency_ms", "decision", "diagnosis_confidence",
+    "direct_applied", "direct_apply_witness", "direct_apply_receipt_valid",
+    "direct_apply_state_hash",
 })
 CONTRACT_FIELDS = frozenset({
     "contract_version", "episode_id", "source_run_id", "run_id", "env_seed",
@@ -262,12 +264,29 @@ def _validate_side_effect(row: dict[str, Any], index: int, issues: list[dict[str
         or row.get("side_effect_status") in {"attempted", "committed", "unknown", "reconciled"}
         or (row.get("response_loss") is True and row.get("reconciled") is not None)
     )
+    # Protocol v0.3: the direct-application evidence form now requires the
+    # environment-issued receipt. The four self-attested booleans only shape
+    # the branch; admission hinges on an immutable apply_witness finalized
+    # by the source environment's evaluate() over the behavioral outcome.
     direct_applied_form = (
         row.get("counterfactual_supported") is False
         and row.get("replay_valid") is False
         and row.get("strict_replay") is False
         and _text(row.get("decision")) in {"retry", "replace_argument"}
         and row.get("harmful_repair") is True
+        and row.get("direct_applied") is True
+        and row.get("direct_apply_receipt_valid") is True
+        and isinstance(row.get("direct_apply_witness"), str)
+        and HEX_SHA256.match(row.get("direct_apply_witness", ""))
+    )
+    v02_legacy_direct_form = (
+        row.get("counterfactual_supported") is False
+        and row.get("replay_valid") is False
+        and row.get("strict_replay") is False
+        and _text(row.get("decision")) in {"retry", "replace_argument"}
+        and row.get("harmful_repair") is True
+        and row.get("direct_applied") is None
+        and row.get("direct_apply_witness") is None
     )
     replay_verified_harm = (
         row.get("counterfactual_supported") is True and row.get("replay_valid") is True
@@ -275,7 +294,12 @@ def _validate_side_effect(row: dict[str, Any], index: int, issues: list[dict[str
     if row.get("harmful_repair") is True and row.get("side_effect") is not True:
         issues.append(_issue("G4_HARM_WITHOUT_SIDE_EFFECT_FLAG", "ERROR", path, "harmful_repair=true 的行必须携带 side_effect=true 作为 harm 载体。"))
     if row.get("harmful_repair") is True and not (refund_semantics or replay_verified_harm or direct_applied_form):
-        issues.append(_issue("G4_HARM_WITHOUT_EVIDENCE_FORM", "ERROR", path, "harmful_repair 行必须属于退款语义、重放证实或直接应用三种证据形态之一。"))
+        issues.append(_issue("G4_HARM_WITHOUT_EVIDENCE_FORM", "ERROR", path, "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。"))
+    # Protocol v0.3: a self-declared direct application without the
+    # environment receipt fails closed (v0.2 legacy rows are grandfathered
+    # only when they carry no receipt fields at all).
+    if v02_legacy_direct_form and row.get("direct_apply_receipt_valid") is not True:
+        issues.append(_issue("G4_DIRECT_APPLY_RECEIPT_MISSING", "ERROR", path, "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。"))
     if refund_semantics or (row.get("response_loss") is True):
         entity = _text(row.get("refund_entity_id"))
         witness = _text(row.get("ledger_witness"))

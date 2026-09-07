@@ -1,0 +1,545 @@
+{
+  "schema_version": "racer-v2-main-statistics-v1",
+  "experiment": "racer-v2-main-matrix-e3",
+  "record_count": 140,
+  "episode_count": 10,
+  "seed": 20260906,
+  "bootstrap_resamples": 10000,
+  "permutations": 10000,
+  "baseline_rates": {
+    "agentdebug_targeted_feedback": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 1.0,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "abstention_rate": 0.0,
+      "abstention_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "always_recover": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 1.0,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "abstention_rate": 0.0,
+      "abstention_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "binary_search_diagnosis": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 1.0,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "abstention_rate": 0.0,
+      "abstention_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "exponential_backoff": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 1.0,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "abstention_rate": 0.0,
+      "abstention_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "fixed_retry": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 1.0,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "abstention_rate": 0.0,
+      "abstention_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "full_trace_judge": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 0.0,
+      "harm_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "abstention_rate": 1.0,
+      "abstention_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "generic_reflection": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 1.0,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "abstention_rate": 0.0,
+      "abstention_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "oracle_recovery": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 0.0,
+      "harm_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "abstention_rate": 1.0,
+      "abstention_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "oracle_root_cause": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 1.0,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "abstention_rate": 0.0,
+      "abstention_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "racer": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 0.0,
+      "harm_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "abstention_rate": 1.0,
+      "abstention_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "racer_no_abstain": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 0.0,
+      "harm_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "abstention_rate": 1.0,
+      "abstention_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "racer_no_counterfactual": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 1.0,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "abstention_rate": 0.0,
+      "abstention_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "raw_react": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 0.0,
+      "harm_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "abstention_rate": 1.0,
+      "abstention_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "step_by_step_diagnosis": {
+      "n_rows": 10,
+      "n_failures": 10,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "harm_rate": 1.0,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 10,
+        "lower": 0.7224672001371107,
+        "upper": 1.0
+      },
+      "abstention_rate": 0.0,
+      "abstention_wilson": {
+        "successes": 0,
+        "n": 10,
+        "lower": 0.0,
+        "upper": 0.2775327998628892
+      },
+      "recovery_with_valid_replay": 0
+    }
+  },
+  "paired_comparison": {
+    "agentdebug_targeted_feedback": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 1.0,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        1.0,
+        1.0
+      ],
+      "permutation_p": 0.0024997500249975004
+    },
+    "always_recover": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 1.0,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        1.0,
+        1.0
+      ],
+      "permutation_p": 0.0021997800219978004
+    },
+    "binary_search_diagnosis": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 1.0,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        1.0,
+        1.0
+      ],
+      "permutation_p": 0.0018998100189981002
+    },
+    "exponential_backoff": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 1.0,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        1.0,
+        1.0
+      ],
+      "permutation_p": 0.0025997400259974
+    },
+    "fixed_retry": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 1.0,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        1.0,
+        1.0
+      ],
+      "permutation_p": 0.0027997200279972004
+    },
+    "full_trace_judge": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 0.0,
+      "sum_difference": 0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "permutation_p": 1.0
+    },
+    "generic_reflection": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 1.0,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        1.0,
+        1.0
+      ],
+      "permutation_p": 0.0024997500249975004
+    },
+    "racer_no_abstain": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 0.0,
+      "sum_difference": 0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "permutation_p": 1.0
+    },
+    "racer_no_counterfactual": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 1.0,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        1.0,
+        1.0
+      ],
+      "permutation_p": 0.0021997800219978004
+    },
+    "raw_react": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 0.0,
+      "sum_difference": 0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "permutation_p": 1.0
+    },
+    "step_by_step_diagnosis": {
+      "n_paired_episodes": 10,
+      "mean_paired_difference": 1.0,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        1.0,
+        1.0
+      ],
+      "permutation_p": 0.0020997900209979003
+    }
+  },
+  "holm_correction": {
+    "binary_search_diagnosis": {
+      "raw_p": 0.0018998100189981002,
+      "holm_p": 0.020897910208979104,
+      "rejected_h0": true
+    },
+    "step_by_step_diagnosis": {
+      "raw_p": 0.0020997900209979003,
+      "holm_p": 0.020997900209979003,
+      "rejected_h0": true
+    },
+    "always_recover": {
+      "raw_p": 0.0021997800219978004,
+      "holm_p": 0.020997900209979003,
+      "rejected_h0": true
+    },
+    "racer_no_counterfactual": {
+      "raw_p": 0.0021997800219978004,
+      "holm_p": 0.020997900209979003,
+      "rejected_h0": true
+    },
+    "agentdebug_targeted_feedback": {
+      "raw_p": 0.0024997500249975004,
+      "holm_p": 0.020997900209979003,
+      "rejected_h0": true
+    },
+    "generic_reflection": {
+      "raw_p": 0.0024997500249975004,
+      "holm_p": 0.020997900209979003,
+      "rejected_h0": true
+    },
+    "exponential_backoff": {
+      "raw_p": 0.0025997400259974,
+      "holm_p": 0.020997900209979003,
+      "rejected_h0": true
+    },
+    "fixed_retry": {
+      "raw_p": 0.0027997200279972004,
+      "holm_p": 0.020997900209979003,
+      "rejected_h0": true
+    },
+    "full_trace_judge": {
+      "raw_p": 1.0,
+      "holm_p": 1.0,
+      "rejected_h0": false
+    },
+    "racer_no_abstain": {
+      "raw_p": 1.0,
+      "holm_p": 1.0,
+      "rejected_h0": false
+    },
+    "raw_react": {
+      "raw_p": 1.0,
+      "holm_p": 1.0,
+      "rejected_h0": false
+    }
+  },
+  "racer_vs_always_recover_abstention_gap": 1.0
+}

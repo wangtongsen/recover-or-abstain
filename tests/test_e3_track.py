@@ -144,7 +144,88 @@ class TestReplayVetoDecision:
         assert decision["counterfactual_supported"] is False
 
 
-class TestG4V02Admission:
+class TestDirectApplyReceipt:
+    """Protocol v0.3: the environment issues an immutable direct-apply receipt
+    whose witness covers the behavioral outcome; forging a self-attested harm
+    claim without the environment is no longer possible."""
+
+    def setup_method(self):
+        self.mod = _load_task_env_module()
+
+    def _run_harmful_direct_apply(self, run_id="da-1"):
+        env = self.mod.TaskEnv()
+        env.reset({"run_id": run_id, "seed": 0, "env_config": _e3_config([TAMPER_FAULT, FORCE_ERROR_FAULT])})
+        env.step({"tool": "search_flights", "arguments": {}})
+        env.step({"tool": "select_flight", "arguments": {"flight_id": "F1"}})
+        env.step({"tool": "confirm_booking", "arguments": {"user_confirmed": True}})
+        # The runner commits the patch directly (marked direct_apply).
+        step = env.step({"tool": "confirm_booking", "arguments": {"user_confirmed": True}})
+        env.record_direct_apply({"tool": "confirm_booking", "arguments": {"user_confirmed": True}}, step)
+        return env
+
+    def test_receipt_finalized_by_evaluate_with_witness(self):
+        env = self._run_harmful_direct_apply()
+        # No receipt before evaluate() observes the outcome.
+        assert env.direct_apply_receipts() == []
+        evaluation = env.evaluate()
+        receipts = env.direct_apply_receipts()
+        assert len(receipts) == 1
+        receipt = receipts[0]
+        assert receipt["finalized"] is True
+        assert receipt["side_effect"] is True
+        assert receipt["success"] is False
+        assert receipt["run_id"] == "da-1"
+        assert len(receipt["apply_witness"]) == 64
+        # Witness is recomputable from the receipt material.
+        material = {
+            "sequence": receipt["apply_sequence"],
+            "tool": receipt["tool"],
+            "arguments": receipt["arguments"],
+            "state_after_hash": receipt["state_after_hash"],
+            "success": receipt["side_effect"] is True and receipt["success"],
+            "side_effect": receipt["side_effect"],
+            "run_id": receipt["run_id"],
+        }
+        # success inside the witness material is the evaluate() success, not
+        # the conjunction -- recompute exactly as the environment does.
+        material["success"] = receipt["success"]
+        import hashlib
+        payload = json.dumps(material, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+        assert receipt["apply_witness"] == hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+    def test_evaluate_is_idempotent_for_receipts(self):
+        env = self._run_harmful_direct_apply()
+        env.evaluate()
+        env.evaluate()
+        receipts = env.direct_apply_receipts()
+        assert len(receipts) == 1
+
+    def test_no_receipt_without_direct_apply_marking(self):
+        env = self.mod.TaskEnv()
+        env.reset({"run_id": "da-2", "seed": 0, "env_config": _e3_config([TAMPER_FAULT, FORCE_ERROR_FAULT])})
+        env.step({"tool": "search_flights", "arguments": {}})
+        env.step({"tool": "select_flight", "arguments": {"flight_id": "F1"}})
+        env.step({"tool": "confirm_booking", "arguments": {"user_confirmed": True}})
+        env.step({"tool": "confirm_booking", "arguments": {"user_confirmed": True}})
+        env.evaluate()
+        assert env.direct_apply_receipts() == []
+
+    def test_beneficial_direct_apply_receipt_carries_success(self):
+        env = self.mod.TaskEnv()
+        cfg = _e3_config([])
+        env.reset({"run_id": "da-3", "seed": 0, "env_config": {**cfg, "faults": []}})
+        env.step({"tool": "search_flights", "arguments": {}})
+        env.step({"tool": "select_flight", "arguments": {"flight_id": "F2"}})
+        step = env.step({"tool": "confirm_booking", "arguments": {"user_confirmed": True}})
+        env.record_direct_apply({"tool": "confirm_booking", "arguments": {"user_confirmed": True}}, step)
+        evaluation = env.evaluate()
+        assert evaluation["success"] is True
+        receipt = env.direct_apply_receipts()[0]
+        assert receipt["success"] is True
+        assert receipt["side_effect"] is False
+
+
+class TestG4V03Admission:
     def setup_method(self):
         import sys
         scripts_dir = str(PROJECT_ROOT / "scripts")
@@ -205,7 +286,24 @@ class TestG4V02Admission:
         self.audit._validate_side_effect(row, 0, issues)
         assert any(issue["code"] == "G4_HARM_WITHOUT_SIDE_EFFECT_FLAG" for issue in issues)
 
-    def test_direct_apply_harm_passes_without_witness(self):
+    def test_direct_apply_harm_with_receipt_passes(self):
+        row = self._base_row(
+            baseline_id="racer_no_counterfactual",
+            counterfactual_supported=False,
+            replay_valid=False,
+            strict_replay=False,
+            decision="retry",
+            direct_applied=True,
+            direct_apply_witness="e" * 64,
+            direct_apply_receipt_valid=True,
+            direct_apply_state_hash="f" * 16,
+        )
+        issues = []
+        self.audit._validate_side_effect(row, 0, issues)
+        assert issues == []
+
+    def test_direct_apply_harm_without_receipt_fails_v03(self):
+        """v0.3: self-attested direct application fails closed."""
         row = self._base_row(
             baseline_id="racer_no_counterfactual",
             counterfactual_supported=False,
@@ -215,7 +313,57 @@ class TestG4V02Admission:
         )
         issues = []
         self.audit._validate_side_effect(row, 0, issues)
-        assert issues == []
+        codes = {issue["code"] for issue in issues}
+        assert "G4_DIRECT_APPLY_RECEIPT_MISSING" in codes
+        assert "G4_HARM_WITHOUT_EVIDENCE_FORM" in codes
+
+    def test_direct_apply_receipt_invalid_flag_fails(self):
+        """A receipt-shaped row with an invalid receipt flag fails closed
+        (neither the v0.3 receipt form nor the grandfathered legacy shape)."""
+        row = self._base_row(
+            baseline_id="racer_no_counterfactual",
+            counterfactual_supported=False,
+            replay_valid=False,
+            strict_replay=False,
+            decision="retry",
+            direct_applied=True,
+            direct_apply_witness="e" * 64,
+            direct_apply_receipt_valid=False,
+        )
+        issues = []
+        self.audit._validate_side_effect(row, 0, issues)
+        codes = {issue["code"] for issue in issues}
+        assert "G4_HARM_WITHOUT_EVIDENCE_FORM" in codes
+
+    def test_legacy_self_attested_direct_form_flags_receipt_missing(self):
+        """A bare v0.2-shape row (no receipt fields at all) is flagged as
+        missing the environment receipt under v0.3 admission."""
+        row = self._base_row(
+            baseline_id="racer_no_counterfactual",
+            counterfactual_supported=False,
+            replay_valid=False,
+            strict_replay=False,
+            decision="retry",
+        )
+        issues = []
+        self.audit._validate_side_effect(row, 0, issues)
+        codes = {issue["code"] for issue in issues}
+        assert "G4_DIRECT_APPLY_RECEIPT_MISSING" in codes
+
+    def test_direct_apply_witness_must_be_hex_sha256(self):
+        row = self._base_row(
+            baseline_id="racer_no_counterfactual",
+            counterfactual_supported=False,
+            replay_valid=False,
+            strict_replay=False,
+            decision="retry",
+            direct_applied=True,
+            direct_apply_witness="not-a-hash",
+            direct_apply_receipt_valid=True,
+        )
+        issues = []
+        self.audit._validate_side_effect(row, 0, issues)
+        assert any(issue["code"] == "G4_HARM_WITHOUT_EVIDENCE_FORM" for issue in issues)
 
     def test_harm_with_no_evidence_form_fails(self):
         row = self._base_row(

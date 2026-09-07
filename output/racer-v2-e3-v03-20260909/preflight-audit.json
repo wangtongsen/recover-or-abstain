@@ -1,0 +1,25 @@
+{
+  "blockers": [],
+  "checks": {
+    "G0_protocol_matrix_model_lock": "PASS",
+    "G1_executed_provenance": "PASS",
+    "G2_G3_planned_identity_and_replay": "PASS",
+    "G5_secret_isolation": "PASS",
+    "G8_executed_evidence": "PASS"
+  },
+  "counts": {
+    "errors": 0,
+    "executed_artifacts": 140,
+    "model_resources": 2,
+    "planned_cells": 140,
+    "warnings": 0
+  },
+  "input": {
+    "manifest_sha256": "c5c257a5059b53411b2a1c453cad9bec5b9a8bed911a67d77ef77baa365dc0b6",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3"
+  },
+  "issues": [],
+  "return_code": 0,
+  "schema_version": "racer-v2-preflight-audit-v1",
+  "verdict": "PASS"
+}

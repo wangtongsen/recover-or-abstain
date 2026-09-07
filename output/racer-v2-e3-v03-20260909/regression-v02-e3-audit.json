@@ -1,0 +1,146 @@
+{
+  "checks": {
+    "G1_source_manifest_anchor": "PASS",
+    "G2_paired_identity": "PASS",
+    "G3_strict_replay": "PASS",
+    "G4_side_effect_witness": "FAIL",
+    "G5_truth_and_secret_isolation": "PASS",
+    "G7_canonical_envelope": "PASS"
+  },
+  "counts": {
+    "errors": 20,
+    "main_comparison_rows": 140,
+    "non_main_or_legacy_rows": 0,
+    "warnings": 0
+  },
+  "input": {
+    "canonical_envelope": true,
+    "path": "output/racer-v2-e3-20260907/e3-envelope.json",
+    "row_count": 140
+  },
+  "issues": [
+    {
+      "code": "G4_HARM_WITHOUT_EVIDENCE_FORM",
+      "message": "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。",
+      "path": "$.records[11]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_DIRECT_APPLY_RECEIPT_MISSING",
+      "message": "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。",
+      "path": "$.records[11]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_HARM_WITHOUT_EVIDENCE_FORM",
+      "message": "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。",
+      "path": "$.records[25]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_DIRECT_APPLY_RECEIPT_MISSING",
+      "message": "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。",
+      "path": "$.records[25]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_HARM_WITHOUT_EVIDENCE_FORM",
+      "message": "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。",
+      "path": "$.records[39]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_DIRECT_APPLY_RECEIPT_MISSING",
+      "message": "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。",
+      "path": "$.records[39]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_HARM_WITHOUT_EVIDENCE_FORM",
+      "message": "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。",
+      "path": "$.records[53]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_DIRECT_APPLY_RECEIPT_MISSING",
+      "message": "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。",
+      "path": "$.records[53]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_HARM_WITHOUT_EVIDENCE_FORM",
+      "message": "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。",
+      "path": "$.records[67]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_DIRECT_APPLY_RECEIPT_MISSING",
+      "message": "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。",
+      "path": "$.records[67]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_HARM_WITHOUT_EVIDENCE_FORM",
+      "message": "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。",
+      "path": "$.records[81]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_DIRECT_APPLY_RECEIPT_MISSING",
+      "message": "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。",
+      "path": "$.records[81]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_HARM_WITHOUT_EVIDENCE_FORM",
+      "message": "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。",
+      "path": "$.records[95]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_DIRECT_APPLY_RECEIPT_MISSING",
+      "message": "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。",
+      "path": "$.records[95]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_HARM_WITHOUT_EVIDENCE_FORM",
+      "message": "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。",
+      "path": "$.records[109]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_DIRECT_APPLY_RECEIPT_MISSING",
+      "message": "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。",
+      "path": "$.records[109]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_HARM_WITHOUT_EVIDENCE_FORM",
+      "message": "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。",
+      "path": "$.records[123]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_DIRECT_APPLY_RECEIPT_MISSING",
+      "message": "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。",
+      "path": "$.records[123]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_HARM_WITHOUT_EVIDENCE_FORM",
+      "message": "harmful_repair 行必须属于退款语义、重放证实或带环境回执的直接应用三种证据形态之一。",
+      "path": "$.records[137]",
+      "severity": "ERROR"
+    },
+    {
+      "code": "G4_DIRECT_APPLY_RECEIPT_MISSING",
+      "message": "v0.3 准入要求直接应用行携带环境终结的 apply 回执（direct_apply_receipt_valid=true + 64-hex witness）。",
+      "path": "$.records[137]",
+      "severity": "ERROR"
+    }
+  ],
+  "return_code": 2,
+  "schema_version": "racer-v2-artifact-admission-v2",
+  "verdict": "NO-GO"
+}

@@ -1,0 +1,2032 @@
+[
+  {
+    "task_id": "main-e3-e3_tamper_force_error-trial-0",
+    "run_id": "main-e3-e3_tamper_force_error-20260909T110000Z-trial-0",
+    "seed": 0,
+    "episode_id": "main-e3-e3_tamper_force_error-trial-0",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3",
+    "trial_id": 0,
+    "model_resource_id": "oneapi-relay-glm-5.3-flash",
+    "strict_replay": true,
+    "evaluation_tier": "main",
+    "baseline_registry_version": "racer-v2-main-baselines-v1",
+    "main_comparison": true,
+    "task_variant": "e3_tamper_force_error",
+    "variant": "e3_tamper_force_error",
+    "cell": "tamper:e3_tamper_force_error",
+    "env_config": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_force_error",
+      "variant": "e3_tamper_force_error",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "fe-1",
+          "type": "force_error",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "reset": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_force_error",
+      "variant": "e3_tamper_force_error",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "fe-1",
+          "type": "force_error",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "faults": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "fe-1",
+        "type": "force_error",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "fault_type": "tamper_result",
+    "fault_truth": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "fe-1",
+        "type": "force_error",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "actor": {
+      "type": "python",
+      "path": "experiments/actors/remote-relay-actor.py",
+      "actor_id": "relay-llm-paired-pilot"
+    },
+    "baselines": [
+      "raw_react",
+      "fixed_retry",
+      "exponential_backoff",
+      "generic_reflection",
+      "full_trace_judge",
+      "step_by_step_diagnosis",
+      "binary_search_diagnosis",
+      "agentdebug_targeted_feedback",
+      "always_recover",
+      "racer",
+      "racer_no_abstain",
+      "racer_no_counterfactual",
+      "oracle_root_cause",
+      "oracle_recovery"
+    ],
+    "max_actor_steps": 6
+  },
+  {
+    "task_id": "main-e3-e3_tamper_force_error-trial-1",
+    "run_id": "main-e3-e3_tamper_force_error-20260909T110000Z-trial-1",
+    "seed": 1,
+    "episode_id": "main-e3-e3_tamper_force_error-trial-1",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3",
+    "trial_id": 1,
+    "model_resource_id": "oneapi-relay-glm-5.3-flash",
+    "strict_replay": true,
+    "evaluation_tier": "main",
+    "baseline_registry_version": "racer-v2-main-baselines-v1",
+    "main_comparison": true,
+    "task_variant": "e3_tamper_force_error",
+    "variant": "e3_tamper_force_error",
+    "cell": "tamper:e3_tamper_force_error",
+    "env_config": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_force_error",
+      "variant": "e3_tamper_force_error",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "fe-1",
+          "type": "force_error",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "reset": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_force_error",
+      "variant": "e3_tamper_force_error",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "fe-1",
+          "type": "force_error",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "faults": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "fe-1",
+        "type": "force_error",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "fault_type": "tamper_result",
+    "fault_truth": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "fe-1",
+        "type": "force_error",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "actor": {
+      "type": "python",
+      "path": "experiments/actors/remote-relay-actor.py",
+      "actor_id": "relay-llm-paired-pilot"
+    },
+    "baselines": [
+      "raw_react",
+      "fixed_retry",
+      "exponential_backoff",
+      "generic_reflection",
+      "full_trace_judge",
+      "step_by_step_diagnosis",
+      "binary_search_diagnosis",
+      "agentdebug_targeted_feedback",
+      "always_recover",
+      "racer",
+      "racer_no_abstain",
+      "racer_no_counterfactual",
+      "oracle_root_cause",
+      "oracle_recovery"
+    ],
+    "max_actor_steps": 6
+  },
+  {
+    "task_id": "main-e3-e3_tamper_force_error-trial-2",
+    "run_id": "main-e3-e3_tamper_force_error-20260909T110000Z-trial-2",
+    "seed": 2,
+    "episode_id": "main-e3-e3_tamper_force_error-trial-2",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3",
+    "trial_id": 2,
+    "model_resource_id": "oneapi-relay-glm-5.3-flash",
+    "strict_replay": true,
+    "evaluation_tier": "main",
+    "baseline_registry_version": "racer-v2-main-baselines-v1",
+    "main_comparison": true,
+    "task_variant": "e3_tamper_force_error",
+    "variant": "e3_tamper_force_error",
+    "cell": "tamper:e3_tamper_force_error",
+    "env_config": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_force_error",
+      "variant": "e3_tamper_force_error",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "fe-1",
+          "type": "force_error",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "reset": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_force_error",
+      "variant": "e3_tamper_force_error",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "fe-1",
+          "type": "force_error",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "faults": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "fe-1",
+        "type": "force_error",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "fault_type": "tamper_result",
+    "fault_truth": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "fe-1",
+        "type": "force_error",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "actor": {
+      "type": "python",
+      "path": "experiments/actors/remote-relay-actor.py",
+      "actor_id": "relay-llm-paired-pilot"
+    },
+    "baselines": [
+      "raw_react",
+      "fixed_retry",
+      "exponential_backoff",
+      "generic_reflection",
+      "full_trace_judge",
+      "step_by_step_diagnosis",
+      "binary_search_diagnosis",
+      "agentdebug_targeted_feedback",
+      "always_recover",
+      "racer",
+      "racer_no_abstain",
+      "racer_no_counterfactual",
+      "oracle_root_cause",
+      "oracle_recovery"
+    ],
+    "max_actor_steps": 6
+  },
+  {
+    "task_id": "main-e3-e3_tamper_force_error-trial-3",
+    "run_id": "main-e3-e3_tamper_force_error-20260909T110000Z-trial-3",
+    "seed": 3,
+    "episode_id": "main-e3-e3_tamper_force_error-trial-3",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3",
+    "trial_id": 3,
+    "model_resource_id": "oneapi-relay-glm-5.3-flash",
+    "strict_replay": true,
+    "evaluation_tier": "main",
+    "baseline_registry_version": "racer-v2-main-baselines-v1",
+    "main_comparison": true,
+    "task_variant": "e3_tamper_force_error",
+    "variant": "e3_tamper_force_error",
+    "cell": "tamper:e3_tamper_force_error",
+    "env_config": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_force_error",
+      "variant": "e3_tamper_force_error",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "fe-1",
+          "type": "force_error",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "reset": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_force_error",
+      "variant": "e3_tamper_force_error",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "fe-1",
+          "type": "force_error",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "faults": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "fe-1",
+        "type": "force_error",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "fault_type": "tamper_result",
+    "fault_truth": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "fe-1",
+        "type": "force_error",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "actor": {
+      "type": "python",
+      "path": "experiments/actors/remote-relay-actor.py",
+      "actor_id": "relay-llm-paired-pilot"
+    },
+    "baselines": [
+      "raw_react",
+      "fixed_retry",
+      "exponential_backoff",
+      "generic_reflection",
+      "full_trace_judge",
+      "step_by_step_diagnosis",
+      "binary_search_diagnosis",
+      "agentdebug_targeted_feedback",
+      "always_recover",
+      "racer",
+      "racer_no_abstain",
+      "racer_no_counterfactual",
+      "oracle_root_cause",
+      "oracle_recovery"
+    ],
+    "max_actor_steps": 6
+  },
+  {
+    "task_id": "main-e3-e3_tamper_force_error-trial-4",
+    "run_id": "main-e3-e3_tamper_force_error-20260909T110000Z-trial-4",
+    "seed": 4,
+    "episode_id": "main-e3-e3_tamper_force_error-trial-4",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3",
+    "trial_id": 4,
+    "model_resource_id": "oneapi-relay-glm-5.3-flash",
+    "strict_replay": true,
+    "evaluation_tier": "main",
+    "baseline_registry_version": "racer-v2-main-baselines-v1",
+    "main_comparison": true,
+    "task_variant": "e3_tamper_force_error",
+    "variant": "e3_tamper_force_error",
+    "cell": "tamper:e3_tamper_force_error",
+    "env_config": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_force_error",
+      "variant": "e3_tamper_force_error",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "fe-1",
+          "type": "force_error",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "reset": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_force_error",
+      "variant": "e3_tamper_force_error",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "fe-1",
+          "type": "force_error",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected force_error_confirm"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "faults": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "fe-1",
+        "type": "force_error",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "fault_type": "tamper_result",
+    "fault_truth": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "fe-1",
+        "type": "force_error",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected force_error_confirm"
+      }
+    ],
+    "actor": {
+      "type": "python",
+      "path": "experiments/actors/remote-relay-actor.py",
+      "actor_id": "relay-llm-paired-pilot"
+    },
+    "baselines": [
+      "raw_react",
+      "fixed_retry",
+      "exponential_backoff",
+      "generic_reflection",
+      "full_trace_judge",
+      "step_by_step_diagnosis",
+      "binary_search_diagnosis",
+      "agentdebug_targeted_feedback",
+      "always_recover",
+      "racer",
+      "racer_no_abstain",
+      "racer_no_counterfactual",
+      "oracle_root_cause",
+      "oracle_recovery"
+    ],
+    "max_actor_steps": 6
+  },
+  {
+    "task_id": "main-e3-e3_tamper_rate_limit-trial-0",
+    "run_id": "main-e3-e3_tamper_rate_limit-20260909T110000Z-trial-0",
+    "seed": 0,
+    "episode_id": "main-e3-e3_tamper_rate_limit-trial-0",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3",
+    "trial_id": 0,
+    "model_resource_id": "oneapi-relay-glm-5.3-flash",
+    "strict_replay": true,
+    "evaluation_tier": "main",
+    "baseline_registry_version": "racer-v2-main-baselines-v1",
+    "main_comparison": true,
+    "task_variant": "e3_tamper_rate_limit",
+    "variant": "e3_tamper_rate_limit",
+    "cell": "tamper:e3_tamper_rate_limit",
+    "env_config": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_rate_limit",
+      "variant": "e3_tamper_rate_limit",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "rl-1",
+          "type": "rate_limit",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected rate_limit"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "reset": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_rate_limit",
+      "variant": "e3_tamper_rate_limit",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "rl-1",
+          "type": "rate_limit",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected rate_limit"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "faults": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "rl-1",
+        "type": "rate_limit",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected rate_limit"
+      }
+    ],
+    "fault_type": "tamper_result",
+    "fault_truth": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "rl-1",
+        "type": "rate_limit",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected rate_limit"
+      }
+    ],
+    "actor": {
+      "type": "python",
+      "path": "experiments/actors/remote-relay-actor.py",
+      "actor_id": "relay-llm-paired-pilot"
+    },
+    "baselines": [
+      "raw_react",
+      "fixed_retry",
+      "exponential_backoff",
+      "generic_reflection",
+      "full_trace_judge",
+      "step_by_step_diagnosis",
+      "binary_search_diagnosis",
+      "agentdebug_targeted_feedback",
+      "always_recover",
+      "racer",
+      "racer_no_abstain",
+      "racer_no_counterfactual",
+      "oracle_root_cause",
+      "oracle_recovery"
+    ],
+    "max_actor_steps": 6
+  },
+  {
+    "task_id": "main-e3-e3_tamper_rate_limit-trial-1",
+    "run_id": "main-e3-e3_tamper_rate_limit-20260909T110000Z-trial-1",
+    "seed": 1,
+    "episode_id": "main-e3-e3_tamper_rate_limit-trial-1",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3",
+    "trial_id": 1,
+    "model_resource_id": "oneapi-relay-glm-5.3-flash",
+    "strict_replay": true,
+    "evaluation_tier": "main",
+    "baseline_registry_version": "racer-v2-main-baselines-v1",
+    "main_comparison": true,
+    "task_variant": "e3_tamper_rate_limit",
+    "variant": "e3_tamper_rate_limit",
+    "cell": "tamper:e3_tamper_rate_limit",
+    "env_config": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_rate_limit",
+      "variant": "e3_tamper_rate_limit",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "rl-1",
+          "type": "rate_limit",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected rate_limit"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "reset": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_rate_limit",
+      "variant": "e3_tamper_rate_limit",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "rl-1",
+          "type": "rate_limit",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected rate_limit"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "faults": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "rl-1",
+        "type": "rate_limit",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected rate_limit"
+      }
+    ],
+    "fault_type": "tamper_result",
+    "fault_truth": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "rl-1",
+        "type": "rate_limit",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected rate_limit"
+      }
+    ],
+    "actor": {
+      "type": "python",
+      "path": "experiments/actors/remote-relay-actor.py",
+      "actor_id": "relay-llm-paired-pilot"
+    },
+    "baselines": [
+      "raw_react",
+      "fixed_retry",
+      "exponential_backoff",
+      "generic_reflection",
+      "full_trace_judge",
+      "step_by_step_diagnosis",
+      "binary_search_diagnosis",
+      "agentdebug_targeted_feedback",
+      "always_recover",
+      "racer",
+      "racer_no_abstain",
+      "racer_no_counterfactual",
+      "oracle_root_cause",
+      "oracle_recovery"
+    ],
+    "max_actor_steps": 6
+  },
+  {
+    "task_id": "main-e3-e3_tamper_rate_limit-trial-2",
+    "run_id": "main-e3-e3_tamper_rate_limit-20260909T110000Z-trial-2",
+    "seed": 2,
+    "episode_id": "main-e3-e3_tamper_rate_limit-trial-2",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3",
+    "trial_id": 2,
+    "model_resource_id": "oneapi-relay-glm-5.3-flash",
+    "strict_replay": true,
+    "evaluation_tier": "main",
+    "baseline_registry_version": "racer-v2-main-baselines-v1",
+    "main_comparison": true,
+    "task_variant": "e3_tamper_rate_limit",
+    "variant": "e3_tamper_rate_limit",
+    "cell": "tamper:e3_tamper_rate_limit",
+    "env_config": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_rate_limit",
+      "variant": "e3_tamper_rate_limit",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "rl-1",
+          "type": "rate_limit",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected rate_limit"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "reset": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_rate_limit",
+      "variant": "e3_tamper_rate_limit",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "rl-1",
+          "type": "rate_limit",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected rate_limit"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "faults": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "rl-1",
+        "type": "rate_limit",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected rate_limit"
+      }
+    ],
+    "fault_type": "tamper_result",
+    "fault_truth": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "rl-1",
+        "type": "rate_limit",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected rate_limit"
+      }
+    ],
+    "actor": {
+      "type": "python",
+      "path": "experiments/actors/remote-relay-actor.py",
+      "actor_id": "relay-llm-paired-pilot"
+    },
+    "baselines": [
+      "raw_react",
+      "fixed_retry",
+      "exponential_backoff",
+      "generic_reflection",
+      "full_trace_judge",
+      "step_by_step_diagnosis",
+      "binary_search_diagnosis",
+      "agentdebug_targeted_feedback",
+      "always_recover",
+      "racer",
+      "racer_no_abstain",
+      "racer_no_counterfactual",
+      "oracle_root_cause",
+      "oracle_recovery"
+    ],
+    "max_actor_steps": 6
+  },
+  {
+    "task_id": "main-e3-e3_tamper_rate_limit-trial-3",
+    "run_id": "main-e3-e3_tamper_rate_limit-20260909T110000Z-trial-3",
+    "seed": 3,
+    "episode_id": "main-e3-e3_tamper_rate_limit-trial-3",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3",
+    "trial_id": 3,
+    "model_resource_id": "oneapi-relay-glm-5.3-flash",
+    "strict_replay": true,
+    "evaluation_tier": "main",
+    "baseline_registry_version": "racer-v2-main-baselines-v1",
+    "main_comparison": true,
+    "task_variant": "e3_tamper_rate_limit",
+    "variant": "e3_tamper_rate_limit",
+    "cell": "tamper:e3_tamper_rate_limit",
+    "env_config": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_rate_limit",
+      "variant": "e3_tamper_rate_limit",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "rl-1",
+          "type": "rate_limit",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected rate_limit"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "reset": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_rate_limit",
+      "variant": "e3_tamper_rate_limit",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "rl-1",
+          "type": "rate_limit",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected rate_limit"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "faults": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "rl-1",
+        "type": "rate_limit",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected rate_limit"
+      }
+    ],
+    "fault_type": "tamper_result",
+    "fault_truth": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "rl-1",
+        "type": "rate_limit",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected rate_limit"
+      }
+    ],
+    "actor": {
+      "type": "python",
+      "path": "experiments/actors/remote-relay-actor.py",
+      "actor_id": "relay-llm-paired-pilot"
+    },
+    "baselines": [
+      "raw_react",
+      "fixed_retry",
+      "exponential_backoff",
+      "generic_reflection",
+      "full_trace_judge",
+      "step_by_step_diagnosis",
+      "binary_search_diagnosis",
+      "agentdebug_targeted_feedback",
+      "always_recover",
+      "racer",
+      "racer_no_abstain",
+      "racer_no_counterfactual",
+      "oracle_root_cause",
+      "oracle_recovery"
+    ],
+    "max_actor_steps": 6
+  },
+  {
+    "task_id": "main-e3-e3_tamper_rate_limit-trial-4",
+    "run_id": "main-e3-e3_tamper_rate_limit-20260909T110000Z-trial-4",
+    "seed": 4,
+    "episode_id": "main-e3-e3_tamper_rate_limit-trial-4",
+    "protocol_id": "racer-v2-benchmark-protocol-0.3",
+    "trial_id": 4,
+    "model_resource_id": "oneapi-relay-glm-5.3-flash",
+    "strict_replay": true,
+    "evaluation_tier": "main",
+    "baseline_registry_version": "racer-v2-main-baselines-v1",
+    "main_comparison": true,
+    "task_variant": "e3_tamper_rate_limit",
+    "variant": "e3_tamper_rate_limit",
+    "cell": "tamper:e3_tamper_rate_limit",
+    "env_config": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_rate_limit",
+      "variant": "e3_tamper_rate_limit",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "rl-1",
+          "type": "rate_limit",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected rate_limit"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "reset": {
+      "budget": 500,
+      "flights": [
+        {
+          "id": "F1",
+          "price": 420,
+          "refundable": true
+        },
+        {
+          "id": "F2",
+          "price": 360,
+          "refundable": true
+        },
+        {
+          "id": "F3",
+          "price": 480,
+          "refundable": true
+        }
+      ],
+      "task_variant": "e3_tamper_rate_limit",
+      "variant": "e3_tamper_rate_limit",
+      "faults": [
+        {
+          "fault_id": "tamper-0",
+          "type": "tamper_result",
+          "step_id": 0,
+          "tool": "search_flights",
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ]
+          }
+        },
+        {
+          "fault_id": "rl-1",
+          "type": "rate_limit",
+          "step_id": 2,
+          "tool": "confirm_booking",
+          "error": "injected rate_limit"
+        }
+      ],
+      "enable_refund_ledger": true,
+      "obfuscate_catalog": true
+    },
+    "faults": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "rl-1",
+        "type": "rate_limit",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected rate_limit"
+      }
+    ],
+    "fault_type": "tamper_result",
+    "fault_truth": [
+      {
+        "fault_id": "tamper-0",
+        "type": "tamper_result",
+        "step_id": 0,
+        "tool": "search_flights",
+        "result": {
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F3",
+              "price": 480,
+              "refundable": true
+            }
+          ]
+        }
+      },
+      {
+        "fault_id": "rl-1",
+        "type": "rate_limit",
+        "step_id": 2,
+        "tool": "confirm_booking",
+        "error": "injected rate_limit"
+      }
+    ],
+    "actor": {
+      "type": "python",
+      "path": "experiments/actors/remote-relay-actor.py",
+      "actor_id": "relay-llm-paired-pilot"
+    },
+    "baselines": [
+      "raw_react",
+      "fixed_retry",
+      "exponential_backoff",
+      "generic_reflection",
+      "full_trace_judge",
+      "step_by_step_diagnosis",
+      "binary_search_diagnosis",
+      "agentdebug_targeted_feedback",
+      "always_recover",
+      "racer",
+      "racer_no_abstain",
+      "racer_no_counterfactual",
+      "oracle_root_cause",
+      "oracle_recovery"
+    ],
+    "max_actor_steps": 6
+  }
+]
