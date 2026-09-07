@@ -8,6 +8,7 @@ services:
       - "18080:8080"
     volumes:
       - trajectories:/data/trajectories
+      - ./services/task_env/app.py:/app/app.py:ro
 
   agent-runner:
     build:
@@ -27,6 +28,9 @@ services:
     volumes:
       - trajectories:/data/trajectories
       - oracle_truth:/data/oracle
+      - ./services/agent_runner/app.py:/app/app.py:ro
+      - ./services/common/environment_contract.py:/app/common/environment_contract.py:ro
+      - ./experiments:/app/experiments:ro
 
   diagnoser:
     build:
@@ -57,6 +61,9 @@ services:
       PYTHONUNBUFFERED: "1"
     depends_on:
       - task-env
+    volumes:
+      - ./services/counterfactual/app.py:/app/app.py:ro
+      - ./services/common/environment_contract.py:/app/common/environment_contract.py:ro
     ports:
       - "18083:8080"
 
@@ -70,6 +77,8 @@ services:
     volumes:
       - trajectories:/data/trajectories
       - oracle_truth:/data/oracle
+      - ./services/evaluator/app.py:/app/app.py:ro
+      - ./services/common/environment_contract.py:/app/common/environment_contract.py:ro
     profiles:
       - analysis
 

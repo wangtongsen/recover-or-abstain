@@ -20,6 +20,13 @@ from typing import Any, Iterable
 
 
 PROTOCOL_ID = "racer-v2-benchmark-protocol-0.1"
+# Frozen protocol versions a preflight manifest may declare. v0.2 (Appendix A
+# v0.1 execution anchoring + E3 pre-registration) is the only sanctioned
+# evolution of the frozen v0.1 text.
+FROZEN_PROTOCOL_IDS = (
+    "racer-v2-benchmark-protocol-0.1",
+    "racer-v2-benchmark-protocol-0.2",
+)
 SCHEMA_VERSION = "racer-v2-benchmark-preflight-v1"
 REQUIRED_TRIAL_IDS = tuple(range(5))
 REQUIRED_MANIFEST_FIELDS = (
@@ -166,8 +173,8 @@ def build_manifest(
 
 
 def _check_protocol(manifest: dict[str, Any], issues: list[dict[str, str]]) -> None:
-    if manifest.get("protocol_id") != PROTOCOL_ID:
-        issues.append(_issue("PREFLIGHT_PROTOCOL_ID_MISMATCH", "ERROR", "$.protocol_id", f"必须为 {PROTOCOL_ID}。"))
+    if manifest.get("protocol_id") not in FROZEN_PROTOCOL_IDS:
+        issues.append(_issue("PREFLIGHT_PROTOCOL_ID_MISMATCH", "ERROR", "$.protocol_id", f"必须是 {FROZEN_PROTOCOL_IDS} 之一。"))
     protocol = manifest.get("protocol")
     if not isinstance(protocol, dict) or not _text(protocol.get("sha256")):
         issues.append(_issue("G0_PROTOCOL_HASH_MISSING", "ERROR", "$.protocol", "预检清单必须记录冻结 protocol 的 SHA-256。"))

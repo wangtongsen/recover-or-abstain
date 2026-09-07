@@ -1,6 +1,6 @@
 {
   "registry_version": "racer-v2-model-registry-v1",
-  "protocol_id": "racer-v2-benchmark-protocol-0.1",
+  "protocol_id": "racer-v2-benchmark-protocol-0.2",
   "status": "active-main-ready",
   "notes": "无密钥 model resource registry。anthropic-oneapi-relay-claude-haiku-4.5 已锁定 revision（actor 源码/system prompt/tool schema/采样参数/commit 哈希），有 pilot tier 真实执行证据，eligible pilot+main。deterministic-local-actor-v1 仅 pilot。凭据永不入库。",
   "model_resources": [
@@ -32,22 +32,23 @@
       "status": "active-revision-locked",
       "revision_lock": {
         "locked_at": "2026-09-06T12:00:00+08:00",
-        "actor_source_sha256": "4ab918ebf780fc511453f68b1c226b3000cbe143f1f1cb1752a6e87e268bda97",
-        "system_prompt_sha256": "c9db173b5ee8329b2c879884376d9bdc0be7f69f8a1b80857bb99be5649358f3",
+        "actor_source_sha256": "34299953f571c83c52a096b5efb8f50d6f8b2a3a276b68f88269c8782a53b494",
+        "system_prompt_sha256": "8ae373f3749146118e75c7ffd2241363ce09af5f2e78766345586b881a0c3c74",
         "tool_schema_sha256": "bc4794c27edbb4a95e7e389d63d1685bc61ee10c8368cd3a906880f66b2d92a4",
         "code_commit": "c4f78983421dc1aac03875d3f03d51a2cec9e7e6",
         "api_contract": "POST /v1/messages (anthropic native, tool_use blocks)",
         "anthropic_version": "2023-06-01",
         "sampling": {
           "temperature": 0.0,
-          "max_tokens": 1024,
+          "max_tokens": 2048,
           "top_p": null,
           "stop_sequences": null,
           "temperature_escalation_note": "empty-content retries raise temperature by +0.1 per attempt up to 0.7 to escape deterministic truncation loops"
         },
         "max_empty_retries": 4,
         "credential_isolation": "runtime env vars only; values live in ~/.config/agent-recovery-plan/model-resource.local.json; never in repo/artifacts",
-        "model_switch_reason": "anthropic nodes returned HTTP 529 (all nodes exhausted) throughout 2026-09-06 execution window; switched to available GLM-5.3-Flash node on the same relay with identical protocol/prompt/tool schema; recorded as infrastructure-driven substitution"
+        "model_switch_reason": "anthropic nodes returned HTTP 529 (all nodes exhausted) throughout 2026-09-06 execution window; switched to available GLM-5.3-Flash node on the same relay with identical protocol/prompt/tool schema; recorded as infrastructure-driven substitution",
+        "e3_prompt_revision_note": "v0.2 E3: system prompt now reads the flight listing from the trace (catalog obfuscated from observation); search limited to once per task; max_tokens raised 1024->2048 for deeper reasoning turns"
       },
       "pilot_execution_evidence": {
         "date": "2026-09-02",
@@ -58,7 +59,12 @@
         "usage_calls": 2,
         "result": "fault activated, recovery counterfactual replay valid"
       },
-      "notes": "Revision locked 2026-09-06: GLM-5.3-Flash via oneapi relay, anthropic-native /v1/messages + tool_use (verified two-turn behavior: select_flight F1 -> confirm_booking true). Locked via actor source + prompt + tool schema + sampling + commit. Provider-side updates remain a validity threat."
+      "notes": "Revision locked 2026-09-06: GLM-5.3-Flash via oneapi relay, anthropic-native /v1/messages + tool_use (verified two-turn behavior: select_flight F1 -> confirm_booking true). Locked via actor source + prompt + tool schema + sampling + commit. Provider-side updates remain a validity threat.",
+      "env_overlay": {
+        "RELAY_LLM_MODEL": "glm-5.3-flash",
+        "RELAY_LLM_MAX_TOKENS": "2048",
+        "RELAY_LLM_MAX_ACTOR_STEPS": "6"
+      }
     }
   ],
   "planned_resources": []

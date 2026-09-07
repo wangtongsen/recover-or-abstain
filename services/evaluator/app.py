@@ -301,11 +301,21 @@ def _evaluate_metrics(item, decision, counterfactual, baseline_id=None):
         if baseline_id is None
         else original.get("success", False)
     )
+    # Direct-application rows (protocol v0.2 D.2, racer_no_counterfactual)
+    # carry their behavioral outcome in decision.direct_apply_result; the
+    # environment's own evaluate is the harm authority.
+    direct_eval = {}
+    if isinstance(decision, dict) and decision.get("direct_applied") is True:
+        direct_result = decision.get("direct_apply_result")
+        if isinstance(direct_result, dict) and isinstance(direct_result.get("evaluation"), dict):
+            direct_eval = direct_result["evaluation"]
     recovered_success = (
         item.get("recovered_success", cf_evaluation.get("success", False))
         if baseline_id is None
         else cf_evaluation.get("success", False)
     )
+    if direct_eval:
+        recovered_success = direct_eval.get("success", False)
     harmful_repair = (
         item.get(
             "harmful_repair",
@@ -314,6 +324,15 @@ def _evaluate_metrics(item, decision, counterfactual, baseline_id=None):
         if baseline_id is None
         else cf_evaluation.get("harmful_repair", cf_evaluation.get("side_effect", False))
     )
+    if direct_eval:
+        harmful_repair = direct_eval.get("side_effect", harmful_repair)
+    # Protocol v0.2 D.1: a replay veto means the patch was NOT committed -- the
+    # clean replay PREDICTED the harm and the strategy refused to act on it.
+    # The behavioral harm did not materialize, so the vetoed row is a harmless
+    # abstention (the prediction evidence stays in the trajectory artifact).
+    replay_vetoed = isinstance(decision, dict) and decision.get("replay_veto") is True
+    if replay_vetoed:
+        harmful_repair = False
     decision_name = _decision_value(decision)
     confidence = _mapping(diagnosis).get("diagnosis_confidence")
     if confidence is None:
@@ -381,6 +400,10 @@ def _evaluate_metrics(item, decision, counterfactual, baseline_id=None):
         "original_success": bool(original_success),
         "recovered_success": bool(recovered_success),
         "harmful_repair": bool(harmful_repair),
+        "side_effect": bool(
+            (cf_evaluation.get("side_effect", False) or direct_eval.get("side_effect", False))
+            and not replay_vetoed
+        ),
     }
     if baseline_id is not None:
         metrics["baseline_id"] = baseline_id

@@ -2,9 +2,10 @@
 
 > **Scope / 范围声明**
 >
-> 本仓库报告的是一个 **deterministic local flight prototype（确定性本地航班原型）**，用于验证「诊断 → 恢复决策 → 反事实重放 → 结果评估」的系统闭环。
+> 本仓库包含两个阶段：
 >
-> 它 **不是 LLM benchmark**，不声称代表任何大模型、公开基准或真实航空生产系统的性能。仓库中的数字只描述当前固定的任务集、规则策略与故障注入设置，**不构成** LLM benchmark 结论、统计显著性或跨环境泛化结论。
+> 1. **v1 确定性原型**（`services/` 六服务闭环）：验证「诊断 → 恢复决策 → 反事实重放 → 结果评估」的系统闭环；
+> 2. **v2 配对真实 LLM 基准**（RACER v2）：真实 LLM actor 执行预注册双轨道矩阵（E1/E2 可重试故障 55 episode + E3 不可逆副作用 10 episode）× 14 基线 = 910 记录，全部经 fail-closed 准入审计（G0–G8）。v2 结论限定于本矩阵，不外推至生产智能体。
 
 ---
 
@@ -90,9 +91,17 @@ python3 -m pytest tests/           # 需要 pytest，当前 91 项全通过
 
 ```bash
 python3 scripts/audit_v2_artifacts.py     # 产物 fail-closed 审计，输出 PASS / NO-GO
-python3 scripts/benchmark_preflight.py    # 从冻结矩阵生成 planned-only manifest
-python3 scripts/analyze_results.py        # 结果汇总与统计
+python3 scripts/benchmark_preflight.py    # 从冻结矩阵生成 planned-only manifest / 审计 manifest
+python3 scripts/main_statistics.py        # Wilson CI + 配对 bootstrap + 符号置换 + Holm
+python3 scripts/build_e3_manifest.py      # E3 executed preflight manifest
 ```
+
+### RACER v2 主会（预注册双轨道）
+
+- **协议：** v0.1（E1/E2 冻结，2026-09-02）+ v0.2（E3 预注册 + v0.1 执行对账，2026-09-07 冻结于 E3 执行前）——`reports/racer-v2-benchmark-protocol*.md`
+- **矩阵：** E1/E2 55 episode + E3 10 episode × 14 基线，GLM-5.3-Flash actor，模型/基线注册表无密钥
+- **产物：** `output/racer-v2-main-20260906/`（770 记录）与 `output/racer-v2-e3-20260907/`（140 记录 + 合并统计 910 记录），admission + preflight 双审计全 PASS
+- **核心结果：** E3 不可逆故障上无验证策略 10/10 有害提交、RACER 重放否决 0/10；合并 25 失败 episode 配对检验 RACER vs 11 个非 oracle 基线中的 10 组 Holm 显著（p=0.0011–0.0152，唯一不显著组为 racer_no_abstain——预期诚实结果）
 
 ### 关于 τ² airline adapter
 

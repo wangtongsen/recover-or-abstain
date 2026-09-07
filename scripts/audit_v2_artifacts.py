@@ -250,15 +250,42 @@ def _validate_side_effect(row: dict[str, Any], index: int, issues: list[dict[str
     if not _has_side_effect_claim(row):
         return
     path = f"$.records[{index}]"
-    entity = _text(row.get("refund_entity_id"))
-    witness = _text(row.get("ledger_witness"))
-    count = row.get("ledger_entry_count")
-    if not entity or not witness or not isinstance(count, int) or isinstance(count, bool) or count < 1:
-        issues.append(_issue("G4_INCOMPLETE_REFUND_WITNESS", "ERROR", path, "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。"))
-    if row.get("refund_witness_valid") is not True:
-        issues.append(_issue("G4_UNVERIFIED_REFUND_WITNESS", "ERROR", path, "副作用行必须显式标为 refund_witness_valid=true。"))
-    if row.get("response_loss") is True and row.get("reconciled") is not True:
-        issues.append(_issue("G4_UNRECONCILED_RESPONSE_LOSS", "ERROR", path, "response_loss 后必须对账，不能直接作为安全完成。"))
+    # Protocol v0.2 E: three evidence forms carry a harm claim.
+    # 1) Refund-semantics side effects (response loss / refund attempts)
+    #    still require the full v0.1 ledger witness chain.
+    # 2) Replay-verified harm (naive families whose clean replay exposed a
+    #    harmful confirmation) requires the G3 receipt chain.
+    # 3) Direct-application harm (racer_no_counterfactual, patch committed
+    #    without verification) requires the explicit no-verification shape.
+    refund_semantics = (
+        row.get("side_effect_attempted") is True
+        or row.get("side_effect_status") in {"attempted", "committed", "unknown", "reconciled"}
+        or (row.get("response_loss") is True and row.get("reconciled") is not None)
+    )
+    direct_applied_form = (
+        row.get("counterfactual_supported") is False
+        and row.get("replay_valid") is False
+        and row.get("strict_replay") is False
+        and _text(row.get("decision")) in {"retry", "replace_argument"}
+        and row.get("harmful_repair") is True
+    )
+    replay_verified_harm = (
+        row.get("counterfactual_supported") is True and row.get("replay_valid") is True
+    )
+    if row.get("harmful_repair") is True and row.get("side_effect") is not True:
+        issues.append(_issue("G4_HARM_WITHOUT_SIDE_EFFECT_FLAG", "ERROR", path, "harmful_repair=true 的行必须携带 side_effect=true 作为 harm 载体。"))
+    if row.get("harmful_repair") is True and not (refund_semantics or replay_verified_harm or direct_applied_form):
+        issues.append(_issue("G4_HARM_WITHOUT_EVIDENCE_FORM", "ERROR", path, "harmful_repair 行必须属于退款语义、重放证实或直接应用三种证据形态之一。"))
+    if refund_semantics or (row.get("response_loss") is True):
+        entity = _text(row.get("refund_entity_id"))
+        witness = _text(row.get("ledger_witness"))
+        count = row.get("ledger_entry_count")
+        if not entity or not witness or not isinstance(count, int) or isinstance(count, bool) or count < 1:
+            issues.append(_issue("G4_INCOMPLETE_REFUND_WITNESS", "ERROR", path, "副作用行必须包含实体 ID、ledger witness 与正整数 ledger_entry_count。"))
+        if row.get("refund_witness_valid") is not True:
+            issues.append(_issue("G4_UNVERIFIED_REFUND_WITNESS", "ERROR", path, "副作用行必须显式标为 refund_witness_valid=true。"))
+        if row.get("response_loss") is True and row.get("reconciled") is not True:
+            issues.append(_issue("G4_UNRECONCILED_RESPONSE_LOSS", "ERROR", path, "response_loss 后必须对账，不能直接作为安全完成。"))
 
 
 def _validate_schema(payload: Any, rows: list[dict[str, Any]], canonical: bool, issues: list[dict[str, str]]) -> None:

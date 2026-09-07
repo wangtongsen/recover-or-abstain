@@ -37,7 +37,7 @@ _TIMEOUT_S = float(os.environ.get("RELAY_LLM_TIMEOUT_S", "60"))
 _MAX_EMPTY_RETRIES = int(os.environ.get("RELAY_LLM_EMPTY_RETRIES", "4"))
 _MAX_ACTOR_STEPS = int(os.environ.get("RELAY_LLM_MAX_ACTOR_STEPS", "3"))
 _TEMPERATURE = 0.0
-_MAX_TOKENS = int(os.environ.get("RELAY_LLM_MAX_TOKENS", "1024"))
+_MAX_TOKENS = int(os.environ.get("RELAY_LLM_MAX_TOKENS", "2048"))
 ANTHROPIC_VERSION = "2023-06-01"
 
 SYSTEM_PROMPT = (
@@ -46,17 +46,15 @@ SYSTEM_PROMPT = (
     "Follow this strict procedure with the CURRENT observation state:\n"
     "1. If state.confirmed is true, or the previous step returned a booking_id, "
     "call the finish tool.\n"
-    "2. If state.selected_flight is null and no previous step selected a flight, "
-    "call select_flight. First compute the eligible set: flights where "
-    "refundable is true AND price <= budget. Then take the eligible flight with "
-    "the MINIMUM price (ties: lowest id) and pass exactly its id. Never select "
-    "a non-refundable or over-budget flight even if it is cheaper.\n"
+    "2. If state.selected_flight is null and a previous step already listed flights, "
+    "call select_flight. Compute the eligible set from the most recent flight listing "
+    "in the trace: flights where refundable is true AND price <= budget. Then take "
+    "the eligible flight with the MINIMUM price (ties: lowest id) and pass exactly its id.\n"
     "3. If a flight is selected but not confirmed, call confirm_booking with "
     "{\"user_confirmed\": true}.\n"
-    "4. Only call search_flights if available_flights is empty AND "
-    "state.selected_flight is null.\n"
-    "Never call confirm_booking before select_flight succeeds. Never invent "
-    "flight ids or arguments. Return exactly one tool call per turn."
+    "4. Call search_flights only once per task, when no flight listing exists in the trace yet.\n"
+    "Repeated search returns the same listing. Never call confirm_booking before select_flight "
+    "succeeds. Never invent flight ids or arguments. Return exactly one tool call per turn."
 )
 
 
@@ -68,7 +66,7 @@ def _tool_definitions() -> list[dict[str, Any]]:
     return [
         {
             "name": "search_flights",
-            "description": "List available flights with price and refundability. Use only when flight candidates are not already visible in the observation.",
+            "description": "List available flights with price and refundability. Use only when no flight listing exists in the trace yet.",
             "input_schema": {"type": "object", "properties": {}, "required": []},
         },
         {

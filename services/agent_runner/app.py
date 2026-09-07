@@ -422,6 +422,45 @@ def run_task(task, index=0):
                     },
                 )
                 baseline_counterfactual["patched_step_id"] = step_id
+                # Protocol v0.2 D.1 replay veto: strategies that pledged
+                # counterfactual verification (use_counterfactual=true) must
+                # not commit a patch the clean replay found harmful or
+                # unsuccessful. The veto is a decision-level abstain; the
+                # replay receipt is preserved so the admission audit can
+                # still verify the replay actually happened.
+                if baseline_decision.get("use_counterfactual") is True:
+                    replay_eval = baseline_counterfactual.get("evaluation") if isinstance(baseline_counterfactual.get("evaluation"), dict) else {}
+                    if replay_eval.get("side_effect") is True or replay_eval.get("success") is not True:
+                        veto_reason = "replay_veto_side_effect" if replay_eval.get("side_effect") is True else "replay_veto_not_success"
+                        baseline_decision = {
+                            "baseline_id": baseline_id,
+                            "decision": "abstain",
+                            "reason": veto_reason,
+                            "patch": None,
+                            "step_id": baseline_decision.get("step_id"),
+                            "confidence": baseline_decision.get("confidence"),
+                            "expected_cost": baseline_decision.get("expected_cost"),
+                            "expected_risk": baseline_decision.get("expected_risk"),
+                            "use_counterfactual": True,
+                            "replay_veto": True,
+                            "replay_veto_reason": veto_reason,
+                            "original_decision": baseline_decision.get("decision"),
+                            "original_patch": baseline_decision.get("patch"),
+                        }
+        if skip_counterfactual and baseline_decision.get("patch") is not None:
+            # Protocol v0.2 D.2 direct application: the patch is committed to
+            # the SOURCE environment without any replay. The behavioral
+            # outcome (harmful suboptimal confirmation) is measured by the
+            # source environment evaluate afterwards. Admission semantics
+            # stay v0.1 G3: no replay receipt, no recovery claim.
+            direct_apply = post(TASK_ENV_URL, "/step", {**baseline_decision["patch"], "run_id": run_id})
+            direct_eval = get(f"/evaluate?run_id={quote(run_id, safe='')}")
+            baseline_decision = dict(baseline_decision)
+            baseline_decision["direct_applied"] = True
+            baseline_decision["direct_apply_result"] = {
+                "step": direct_apply,
+                "evaluation": direct_eval,
+            }
         if skip_counterfactual:
             baseline_decision["counterfactual_supported"] = False
             baseline_decision["replay_valid"] = False

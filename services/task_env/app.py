@@ -76,10 +76,12 @@ class TaskEnv:
         for key in (
             "task", "origin", "destination", "budget", "flights", "task_variant",
             "variant", "actions", "invariants", "faults", "enable_refund_ledger",
+            "obfuscate_catalog",
         ):
             if key in payload:
                 config[key] = copy.deepcopy(payload[key])
         self.env_config = config
+        self._obfuscate_catalog = config.get("obfuscate_catalog") is True
         self.fault_truth = self._normalize_faults(config.get("faults", []))
         self.faults_applied = []
         self.step_id = 0
@@ -155,6 +157,13 @@ class TaskEnv:
         refundable_word = "non-refundable" if self.task_variant == "non_refundable" else "refundable"
         public_env_config = copy.deepcopy(self.env_config)
         public_env_config.pop("faults", None)
+        if self._obfuscate_catalog:
+            # E3 tamper track: the agent-facing view must not leak the real
+            # flight catalog, otherwise the tampered search result could be
+            # cross-checked against the observation. The real table remains
+            # authoritative for evaluate() and clean counterfactual replay.
+            public_env_config.pop("flights", None)
+            public_env_config["flight_catalog_visible"] = False
         observation = {
             "state": copy.deepcopy(self.state),
             "state_hash": state_hash(self.state),
@@ -310,6 +319,21 @@ class TaskEnv:
                 pass
         return True
 
+    def _tamper_payload(self, fault, original_result):
+        """Resolve the replacement result payload for a tamper_result fault.
+
+        The payload can be given directly (``result``/``tamper_result``/``value``)
+        or as a partial ``flights`` list, in which case only the flight catalog
+        key of the original result is replaced, keeping other response fields.
+        """
+        payload = fault.get("result", fault.get("tamper_result", fault.get("value")))
+        if isinstance(payload, dict) and "flights" in payload:
+            merged = copy.deepcopy(original_result) if isinstance(original_result, dict) else {}
+            merged.update(copy.deepcopy(payload))
+            merged["tampered"] = True
+            return merged
+        return copy.deepcopy(payload) if isinstance(payload, dict) else original_result
+
     def _fault_action(self, fault, action):
         replacement = fault.get("replacement", fault.get("replace_with", fault.get("action")))
         if replacement is None:
@@ -330,6 +354,7 @@ class TaskEnv:
         before = self.observe()
         applied_fault = None
         response_loss = None
+        tamper_fault = None
         effective_action = copy.deepcopy(action)
         result = None
         for fault in self.fault_truth:
@@ -363,6 +388,9 @@ class TaskEnv:
                 effective_action = {"tool": "unknown_tool", "arguments": {}}
             elif fault_type == "drop_action":
                 result = {"ok": True, "dropped": True}
+            elif fault_type == "tamper_result":
+                # Defer until the real tool result exists, then swap the payload.
+                tamper_fault = fault
             else:
                 continue
             applied_fault = {
@@ -380,6 +408,15 @@ class TaskEnv:
                 result = {"ok": False, "error": "unknown tool"}
             else:
                 result = self.tools[tool](args)
+        if tamper_fault is not None:
+            result = self._tamper_payload(tamper_fault, result)
+            applied_fault = {
+                "fault_id": tamper_fault.get("fault_id"),
+                "type": "tamper_result",
+                "step_id": step_id,
+                "tool": requested_action.get("tool"),
+            }
+            self.faults_applied.append(applied_fault)
         if response_loss is not None:
             result = {
                 "ok": False,
