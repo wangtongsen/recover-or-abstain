@@ -164,5 +164,47 @@ class ArtifactAdmissionAuditTests(unittest.TestCase):
         self.assertIn("G2_NON_MAIN_RECORD", {issue["code"] for issue in result["issues"]})
 
 
+class V04HarmLabelGatingTests(unittest.TestCase):
+    """Protocol v0.4: harm rows must carry independent-oracle labels."""
+
+    def v04_row(self, **updates):
+        row = valid_row(
+            protocol_id="racer-v2-benchmark-protocol-0.4",
+            harmful_repair=False,
+            harm_label_source="independent_oracle_v04",
+            harm_recomputed=False,
+            cf_outcome_harm=False,
+        )
+        row.update(updates)
+        return row
+
+    def test_v04_row_with_oracle_labels_passes(self):
+        result = audit.audit_payload(valid_envelope(self.v04_row()))
+        self.assertEqual(result["verdict"], "PASS")
+
+    def test_v04_harm_row_missing_label_source_fails(self):
+        row = self.v04_row(harmful_repair=True, harm_recomputed=True, cf_outcome_harm=True)
+        row.pop("harm_label_source")
+        result = audit.audit_payload(valid_envelope(row))
+        self.assertEqual(result["verdict"], "NO-GO")
+        self.assertIn("G4_HARM_LABEL_NOT_ORACLE_SOURCED", {issue["code"] for issue in result["issues"]})
+
+    def test_v04_harm_label_disagreeing_with_repair_fails(self):
+        # harmful_repair=True but oracle recomputed=False -> label mismatch.
+        row = self.v04_row(harmful_repair=True, harm_recomputed=False, cf_outcome_harm=False)
+        result = audit.audit_payload(valid_envelope(row))
+        self.assertIn("G4_HARM_LABEL_NOT_ORACLE_SOURCED", {issue["code"] for issue in result["issues"]})
+
+    def test_v04_nonboolean_recomputed_fails(self):
+        row = self.v04_row(harm_recomputed=None)
+        result = audit.audit_payload(valid_envelope(row))
+        self.assertIn("G4_HARM_LABEL_NOT_ORACLE_SOURCED", {issue["code"] for issue in result["issues"]})
+
+    def test_v01_row_without_v04_fields_still_passes(self):
+        # v0.1/v0.3 rows carry no v0.4 fields: the gate is version-scoped.
+        result = audit.audit_payload(valid_envelope(valid_row()))
+        self.assertEqual(result["verdict"], "PASS")
+
+
 if __name__ == "__main__":
     unittest.main()

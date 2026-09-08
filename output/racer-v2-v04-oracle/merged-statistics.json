@@ -1,0 +1,545 @@
+{
+  "schema_version": "racer-v2-main-statistics-v1",
+  "experiment": "racer-v2-main-plus-e3-v04",
+  "record_count": 910,
+  "episode_count": 65,
+  "seed": 20260906,
+  "bootstrap_resamples": 10000,
+  "permutations": 10000,
+  "baseline_rates": {
+    "agentdebug_targeted_feedback": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.6,
+      "recovery_wilson": {
+        "successes": 15,
+        "n": 25,
+        "lower": 0.40739457358966996,
+        "upper": 0.7659669762225203
+      },
+      "harm_rate": 0.4,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 25,
+        "lower": 0.2340330237774797,
+        "upper": 0.5926054264103301
+      },
+      "abstention_rate": 0.5384615384615384,
+      "abstention_wilson": {
+        "successes": 35,
+        "n": 65,
+        "lower": 0.4185339926647454,
+        "upper": 0.6540966587719579
+      },
+      "recovery_with_valid_replay": 15
+    },
+    "always_recover": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.6,
+      "recovery_wilson": {
+        "successes": 15,
+        "n": 25,
+        "lower": 0.40739457358966996,
+        "upper": 0.7659669762225203
+      },
+      "harm_rate": 0.4,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 25,
+        "lower": 0.2340330237774797,
+        "upper": 0.5926054264103301
+      },
+      "abstention_rate": 0.5384615384615384,
+      "abstention_wilson": {
+        "successes": 35,
+        "n": 65,
+        "lower": 0.4185339926647454,
+        "upper": 0.6540966587719579
+      },
+      "recovery_with_valid_replay": 15
+    },
+    "binary_search_diagnosis": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.6,
+      "recovery_wilson": {
+        "successes": 15,
+        "n": 25,
+        "lower": 0.40739457358966996,
+        "upper": 0.7659669762225203
+      },
+      "harm_rate": 0.4,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 25,
+        "lower": 0.2340330237774797,
+        "upper": 0.5926054264103301
+      },
+      "abstention_rate": 0.5384615384615384,
+      "abstention_wilson": {
+        "successes": 35,
+        "n": 65,
+        "lower": 0.4185339926647454,
+        "upper": 0.6540966587719579
+      },
+      "recovery_with_valid_replay": 15
+    },
+    "exponential_backoff": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.6,
+      "recovery_wilson": {
+        "successes": 15,
+        "n": 25,
+        "lower": 0.40739457358966996,
+        "upper": 0.7659669762225203
+      },
+      "harm_rate": 0.4,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 25,
+        "lower": 0.2340330237774797,
+        "upper": 0.5926054264103301
+      },
+      "abstention_rate": 0.5384615384615384,
+      "abstention_wilson": {
+        "successes": 35,
+        "n": 65,
+        "lower": 0.4185339926647454,
+        "upper": 0.6540966587719579
+      },
+      "recovery_with_valid_replay": 15
+    },
+    "fixed_retry": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.6,
+      "recovery_wilson": {
+        "successes": 15,
+        "n": 25,
+        "lower": 0.40739457358966996,
+        "upper": 0.7659669762225203
+      },
+      "harm_rate": 0.4,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 25,
+        "lower": 0.2340330237774797,
+        "upper": 0.5926054264103301
+      },
+      "abstention_rate": 0.5384615384615384,
+      "abstention_wilson": {
+        "successes": 35,
+        "n": 65,
+        "lower": 0.4185339926647454,
+        "upper": 0.6540966587719579
+      },
+      "recovery_with_valid_replay": 15
+    },
+    "full_trace_judge": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.2,
+      "recovery_wilson": {
+        "successes": 5,
+        "n": 25,
+        "lower": 0.08860584686802572,
+        "upper": 0.3913095036954033
+      },
+      "harm_rate": 0.0,
+      "harm_wilson": {
+        "successes": 0,
+        "n": 25,
+        "lower": 0.0,
+        "upper": 0.13319225093904846
+      },
+      "abstention_rate": 0.8461538461538461,
+      "abstention_wilson": {
+        "successes": 55,
+        "n": 65,
+        "lower": 0.7394468036002149,
+        "upper": 0.914229059330115
+      },
+      "recovery_with_valid_replay": 5
+    },
+    "generic_reflection": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.6,
+      "recovery_wilson": {
+        "successes": 15,
+        "n": 25,
+        "lower": 0.40739457358966996,
+        "upper": 0.7659669762225203
+      },
+      "harm_rate": 0.4,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 25,
+        "lower": 0.2340330237774797,
+        "upper": 0.5926054264103301
+      },
+      "abstention_rate": 0.5384615384615384,
+      "abstention_wilson": {
+        "successes": 35,
+        "n": 65,
+        "lower": 0.4185339926647454,
+        "upper": 0.6540966587719579
+      },
+      "recovery_with_valid_replay": 15
+    },
+    "oracle_recovery": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 25,
+        "lower": 0.0,
+        "upper": 0.13319225093904846
+      },
+      "harm_rate": 0.0,
+      "harm_wilson": {
+        "successes": 0,
+        "n": 25,
+        "lower": 0.0,
+        "upper": 0.13319225093904846
+      },
+      "abstention_rate": 0.9230769230769231,
+      "abstention_wilson": {
+        "successes": 60,
+        "n": 65,
+        "lower": 0.8322406672989,
+        "upper": 0.9666964985048365
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "oracle_root_cause": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.6,
+      "recovery_wilson": {
+        "successes": 15,
+        "n": 25,
+        "lower": 0.40739457358966996,
+        "upper": 0.7659669762225203
+      },
+      "harm_rate": 0.4,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 25,
+        "lower": 0.2340330237774797,
+        "upper": 0.5926054264103301
+      },
+      "abstention_rate": 0.5384615384615384,
+      "abstention_wilson": {
+        "successes": 35,
+        "n": 65,
+        "lower": 0.4185339926647454,
+        "upper": 0.6540966587719579
+      },
+      "recovery_with_valid_replay": 15
+    },
+    "racer": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.6,
+      "recovery_wilson": {
+        "successes": 15,
+        "n": 25,
+        "lower": 0.40739457358966996,
+        "upper": 0.7659669762225203
+      },
+      "harm_rate": 0.0,
+      "harm_wilson": {
+        "successes": 0,
+        "n": 25,
+        "lower": 0.0,
+        "upper": 0.13319225093904846
+      },
+      "abstention_rate": 0.6923076923076923,
+      "abstention_wilson": {
+        "successes": 45,
+        "n": 65,
+        "lower": 0.5720235708527267,
+        "upper": 0.7911296863307898
+      },
+      "recovery_with_valid_replay": 15
+    },
+    "racer_no_abstain": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.6,
+      "recovery_wilson": {
+        "successes": 15,
+        "n": 25,
+        "lower": 0.40739457358966996,
+        "upper": 0.7659669762225203
+      },
+      "harm_rate": 0.0,
+      "harm_wilson": {
+        "successes": 0,
+        "n": 25,
+        "lower": 0.0,
+        "upper": 0.13319225093904846
+      },
+      "abstention_rate": 0.15384615384615385,
+      "abstention_wilson": {
+        "successes": 10,
+        "n": 65,
+        "lower": 0.08577094066988503,
+        "upper": 0.26055319639978514
+      },
+      "recovery_with_valid_replay": 15
+    },
+    "racer_no_counterfactual": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 25,
+        "lower": 0.0,
+        "upper": 0.13319225093904846
+      },
+      "harm_rate": 0.4,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 25,
+        "lower": 0.2340330237774797,
+        "upper": 0.5926054264103301
+      },
+      "abstention_rate": 0.5384615384615384,
+      "abstention_wilson": {
+        "successes": 35,
+        "n": 65,
+        "lower": 0.4185339926647454,
+        "upper": 0.6540966587719579
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "raw_react": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.0,
+      "recovery_wilson": {
+        "successes": 0,
+        "n": 25,
+        "lower": 0.0,
+        "upper": 0.13319225093904846
+      },
+      "harm_rate": 0.0,
+      "harm_wilson": {
+        "successes": 0,
+        "n": 25,
+        "lower": 0.0,
+        "upper": 0.13319225093904846
+      },
+      "abstention_rate": 1.0,
+      "abstention_wilson": {
+        "successes": 65,
+        "n": 65,
+        "lower": 0.9441984686771432,
+        "upper": 1.0
+      },
+      "recovery_with_valid_replay": 0
+    },
+    "step_by_step_diagnosis": {
+      "n_rows": 65,
+      "n_failures": 25,
+      "recovery_rate": 0.6,
+      "recovery_wilson": {
+        "successes": 15,
+        "n": 25,
+        "lower": 0.40739457358966996,
+        "upper": 0.7659669762225203
+      },
+      "harm_rate": 0.4,
+      "harm_wilson": {
+        "successes": 10,
+        "n": 25,
+        "lower": 0.2340330237774797,
+        "upper": 0.5926054264103301
+      },
+      "abstention_rate": 0.5384615384615384,
+      "abstention_wilson": {
+        "successes": 35,
+        "n": 65,
+        "lower": 0.4185339926647454,
+        "upper": 0.6540966587719579
+      },
+      "recovery_with_valid_replay": 15
+    }
+  },
+  "paired_comparison": {
+    "agentdebug_targeted_feedback": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.15384615384615385,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        0.07692307692307693,
+        0.24615384615384617
+      ],
+      "permutation_p": 0.0026997300269973002
+    },
+    "always_recover": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.15384615384615385,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        0.07692307692307693,
+        0.24615384615384617
+      ],
+      "permutation_p": 0.0025997400259974
+    },
+    "binary_search_diagnosis": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.15384615384615385,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        0.07692307692307693,
+        0.24615384615384617
+      ],
+      "permutation_p": 0.0018998100189981002
+    },
+    "exponential_backoff": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.15384615384615385,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        0.07692307692307693,
+        0.24615384615384617
+      ],
+      "permutation_p": 0.0023997600239976003
+    },
+    "fixed_retry": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.15384615384615385,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        0.07692307692307693,
+        0.24615384615384617
+      ],
+      "permutation_p": 0.001999800019998
+    },
+    "full_trace_judge": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.15384615384615385,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        0.07692307692307693,
+        0.24615384615384617
+      ],
+      "permutation_p": 0.0013998600139986002
+    },
+    "generic_reflection": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.15384615384615385,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        0.07692307692307693,
+        0.24615384615384617
+      ],
+      "permutation_p": 0.0018998100189981002
+    },
+    "racer_no_abstain": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.0,
+      "sum_difference": 0,
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "permutation_p": 1.0
+    },
+    "racer_no_counterfactual": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.46153846153846156,
+      "sum_difference": 30,
+      "bootstrap_ci95": [
+        0.3384615384615385,
+        0.5846153846153846
+      ],
+      "permutation_p": 9.999000099990002e-05
+    },
+    "raw_react": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.3076923076923077,
+      "sum_difference": 20,
+      "bootstrap_ci95": [
+        0.2,
+        0.4153846153846154
+      ],
+      "permutation_p": 9.999000099990002e-05
+    },
+    "step_by_step_diagnosis": {
+      "n_paired_episodes": 65,
+      "mean_paired_difference": 0.15384615384615385,
+      "sum_difference": 10,
+      "bootstrap_ci95": [
+        0.07692307692307693,
+        0.24615384615384617
+      ],
+      "permutation_p": 0.0024997500249975004
+    }
+  },
+  "holm_correction": {
+    "racer_no_counterfactual": {
+      "raw_p": 9.999000099990002e-05,
+      "holm_p": 0.0010998900109989002,
+      "rejected_h0": true
+    },
+    "raw_react": {
+      "raw_p": 9.999000099990002e-05,
+      "holm_p": 0.0010998900109989002,
+      "rejected_h0": true
+    },
+    "full_trace_judge": {
+      "raw_p": 0.0013998600139986002,
+      "holm_p": 0.012598740125987402,
+      "rejected_h0": true
+    },
+    "binary_search_diagnosis": {
+      "raw_p": 0.0018998100189981002,
+      "holm_p": 0.015198480151984802,
+      "rejected_h0": true
+    },
+    "generic_reflection": {
+      "raw_p": 0.0018998100189981002,
+      "holm_p": 0.015198480151984802,
+      "rejected_h0": true
+    },
+    "fixed_retry": {
+      "raw_p": 0.001999800019998,
+      "holm_p": 0.015198480151984802,
+      "rejected_h0": true
+    },
+    "exponential_backoff": {
+      "raw_p": 0.0023997600239976003,
+      "holm_p": 0.015198480151984802,
+      "rejected_h0": true
+    },
+    "step_by_step_diagnosis": {
+      "raw_p": 0.0024997500249975004,
+      "holm_p": 0.015198480151984802,
+      "rejected_h0": true
+    },
+    "always_recover": {
+      "raw_p": 0.0025997400259974,
+      "holm_p": 0.015198480151984802,
+      "rejected_h0": true
+    },
+    "agentdebug_targeted_feedback": {
+      "raw_p": 0.0026997300269973002,
+      "holm_p": 0.015198480151984802,
+      "rejected_h0": true
+    },
+    "racer_no_abstain": {
+      "raw_p": 1.0,
+      "holm_p": 1.0,
+      "rejected_h0": false
+    }
+  },
+  "racer_vs_always_recover_abstention_gap": 0.15384615384615385
+}

@@ -57,7 +57,7 @@ services/      六个核心服务（各自独立镜像）
 adapters/      外部 benchmark 适配层（τ² airline adapter）
 experiments/   实验规格、模型/基线注册表、actor 定义
 scripts/       实验执行、结果分析、产物审计、预检脚本
-tests/         离线回归测试（91 项）
+tests/         离线回归测试（163 项）
 reports/       冻结结果、统计、基准协议与离线确认报告
 output/        运行产物与证据（smoke、preflight、admission fixture）
 ```
@@ -74,7 +74,7 @@ docker compose --profile analysis up evaluator   # 额外启动评估器
 **路径二：本地测试**
 
 ```bash
-python3 -m pytest tests/           # 需要 pytest，当前 91 项全通过
+python3 -m pytest tests/           # 需要 pytest，当前 163 项全通过
 ```
 
 ### 审计与可复现
@@ -98,10 +98,11 @@ python3 scripts/build_e3_manifest.py      # E3 executed preflight manifest
 
 ### RACER v2 主会（预注册双轨道）
 
-- **协议：** v0.1（E1/E2 冻结，2026-09-02）+ v0.2（E3 预注册 + v0.1 执行对账，2026-09-07 冻结于 E3 执行前）+ v0.3（direct-apply 环境回执条款，2026-09-07 冻结于 E3 回执版重跑前）——`reports/racer-v2-benchmark-protocol*.md`
+- **协议：** v0.1（E1/E2 冻结，2026-09-02）+ v0.2（E3 预注册 + v0.1 执行对账，2026-09-07 冻结于 E3 执行前）+ v0.3（direct-apply 环境回执条款，2026-09-07 冻结于 E3 回执版重跑前）+ v0.4（独立危害 oracle 评估层修正案，2026-09-08 冻结，不重执行）——`reports/racer-v2-benchmark-protocol*.md`
 - **矩阵：** E1/E2 55 episode + E3 10 episode × 14 基线，GLM-5.3-Flash actor，模型/基线注册表无密钥
-- **产物：** `output/racer-v2-main-20260906/`（770 记录，v0.1）与 `output/racer-v2-e3-v03-20260909/`（E3 回执版重跑 140 记录 + 合并统计 910 记录）；v0.3 审计器下三重回归：v0.1 主表 PASS / v0.2 旧 E3 表 NO-GO（无回执形态按设计拒收）/ v0.3 重跑表 PASS，admission + preflight 双审计全 PASS
+- **产物：** `output/racer-v2-main-20260906/`（770 记录，v0.1）、`output/racer-v2-e3-v03-20260909/`（E3 回执版重跑 140 记录）与 `output/racer-v2-v04-oracle/`（v0.4 独立 oracle 重标注：910 行标签零翻转、veto 准确率 20/20、统计零漂移，GO 报告见 `reports/racer-v2-v04-execution-report.md`）；v0.4 审计器下四重回归：v0.1 主表 PASS / v0.2 旧 E3 表 NO-GO（无回执形态按设计拒收）/ v0.3 重跑表 PASS / v0.4 oracle 标签表 PASS
 - **v0.3 回执机制：** direct-apply 补丁由任务环境签发不可变回执（apply_witness = SHA-256(canonical JSON{sequence, tool, arguments, state_after_hash, success, side_effect, run_id})），行为结局位于哈希材料内——消除 v0.2 自陈布尔的残余可博弈面
+- **v0.4 独立危害 oracle：** harm 标签与重放否决触发解耦（此前二者读同一 side_effect 布尔——同义反复弱点）。标签由独立 oracle 从预注册真值清单（冻结 spec 的真实目录+预算+变体，`initial_state_fingerprint` 密码学绑定）与轨迹原始 state（哈希链验证）离线复算，不读任何 evaluate 输出；v0.4 envelope 携带 harm_label_source/harm_recomputed/cf_outcome_harm 三字段，审计器新增 G4_HARM_LABEL_NOT_ORACLE_SOURCED 门控
 - **核心结果：** E3 不可逆故障上无验证策略 10/10 有害提交（RACER−counterfactual 的有害行 10/10 携带有效环境回执）、RACER 重放否决 0/10；合并 25 失败 episode 配对检验 RACER vs 11 个非 oracle 基线中的 10 组 Holm 显著（p=0.0011–0.0152，唯一不显著组为 racer_no_abstain——预期诚实结果）
 - **第二模型 pilot（探索性，不进主表）：** DeepSeek-V4-Flash 在 E3 单 cell × 5 episode 上逐基线复现行为分离（重试族有害 5/5、RACER 否决弃权 5/5、直接应用回执 5/5 有效）——`reports/racer-v2-second-model-pilot.md`、`output/racer-v2-e3-v03-second-model-pilot/`
 
@@ -154,7 +155,7 @@ When diagnostic confidence falls below threshold, or no verifiable patch exists,
 ```bash
 docker compose up --build                          # core services
 docker compose --profile analysis up evaluator      # evaluator
-python3 -m pytest tests/                            # 91 offline tests, requires pytest
+python3 -m pytest tests/                            # 163 offline tests, requires pytest
 ```
 
 **Reproducibility.** Artifacts must pass fail-closed audit gates (G0–G8) before entering any results table, covering model-secret isolation, version pinning, split/paired identity, canonical envelope contracts, dedup proofs, strict replay receipts, and registry registration. See `scripts/audit_v2_artifacts.py` and `scripts/benchmark_preflight.py`.

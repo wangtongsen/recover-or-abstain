@@ -45,6 +45,8 @@ ROW_FIELDS = frozenset({
     "latency_ms", "decision", "diagnosis_confidence",
     "direct_applied", "direct_apply_witness", "direct_apply_receipt_valid",
     "direct_apply_state_hash",
+    # Protocol v0.4: independent oracle harm-label fields.
+    "harm_label_source", "harm_recomputed", "cf_outcome_harm",
 })
 CONTRACT_FIELDS = frozenset({
     "contract_version", "episode_id", "source_run_id", "run_id", "env_seed",
@@ -252,7 +254,6 @@ def _validate_side_effect(row: dict[str, Any], index: int, issues: list[dict[str
     if not _has_side_effect_claim(row):
         return
     path = f"$.records[{index}]"
-    # Protocol v0.2 E: three evidence forms carry a harm claim.
     # 1) Refund-semantics side effects (response loss / refund attempts)
     #    still require the full v0.1 ledger witness chain.
     # 2) Replay-verified harm (naive families whose clean replay exposed a
@@ -263,8 +264,7 @@ def _validate_side_effect(row: dict[str, Any], index: int, issues: list[dict[str
         row.get("side_effect_attempted") is True
         or row.get("side_effect_status") in {"attempted", "committed", "unknown", "reconciled"}
         or (row.get("response_loss") is True and row.get("reconciled") is not None)
-    )
-    # Protocol v0.3: the direct-application evidence form now requires the
+    )    # Protocol v0.3: the direct-application evidence form now requires the
     # environment-issued receipt. The four self-attested booleans only shape
     # the branch; admission hinges on an immutable apply_witness finalized
     # by the source environment's evaluate() over the behavioral outcome.
@@ -312,6 +312,25 @@ def _validate_side_effect(row: dict[str, Any], index: int, issues: list[dict[str
             issues.append(_issue("G4_UNRECONCILED_RESPONSE_LOSS", "ERROR", path, "response_loss 后必须对账，不能直接作为安全完成。"))
 
 
+def _validate_harm_label_source(row: dict[str, Any], index: int, issues: list[dict[str, str]]) -> None:
+    """Protocol v0.4: every v0.4 row's harm label must be oracle-sourced.
+
+    Version-scoped by design: v0.1/v0.3 rows carry no v0.4 fields and stay
+    admissible under the upgraded auditor. For v0.4 rows the label provenance
+    (independent_oracle_v04), boolean shape, and agreement between
+    harmful_repair and the recomputed harm_recomputed all fail closed.
+    """
+    if _text(row.get("protocol_id")) != "racer-v2-benchmark-protocol-0.4":
+        return
+    path = f"$.records[{index}]"
+    if _text(row.get("harm_label_source")) != "independent_oracle_v04":
+        issues.append(_issue("G4_HARM_LABEL_NOT_ORACLE_SOURCED", "ERROR", path, "v0.4 行的 harm 标签必须声明 independent_oracle_v04 来源（harm_label_source）。"))
+    if not _is_bool(row.get("harm_recomputed")):
+        issues.append(_issue("G4_HARM_LABEL_NOT_ORACLE_SOURCED", "ERROR", path, "v0.4 行必须携带布尔 harm_recomputed（oracle 复算标签）。"))
+    elif row.get("harm_recomputed") != row.get("harmful_repair"):
+        issues.append(_issue("G4_HARM_LABEL_NOT_ORACLE_SOURCED", "ERROR", path, "v0.4 行的 harmful_repair 必须与 oracle 复算标签 harm_recomputed 一致。"))
+
+
 def _validate_schema(payload: Any, rows: list[dict[str, Any]], canonical: bool, issues: list[dict[str, str]]) -> None:
     if not isinstance(payload, dict):
         return
@@ -356,6 +375,7 @@ def audit_payload(payload: Any) -> dict[str, Any]:
         pair = _validate_contract(row, index, issues)
         _validate_replay(row, index, issues)
         _validate_side_effect(row, index, issues)
+        _validate_harm_label_source(row, index, issues)
         baseline = _baseline(row)
         if pair is None or baseline is None or not isinstance(row.get("trial_id"), int) or isinstance(row.get("trial_id"), bool) or not _text(row.get("model_resource_id")):
             continue
