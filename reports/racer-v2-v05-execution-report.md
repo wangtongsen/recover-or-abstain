@@ -1,6 +1,6 @@
 # RACER v2 v0.5 执行报告（进行中）
 
-**状态**：GLM E3 完成 + 准入 PASS；GLM 主表执行中；DeepSeek 待执行。
+**状态**：GLM E3 完成 + 准入 PASS；GLM 主表完成 + 准入 PASS；DeepSeek E3 执行中。
 
 ## 1. GLM E3 全量（2026-09-09）
 
@@ -32,14 +32,18 @@
 
 ## 3. GLM 主表（3 域 × 11 cells × 10 种子，330 任务）
 
-- 单任务行为探针确认 v0.1 步位缺陷已修复（force_error_confirm 在 step 1 真实触发）。
-- 执行中（`ZB7W5u`）；完成后走同链：evaluator → envelope builder → G6 审计 → 主表统计。
+- 执行 2h59m，exit 0；oracle 标注 4620 记录**零翻转**；主轨无不可逆陷阱 → 全基线 harm 0/4620（设计使然，主表测恢复率与域扩展，E3 测 harm 分离）。
+- 准入审计：4620/4620 **PASS**。
+- **G3 fail-closed 裁决（racer_no_counterfactual 直接应用恢复）**：106 行 direct-apply 行为成功（补丁提交且环境 success），但无重放回执。按预注册 G3 语义（恢复声明必须携带 strict replay 回执），归一化为 recovered=false——与 v0.1/v0.3 主表对该消融的编码**逐字一致**。这不是数据修正而是声明语义：**无验证的恢复不可信**正是论文核心主张，审计器 fail-closed 行为正确。行为字段（decision/direct_applied/receipt 链）零漂移保留，供复现检查。
+- 统计（`main-glm-statistics.json`，Q.4 域分层）：
+  - racer 恢复率：flight **100%** / hotel **100%** / shop **78.3%**（域差异显现——shop 的 in_stock 约束使部分恢复不可达，3 域分层的价值实证）；
+  - 全域 harm 0。
+- 失败结构（v0.1 语义复现）：drop/replace 自愈（0 原始失败）；E1 故障类 76–83% 触发率（step-1 confirm 故障激活）；变体类全部原始成功。
 
 ## 4. 待办
 
-- [ ] GLM main 完成 → 构建 main envelope → 审计 → 统计
-- [ ] DeepSeek E3（spec 已就绪）+ DeepSeek main
-- [ ] 双模型裁决（Q.3）+ 跨域主表统计（Q.4）
-- [ ] R.2 GO/NO-GO 总判定（R.2-1 至 R.2-6 逐项核对）
+- [ ] DeepSeek E3（执行中）→ 标注/envelope/审计/统计 → R.2-5 复测裁决
+- [ ] DeepSeek main（spec 就绪）
+- [ ] 双模型裁决（Q.3）+ R.2 GO/NO-GO 总判定（R.2-1 至 R.2-6 逐项）
 - [ ] 论文 §6 升级（3 域 × 双模型 × 7 场景）
 - [ ] README 更新 + commit/push
