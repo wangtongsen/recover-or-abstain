@@ -1,71 +1,114 @@
 {
-  "registry_version": "racer-v2-model-registry-v1",
-  "protocol_id": "racer-v2-benchmark-protocol-0.2",
-  "status": "active-main-ready",
-  "notes": "无密钥 model resource registry。anthropic-oneapi-relay-claude-haiku-4.5 已锁定 revision（actor 源码/system prompt/tool schema/采样参数/commit 哈希），有 pilot tier 真实执行证据，eligible pilot+main。deterministic-local-actor-v1 仅 pilot。凭据永不入库。",
-  "model_resources": [
-    {
-      "model_resource_id": "deterministic-local-actor-v1",
-      "kind": "deterministic_script",
-      "provider": "local",
-      "model_name": "deterministic-flight-actor",
-      "model_version": "1",
-      "credential_source": "none:local-deterministic-script",
-      "config_sha256": "d45104d1ef33c6223962afcc063529fa1a95dfb3b9c7ff00be1c53a997334c79",
-      "eligible_tiers": [
-        "pilot"
-      ],
-      "status": "active"
+ "registry_version": "racer-v2-model-registry-v1",
+ "protocol_id": "racer-v2-benchmark-protocol-0.5",
+ "status": "active-main-ready",
+ "notes": "无密钥 model resource registry。v0.5 双模型（GLM 主 + DeepSeek 副）均 revision-locked 到域感知 actor；凭据永不入库。",
+ "model_resources": [
+  {
+   "model_resource_id": "deterministic-local-actor-v1",
+   "kind": "deterministic_script",
+   "provider": "local",
+   "model_name": "deterministic-flight-actor",
+   "model_version": "1",
+   "credential_source": "none:local-deterministic-script",
+   "config_sha256": "d45104d1ef33c6223962afcc063529fa1a95dfb3b9c7ff00be1c53a997334c79",
+   "eligible_tiers": [
+    "pilot"
+   ],
+   "status": "active"
+  },
+  {
+   "model_resource_id": "oneapi-relay-glm-5.3-flash",
+   "kind": "remote_llm",
+   "provider": "glm-compatible-via-oneapi-relay",
+   "endpoint_alias": "oneapi-relay",
+   "model_name": "GLM-5.3-Flash",
+   "model_version": "flash-2026-08",
+   "credential_source": "env:ANTHROPIC_AUTH_TOKEN+ANTHROPIC_BASE_URL",
+   "eligible_tiers": [
+    "pilot",
+    "main"
+   ],
+   "status": "active-revision-locked",
+   "revision_lock": {
+    "locked_at": "2026-09-10T00:00:00+08:00",
+    "actor_source_sha256": "88211ed7a37050498bf7a8bedf412efc749f88fbaaeb08ddb2e0f7c4dec49372",
+    "system_prompt_sha256": "8ae373f3749146118e75c7ffd2241363ce09af5f2e78766345586b881a0c3c74",
+    "tool_schema_sha256": "bc4794c27edbb4a95e7e389d63d1685bc61ee10c8368cd3a906880f66b2d92a4",
+    "code_commit": "6c7c200",
+    "api_contract": "POST /v1/messages (anthropic native, tool_use blocks)",
+    "anthropic_version": "2023-06-01",
+    "sampling": {
+     "temperature": 0.0,
+     "max_tokens": 2048,
+     "top_p": null,
+     "stop_sequences": null,
+     "temperature_escalation_note": "empty-content retries raise temperature by +0.1 per attempt up to 0.7 to escape deterministic truncation loops"
     },
-    {
-      "model_resource_id": "oneapi-relay-glm-5.3-flash",
-      "kind": "remote_llm",
-      "provider": "glm-compatible-via-oneapi-relay",
-      "endpoint_alias": "oneapi-relay",
-      "model_name": "GLM-5.3-Flash",
-      "model_version": "flash-2026-08",
-      "credential_source": "env:ANTHROPIC_AUTH_TOKEN+ANTHROPIC_BASE_URL",
-      "eligible_tiers": [
-        "pilot",
-        "main"
-      ],
-      "status": "active-revision-locked",
-      "revision_lock": {
-        "locked_at": "2026-09-06T12:00:00+08:00",
-        "actor_source_sha256": "34299953f571c83c52a096b5efb8f50d6f8b2a3a276b68f88269c8782a53b494",
-        "system_prompt_sha256": "8ae373f3749146118e75c7ffd2241363ce09af5f2e78766345586b881a0c3c74",
-        "tool_schema_sha256": "bc4794c27edbb4a95e7e389d63d1685bc61ee10c8368cd3a906880f66b2d92a4",
-        "code_commit": "c4f78983421dc1aac03875d3f03d51a2cec9e7e6",
-        "api_contract": "POST /v1/messages (anthropic native, tool_use blocks)",
-        "anthropic_version": "2023-06-01",
-        "sampling": {
-          "temperature": 0.0,
-          "max_tokens": 2048,
-          "top_p": null,
-          "stop_sequences": null,
-          "temperature_escalation_note": "empty-content retries raise temperature by +0.1 per attempt up to 0.7 to escape deterministic truncation loops"
-        },
-        "max_empty_retries": 4,
-        "credential_isolation": "runtime env vars only; values live in ~/.config/agent-recovery-plan/model-resource.local.json; never in repo/artifacts",
-        "model_switch_reason": "anthropic nodes returned HTTP 529 (all nodes exhausted) throughout 2026-09-06 execution window; switched to available GLM-5.3-Flash node on the same relay with identical protocol/prompt/tool schema; recorded as infrastructure-driven substitution",
-        "e3_prompt_revision_note": "v0.2 E3: system prompt now reads the flight listing from the trace (catalog obfuscated from observation); search limited to once per task; max_tokens raised 1024->2048 for deeper reasoning turns"
-      },
-      "pilot_execution_evidence": {
-        "date": "2026-09-02",
-        "experiment": "relay-llm-paired-pilot",
-        "evaluation_tier": "pilot",
-        "trial_id": 0,
-        "trajectory": "output/relay-llm-paired-pilot-20260902/trajectories/relay-pilot-force_error_confirm-20260902T183000Z-seed-0.json",
-        "usage_calls": 2,
-        "result": "fault activated, recovery counterfactual replay valid"
-      },
-      "notes": "Revision locked 2026-09-06: GLM-5.3-Flash via oneapi relay, anthropic-native /v1/messages + tool_use (verified two-turn behavior: select_flight F1 -> confirm_booking true). Locked via actor source + prompt + tool schema + sampling + commit. Provider-side updates remain a validity threat.",
-      "env_overlay": {
-        "RELAY_LLM_MODEL": "glm-5.3-flash",
-        "RELAY_LLM_MAX_TOKENS": "2048",
-        "RELAY_LLM_MAX_ACTOR_STEPS": "6"
-      }
-    }
-  ],
-  "planned_resources": []
+    "max_empty_retries": 4,
+    "credential_isolation": "runtime env vars only; values live in ~/.config/agent-recovery-plan/model-resource.local.json; never in repo/artifacts",
+    "model_switch_reason": "anthropic nodes returned HTTP 529 (all nodes exhausted) throughout 2026-09-06 execution window; switched to available GLM-5.3-Flash node on the same relay with identical protocol/prompt/tool schema; recorded as infrastructure-driven substitution",
+    "e3_prompt_revision_note": "v0.2 E3: system prompt now reads the flight listing from the trace (catalog obfuscated from observation); search limited to once per task; max_tokens raised 1024->2048 for deeper reasoning turns",
+    "notes": "v0.5 re-lock: domain-aware actor (hotel/shop spec dispatch); flight tool schema byte-frozen; prompt hash unchanged."
+   },
+   "pilot_execution_evidence": {
+    "date": "2026-09-02",
+    "experiment": "relay-llm-paired-pilot",
+    "evaluation_tier": "pilot",
+    "trial_id": 0,
+    "trajectory": "output/relay-llm-paired-pilot-20260902/trajectories/relay-pilot-force_error_confirm-20260902T183000Z-seed-0.json",
+    "usage_calls": 2,
+    "result": "fault activated, recovery counterfactual replay valid"
+   },
+   "notes": "v0.5 主模型。E1/E2 公共目录 2 步模式；E3 混淆目录 3 步模式。",
+   "env_overlay": {
+    "RELAY_LLM_MODEL": "glm-5.3-flash",
+    "RELAY_LLM_MAX_TOKENS": "2048",
+    "RELAY_LLM_MAX_ACTOR_STEPS": "6"
+   }
+  },
+  {
+   "model_resource_id": "oneapi-relay-deepseek-v4-flash",
+   "kind": "remote_llm",
+   "provider": "glm-compatible-via-oneapi-relay",
+   "endpoint_alias": "oneapi-relay",
+   "model_name": "DeepSeek-V4-Flash",
+   "model_version": "flash-2026-08",
+   "credential_source": "env:ANTHROPIC_AUTH_TOKEN+ANTHROPIC_BASE_URL",
+   "eligible_tiers": [
+    "pilot",
+    "main"
+   ],
+   "status": "active-revision-locked",
+   "env_overlay": {
+    "RELAY_LLM_MODEL": "DeepSeek-V4-Flash",
+    "RELAY_LLM_MAX_TOKENS": "2048",
+    "RELAY_LLM_MAX_ACTOR_STEPS": "6"
+   },
+   "revision_lock": {
+    "locked_at": "2026-09-10T00:00:00+08:00",
+    "actor_source_sha256": "88211ed7a37050498bf7a8bedf412efc749f88fbaaeb08ddb2e0f7c4dec49372",
+    "system_prompt_sha256": "8ae373f3749146118e75c7ffd2241363ce09af5f2e78766345586b881a0c3c74",
+    "tool_schema_sha256": "bc4794c27edbb4a95e7e389d63d1685bc61ee10c8368cd3a906880f66b2d92a4",
+    "code_commit": "6c7c200",
+    "api_contract": "POST /v1/messages (anthropic native, tool_use blocks; relay DeepSeek adapter requires content[i].id on tool_use)",
+    "anthropic_version": "2023-06-01",
+    "sampling": {
+     "temperature": 0.0,
+     "max_tokens": 2048,
+     "top_p": null,
+     "stop_sequences": null,
+     "temperature_escalation_note": "empty-content retries raise temperature by +0.1 per attempt up to 0.7 to escape deterministic truncation loops"
+    },
+    "notes": "v0.5 re-lock: domain-aware actor; same prompt/schema/sampling as GLM entry; differs only in model name (protocol v0.5 P.3)."
+   },
+   "pilot_execution_evidence": {
+    "pilot": "reports/racer-v2-second-model-pilot.md (E3 cell e3_tamper_force_error, 5 trials x 14 baselines, behavior separation replicated)",
+    "tier_at_pilot": "pilot",
+    "v05_eligibility": "protocol v0.5 P.3 pre-registers dual-model main execution"
+   },
+   "notes": "v0.5 副模型（跨模型复现）。同中继同 actor，仅 RELAY_LLM_MODEL 不同。"
+  }
+ ],
+ "planned_resources": []
 }

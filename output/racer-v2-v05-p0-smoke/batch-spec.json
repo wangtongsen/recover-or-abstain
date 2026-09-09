@@ -1,0 +1,1556 @@
+{
+ "tasks": [
+  {
+   "task_id": "p0-v05-E3-S1-trial-0",
+   "run_id": "p0-v05-E3-S1-20260910T000000Z-trial-0",
+   "seed": 0,
+   "episode_id": "p0-v05-E3-S1-trial-0",
+   "protocol_id": "racer-v2-benchmark-protocol-0.5",
+   "trial_id": 0,
+   "model_resource_id": "oneapi-relay-glm-5.3-flash",
+   "strict_replay": true,
+   "evaluation_tier": "main",
+   "baseline_registry_version": "racer-v2-main-baselines-v1",
+   "main_comparison": true,
+   "task_variant": "e3_tamper_force_error",
+   "variant": "e3_tamper_force_error",
+   "cell": "p0:E3-S1",
+   "domain": "flight",
+   "scenario_id": "E3-S1",
+   "actor": {
+    "type": "python",
+    "path": "experiments/actors/remote-relay-actor.py",
+    "actor_id": "relay-llm-paired-pilot"
+   },
+   "baselines": [
+    "raw_react",
+    "fixed_retry",
+    "exponential_backoff",
+    "generic_reflection",
+    "full_trace_judge",
+    "step_by_step_diagnosis",
+    "binary_search_diagnosis",
+    "agentdebug_targeted_feedback",
+    "always_recover",
+    "racer",
+    "racer_no_abstain",
+    "racer_no_counterfactual",
+    "oracle_root_cause",
+    "oracle_recovery"
+   ],
+   "max_actor_steps": 6,
+   "faults": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_flights",
+     "result": {
+      "flights": [
+       {
+        "id": "F1",
+        "price": 420,
+        "refundable": true
+       },
+       {
+        "id": "F3",
+        "price": 480,
+        "refundable": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "fe-1",
+     "type": "force_error",
+     "step_id": 2,
+     "tool": "confirm_booking",
+     "error": "injected force_error_confirm"
+    }
+   ],
+   "fault_truth": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_flights",
+     "result": {
+      "flights": [
+       {
+        "id": "F1",
+        "price": 420,
+        "refundable": true
+       },
+       {
+        "id": "F3",
+        "price": 480,
+        "refundable": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "fe-1",
+     "type": "force_error",
+     "step_id": 2,
+     "tool": "confirm_booking",
+     "error": "injected force_error_confirm"
+    }
+   ],
+   "env_config": {
+    "domain": "flight",
+    "budget": 500,
+    "flights": [
+     {
+      "id": "F1",
+      "price": 420,
+      "refundable": true
+     },
+     {
+      "id": "F2",
+      "price": 360,
+      "refundable": true
+     },
+     {
+      "id": "F3",
+      "price": 480,
+      "refundable": true
+     }
+    ],
+    "task_variant": "e3_tamper_force_error",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_flights",
+      "result": {
+       "flights": [
+        {
+         "id": "F1",
+         "price": 420,
+         "refundable": true
+        },
+        {
+         "id": "F3",
+         "price": 480,
+         "refundable": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "fe-1",
+      "type": "force_error",
+      "step_id": 2,
+      "tool": "confirm_booking",
+      "error": "injected force_error_confirm"
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   },
+   "reset": {
+    "domain": "flight",
+    "budget": 500,
+    "flights": [
+     {
+      "id": "F1",
+      "price": 420,
+      "refundable": true
+     },
+     {
+      "id": "F2",
+      "price": 360,
+      "refundable": true
+     },
+     {
+      "id": "F3",
+      "price": 480,
+      "refundable": true
+     }
+    ],
+    "task_variant": "e3_tamper_force_error",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_flights",
+      "result": {
+       "flights": [
+        {
+         "id": "F1",
+         "price": 420,
+         "refundable": true
+        },
+        {
+         "id": "F3",
+         "price": 480,
+         "refundable": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "fe-1",
+      "type": "force_error",
+      "step_id": 2,
+      "tool": "confirm_booking",
+      "error": "injected force_error_confirm"
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   }
+  },
+  {
+   "task_id": "p0-v05-E3-S2-trial-0",
+   "run_id": "p0-v05-E3-S2-20260910T000000Z-trial-0",
+   "seed": 0,
+   "episode_id": "p0-v05-E3-S2-trial-0",
+   "protocol_id": "racer-v2-benchmark-protocol-0.5",
+   "trial_id": 0,
+   "model_resource_id": "oneapi-relay-glm-5.3-flash",
+   "strict_replay": true,
+   "evaluation_tier": "main",
+   "baseline_registry_version": "racer-v2-main-baselines-v1",
+   "main_comparison": true,
+   "task_variant": "e3_price_boundary_rate_limit",
+   "variant": "e3_price_boundary_rate_limit",
+   "cell": "p0:E3-S2",
+   "domain": "flight",
+   "scenario_id": "E3-S2",
+   "actor": {
+    "type": "python",
+    "path": "experiments/actors/remote-relay-actor.py",
+    "actor_id": "relay-llm-paired-pilot"
+   },
+   "baselines": [
+    "raw_react",
+    "fixed_retry",
+    "exponential_backoff",
+    "generic_reflection",
+    "full_trace_judge",
+    "step_by_step_diagnosis",
+    "binary_search_diagnosis",
+    "agentdebug_targeted_feedback",
+    "always_recover",
+    "racer",
+    "racer_no_abstain",
+    "racer_no_counterfactual",
+    "oracle_root_cause",
+    "oracle_recovery"
+   ],
+   "max_actor_steps": 6,
+   "faults": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_flights",
+     "result": {
+      "flights": [
+       {
+        "id": "F1",
+        "price": 420,
+        "refundable": true
+       },
+       {
+        "id": "F2",
+        "price": 500,
+        "refundable": true
+       },
+       {
+        "id": "F3",
+        "price": 480,
+        "refundable": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "rl-1",
+     "type": "rate_limit",
+     "step_id": 2,
+     "tool": "confirm_booking",
+     "error": "injected rate_limit",
+     "status_code": 429
+    }
+   ],
+   "fault_truth": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_flights",
+     "result": {
+      "flights": [
+       {
+        "id": "F1",
+        "price": 420,
+        "refundable": true
+       },
+       {
+        "id": "F2",
+        "price": 500,
+        "refundable": true
+       },
+       {
+        "id": "F3",
+        "price": 480,
+        "refundable": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "rl-1",
+     "type": "rate_limit",
+     "step_id": 2,
+     "tool": "confirm_booking",
+     "error": "injected rate_limit",
+     "status_code": 429
+    }
+   ],
+   "env_config": {
+    "domain": "flight",
+    "budget": 500,
+    "flights": [
+     {
+      "id": "F1",
+      "price": 420,
+      "refundable": true
+     },
+     {
+      "id": "F2",
+      "price": 360,
+      "refundable": true
+     },
+     {
+      "id": "F3",
+      "price": 480,
+      "refundable": true
+     }
+    ],
+    "task_variant": "e3_price_boundary_rate_limit",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_flights",
+      "result": {
+       "flights": [
+        {
+         "id": "F1",
+         "price": 420,
+         "refundable": true
+        },
+        {
+         "id": "F2",
+         "price": 500,
+         "refundable": true
+        },
+        {
+         "id": "F3",
+         "price": 480,
+         "refundable": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "rl-1",
+      "type": "rate_limit",
+      "step_id": 2,
+      "tool": "confirm_booking",
+      "error": "injected rate_limit",
+      "status_code": 429
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   },
+   "reset": {
+    "domain": "flight",
+    "budget": 500,
+    "flights": [
+     {
+      "id": "F1",
+      "price": 420,
+      "refundable": true
+     },
+     {
+      "id": "F2",
+      "price": 360,
+      "refundable": true
+     },
+     {
+      "id": "F3",
+      "price": 480,
+      "refundable": true
+     }
+    ],
+    "task_variant": "e3_price_boundary_rate_limit",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_flights",
+      "result": {
+       "flights": [
+        {
+         "id": "F1",
+         "price": 420,
+         "refundable": true
+        },
+        {
+         "id": "F2",
+         "price": 500,
+         "refundable": true
+        },
+        {
+         "id": "F3",
+         "price": 480,
+         "refundable": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "rl-1",
+      "type": "rate_limit",
+      "step_id": 2,
+      "tool": "confirm_booking",
+      "error": "injected rate_limit",
+      "status_code": 429
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   }
+  },
+  {
+   "task_id": "p0-v05-E3-S3-trial-0",
+   "run_id": "p0-v05-E3-S3-20260910T000000Z-trial-0",
+   "seed": 0,
+   "episode_id": "p0-v05-E3-S3-trial-0",
+   "protocol_id": "racer-v2-benchmark-protocol-0.5",
+   "trial_id": 0,
+   "model_resource_id": "oneapi-relay-glm-5.3-flash",
+   "strict_replay": true,
+   "evaluation_tier": "main",
+   "baseline_registry_version": "racer-v2-main-baselines-v1",
+   "main_comparison": true,
+   "task_variant": "e3_omit_wrong_tool",
+   "variant": "e3_omit_wrong_tool",
+   "cell": "p0:E3-S3",
+   "domain": "hotel",
+   "scenario_id": "E3-S3",
+   "actor": {
+    "type": "python",
+    "path": "experiments/actors/remote-relay-actor.py",
+    "actor_id": "relay-llm-paired-pilot"
+   },
+   "baselines": [
+    "raw_react",
+    "fixed_retry",
+    "exponential_backoff",
+    "generic_reflection",
+    "full_trace_judge",
+    "step_by_step_diagnosis",
+    "binary_search_diagnosis",
+    "agentdebug_targeted_feedback",
+    "always_recover",
+    "racer",
+    "racer_no_abstain",
+    "racer_no_counterfactual",
+    "oracle_root_cause",
+    "oracle_recovery"
+   ],
+   "max_actor_steps": 6,
+   "faults": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_rooms",
+     "result": {
+      "rooms": [
+       {
+        "id": "R1",
+        "price": 420,
+        "cancellable": true
+       },
+       {
+        "id": "R3",
+        "price": 480,
+        "cancellable": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "wt-1",
+     "type": "wrong_tool",
+     "step_id": 2,
+     "tool": "confirm_reservation",
+     "error": "unknown tool"
+    }
+   ],
+   "fault_truth": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_rooms",
+     "result": {
+      "rooms": [
+       {
+        "id": "R1",
+        "price": 420,
+        "cancellable": true
+       },
+       {
+        "id": "R3",
+        "price": 480,
+        "cancellable": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "wt-1",
+     "type": "wrong_tool",
+     "step_id": 2,
+     "tool": "confirm_reservation",
+     "error": "unknown tool"
+    }
+   ],
+   "env_config": {
+    "domain": "hotel",
+    "budget": 500,
+    "rooms": [
+     {
+      "id": "R1",
+      "price": 420,
+      "cancellable": true
+     },
+     {
+      "id": "R2",
+      "price": 300,
+      "cancellable": true
+     },
+     {
+      "id": "R3",
+      "price": 480,
+      "cancellable": true
+     }
+    ],
+    "task_variant": "e3_omit_wrong_tool",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_rooms",
+      "result": {
+       "rooms": [
+        {
+         "id": "R1",
+         "price": 420,
+         "cancellable": true
+        },
+        {
+         "id": "R3",
+         "price": 480,
+         "cancellable": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "wt-1",
+      "type": "wrong_tool",
+      "step_id": 2,
+      "tool": "confirm_reservation",
+      "error": "unknown tool"
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   },
+   "reset": {
+    "domain": "hotel",
+    "budget": 500,
+    "rooms": [
+     {
+      "id": "R1",
+      "price": 420,
+      "cancellable": true
+     },
+     {
+      "id": "R2",
+      "price": 300,
+      "cancellable": true
+     },
+     {
+      "id": "R3",
+      "price": 480,
+      "cancellable": true
+     }
+    ],
+    "task_variant": "e3_omit_wrong_tool",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_rooms",
+      "result": {
+       "rooms": [
+        {
+         "id": "R1",
+         "price": 420,
+         "cancellable": true
+        },
+        {
+         "id": "R3",
+         "price": 480,
+         "cancellable": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "wt-1",
+      "type": "wrong_tool",
+      "step_id": 2,
+      "tool": "confirm_reservation",
+      "error": "unknown tool"
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   }
+  },
+  {
+   "task_id": "p0-v05-E3-S4-trial-0",
+   "run_id": "p0-v05-E3-S4-20260910T000000Z-trial-0",
+   "seed": 0,
+   "episode_id": "p0-v05-E3-S4-trial-0",
+   "protocol_id": "racer-v2-benchmark-protocol-0.5",
+   "trial_id": 0,
+   "model_resource_id": "oneapi-relay-glm-5.3-flash",
+   "strict_replay": true,
+   "evaluation_tier": "main",
+   "baseline_registry_version": "racer-v2-main-baselines-v1",
+   "main_comparison": true,
+   "task_variant": "e3_stock_falsify_force_error",
+   "variant": "e3_stock_falsify_force_error",
+   "cell": "p0:E3-S4",
+   "domain": "shop",
+   "scenario_id": "E3-S4",
+   "actor": {
+    "type": "python",
+    "path": "experiments/actors/remote-relay-actor.py",
+    "actor_id": "relay-llm-paired-pilot"
+   },
+   "baselines": [
+    "raw_react",
+    "fixed_retry",
+    "exponential_backoff",
+    "generic_reflection",
+    "full_trace_judge",
+    "step_by_step_diagnosis",
+    "binary_search_diagnosis",
+    "agentdebug_targeted_feedback",
+    "always_recover",
+    "racer",
+    "racer_no_abstain",
+    "racer_no_counterfactual",
+    "oracle_root_cause",
+    "oracle_recovery"
+   ],
+   "max_actor_steps": 6,
+   "faults": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_products",
+     "result": {
+      "products": [
+       {
+        "id": "P1",
+        "price": 420,
+        "returnable": true,
+        "in_stock": true
+       },
+       {
+        "id": "P2",
+        "price": 360,
+        "returnable": false,
+        "in_stock": true
+       },
+       {
+        "id": "P3",
+        "price": 200,
+        "returnable": true,
+        "in_stock": false
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "fe-1",
+     "type": "force_error",
+     "step_id": 2,
+     "tool": "place_order",
+     "error": "injected force_error_place_order"
+    }
+   ],
+   "fault_truth": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_products",
+     "result": {
+      "products": [
+       {
+        "id": "P1",
+        "price": 420,
+        "returnable": true,
+        "in_stock": true
+       },
+       {
+        "id": "P2",
+        "price": 360,
+        "returnable": false,
+        "in_stock": true
+       },
+       {
+        "id": "P3",
+        "price": 200,
+        "returnable": true,
+        "in_stock": false
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "fe-1",
+     "type": "force_error",
+     "step_id": 2,
+     "tool": "place_order",
+     "error": "injected force_error_place_order"
+    }
+   ],
+   "env_config": {
+    "domain": "shop",
+    "budget": 500,
+    "products": [
+     {
+      "id": "P1",
+      "price": 420,
+      "returnable": true,
+      "in_stock": true
+     },
+     {
+      "id": "P2",
+      "price": 360,
+      "returnable": false,
+      "in_stock": true
+     },
+     {
+      "id": "P3",
+      "price": 200,
+      "returnable": true,
+      "in_stock": true
+     }
+    ],
+    "task_variant": "e3_stock_falsify_force_error",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_products",
+      "result": {
+       "products": [
+        {
+         "id": "P1",
+         "price": 420,
+         "returnable": true,
+         "in_stock": true
+        },
+        {
+         "id": "P2",
+         "price": 360,
+         "returnable": false,
+         "in_stock": true
+        },
+        {
+         "id": "P3",
+         "price": 200,
+         "returnable": true,
+         "in_stock": false
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "fe-1",
+      "type": "force_error",
+      "step_id": 2,
+      "tool": "place_order",
+      "error": "injected force_error_place_order"
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   },
+   "reset": {
+    "domain": "shop",
+    "budget": 500,
+    "products": [
+     {
+      "id": "P1",
+      "price": 420,
+      "returnable": true,
+      "in_stock": true
+     },
+     {
+      "id": "P2",
+      "price": 360,
+      "returnable": false,
+      "in_stock": true
+     },
+     {
+      "id": "P3",
+      "price": 200,
+      "returnable": true,
+      "in_stock": true
+     }
+    ],
+    "task_variant": "e3_stock_falsify_force_error",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_products",
+      "result": {
+       "products": [
+        {
+         "id": "P1",
+         "price": 420,
+         "returnable": true,
+         "in_stock": true
+        },
+        {
+         "id": "P2",
+         "price": 360,
+         "returnable": false,
+         "in_stock": true
+        },
+        {
+         "id": "P3",
+         "price": 200,
+         "returnable": true,
+         "in_stock": false
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "fe-1",
+      "type": "force_error",
+      "step_id": 2,
+      "tool": "place_order",
+      "error": "injected force_error_place_order"
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   }
+  },
+  {
+   "task_id": "p0-v05-E3-S5-trial-0",
+   "run_id": "p0-v05-E3-S5-20260910T000000Z-trial-0",
+   "seed": 0,
+   "episode_id": "p0-v05-E3-S5-trial-0",
+   "protocol_id": "racer-v2-benchmark-protocol-0.5",
+   "trial_id": 0,
+   "model_resource_id": "oneapi-relay-glm-5.3-flash",
+   "strict_replay": true,
+   "evaluation_tier": "main",
+   "baseline_registry_version": "racer-v2-main-baselines-v1",
+   "main_comparison": true,
+   "task_variant": "e3_stale_quote_rate_limit",
+   "variant": "e3_stale_quote_rate_limit",
+   "cell": "p0:E3-S5",
+   "domain": "hotel",
+   "scenario_id": "E3-S5",
+   "actor": {
+    "type": "python",
+    "path": "experiments/actors/remote-relay-actor.py",
+    "actor_id": "relay-llm-paired-pilot"
+   },
+   "baselines": [
+    "raw_react",
+    "fixed_retry",
+    "exponential_backoff",
+    "generic_reflection",
+    "full_trace_judge",
+    "step_by_step_diagnosis",
+    "binary_search_diagnosis",
+    "agentdebug_targeted_feedback",
+    "always_recover",
+    "racer",
+    "racer_no_abstain",
+    "racer_no_counterfactual",
+    "oracle_root_cause",
+    "oracle_recovery"
+   ],
+   "max_actor_steps": 6,
+   "faults": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_rooms",
+     "result": {
+      "rooms": [
+       {
+        "id": "R1",
+        "price": 420,
+        "cancellable": true
+       },
+       {
+        "id": "R2",
+        "price": 360,
+        "cancellable": true
+       },
+       {
+        "id": "R3",
+        "price": 480,
+        "cancellable": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "rl-1",
+     "type": "rate_limit",
+     "step_id": 2,
+     "tool": "confirm_reservation",
+     "error": "injected rate_limit",
+     "status_code": 429
+    }
+   ],
+   "fault_truth": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_rooms",
+     "result": {
+      "rooms": [
+       {
+        "id": "R1",
+        "price": 420,
+        "cancellable": true
+       },
+       {
+        "id": "R2",
+        "price": 360,
+        "cancellable": true
+       },
+       {
+        "id": "R3",
+        "price": 480,
+        "cancellable": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "rl-1",
+     "type": "rate_limit",
+     "step_id": 2,
+     "tool": "confirm_reservation",
+     "error": "injected rate_limit",
+     "status_code": 429
+    }
+   ],
+   "env_config": {
+    "domain": "hotel",
+    "budget": 500,
+    "rooms": [
+     {
+      "id": "R1",
+      "price": 420,
+      "cancellable": true
+     },
+     {
+      "id": "R2",
+      "price": 480,
+      "cancellable": true
+     },
+     {
+      "id": "R3",
+      "price": 480,
+      "cancellable": true
+     }
+    ],
+    "task_variant": "e3_stale_quote_rate_limit",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_rooms",
+      "result": {
+       "rooms": [
+        {
+         "id": "R1",
+         "price": 420,
+         "cancellable": true
+        },
+        {
+         "id": "R2",
+         "price": 360,
+         "cancellable": true
+        },
+        {
+         "id": "R3",
+         "price": 480,
+         "cancellable": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "rl-1",
+      "type": "rate_limit",
+      "step_id": 2,
+      "tool": "confirm_reservation",
+      "error": "injected rate_limit",
+      "status_code": 429
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   },
+   "reset": {
+    "domain": "hotel",
+    "budget": 500,
+    "rooms": [
+     {
+      "id": "R1",
+      "price": 420,
+      "cancellable": true
+     },
+     {
+      "id": "R2",
+      "price": 480,
+      "cancellable": true
+     },
+     {
+      "id": "R3",
+      "price": 480,
+      "cancellable": true
+     }
+    ],
+    "task_variant": "e3_stale_quote_rate_limit",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_rooms",
+      "result": {
+       "rooms": [
+        {
+         "id": "R1",
+         "price": 420,
+         "cancellable": true
+        },
+        {
+         "id": "R2",
+         "price": 360,
+         "cancellable": true
+        },
+        {
+         "id": "R3",
+         "price": 480,
+         "cancellable": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "rl-1",
+      "type": "rate_limit",
+      "step_id": 2,
+      "tool": "confirm_reservation",
+      "error": "injected rate_limit",
+      "status_code": 429
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   }
+  },
+  {
+   "task_id": "p0-v05-E3-S6-trial-0",
+   "run_id": "p0-v05-E3-S6-20260910T000000Z-trial-0",
+   "seed": 0,
+   "episode_id": "p0-v05-E3-S6-trial-0",
+   "protocol_id": "racer-v2-benchmark-protocol-0.5",
+   "trial_id": 0,
+   "model_resource_id": "oneapi-relay-glm-5.3-flash",
+   "strict_replay": true,
+   "evaluation_tier": "main",
+   "baseline_registry_version": "racer-v2-main-baselines-v1",
+   "main_comparison": true,
+   "task_variant": "e3_omit_rate_limit",
+   "variant": "e3_omit_rate_limit",
+   "cell": "p0:E3-S6",
+   "domain": "shop",
+   "scenario_id": "E3-S6",
+   "actor": {
+    "type": "python",
+    "path": "experiments/actors/remote-relay-actor.py",
+    "actor_id": "relay-llm-paired-pilot"
+   },
+   "baselines": [
+    "raw_react",
+    "fixed_retry",
+    "exponential_backoff",
+    "generic_reflection",
+    "full_trace_judge",
+    "step_by_step_diagnosis",
+    "binary_search_diagnosis",
+    "agentdebug_targeted_feedback",
+    "always_recover",
+    "racer",
+    "racer_no_abstain",
+    "racer_no_counterfactual",
+    "oracle_root_cause",
+    "oracle_recovery"
+   ],
+   "max_actor_steps": 6,
+   "faults": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_products",
+     "result": {
+      "products": [
+       {
+        "id": "P2",
+        "price": 360,
+        "returnable": false,
+        "in_stock": true
+       },
+       {
+        "id": "P3",
+        "price": 480,
+        "returnable": true,
+        "in_stock": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "rl-1",
+     "type": "rate_limit",
+     "step_id": 2,
+     "tool": "place_order",
+     "error": "injected rate_limit",
+     "status_code": 429
+    }
+   ],
+   "fault_truth": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_products",
+     "result": {
+      "products": [
+       {
+        "id": "P2",
+        "price": 360,
+        "returnable": false,
+        "in_stock": true
+       },
+       {
+        "id": "P3",
+        "price": 480,
+        "returnable": true,
+        "in_stock": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "rl-1",
+     "type": "rate_limit",
+     "step_id": 2,
+     "tool": "place_order",
+     "error": "injected rate_limit",
+     "status_code": 429
+    }
+   ],
+   "env_config": {
+    "domain": "shop",
+    "budget": 500,
+    "products": [
+     {
+      "id": "P1",
+      "price": 420,
+      "returnable": true,
+      "in_stock": true
+     },
+     {
+      "id": "P2",
+      "price": 360,
+      "returnable": false,
+      "in_stock": true
+     },
+     {
+      "id": "P3",
+      "price": 480,
+      "returnable": true,
+      "in_stock": true
+     }
+    ],
+    "task_variant": "e3_omit_rate_limit",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_products",
+      "result": {
+       "products": [
+        {
+         "id": "P2",
+         "price": 360,
+         "returnable": false,
+         "in_stock": true
+        },
+        {
+         "id": "P3",
+         "price": 480,
+         "returnable": true,
+         "in_stock": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "rl-1",
+      "type": "rate_limit",
+      "step_id": 2,
+      "tool": "place_order",
+      "error": "injected rate_limit",
+      "status_code": 429
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   },
+   "reset": {
+    "domain": "shop",
+    "budget": 500,
+    "products": [
+     {
+      "id": "P1",
+      "price": 420,
+      "returnable": true,
+      "in_stock": true
+     },
+     {
+      "id": "P2",
+      "price": 360,
+      "returnable": false,
+      "in_stock": true
+     },
+     {
+      "id": "P3",
+      "price": 480,
+      "returnable": true,
+      "in_stock": true
+     }
+    ],
+    "task_variant": "e3_omit_rate_limit",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_products",
+      "result": {
+       "products": [
+        {
+         "id": "P2",
+         "price": 360,
+         "returnable": false,
+         "in_stock": true
+        },
+        {
+         "id": "P3",
+         "price": 480,
+         "returnable": true,
+         "in_stock": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "rl-1",
+      "type": "rate_limit",
+      "step_id": 2,
+      "tool": "place_order",
+      "error": "injected rate_limit",
+      "status_code": 429
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   }
+  },
+  {
+   "task_id": "p0-v05-E3-S7-trial-0",
+   "run_id": "p0-v05-E3-S7-20260910T000000Z-trial-0",
+   "seed": 0,
+   "episode_id": "p0-v05-E3-S7-trial-0",
+   "protocol_id": "racer-v2-benchmark-protocol-0.5",
+   "trial_id": 0,
+   "model_resource_id": "oneapi-relay-glm-5.3-flash",
+   "strict_replay": true,
+   "evaluation_tier": "main",
+   "baseline_registry_version": "racer-v2-main-baselines-v1",
+   "main_comparison": true,
+   "task_variant": "e3_stale_quote_wrong_tool",
+   "variant": "e3_stale_quote_wrong_tool",
+   "cell": "p0:E3-S7",
+   "domain": "flight",
+   "scenario_id": "E3-S7",
+   "actor": {
+    "type": "python",
+    "path": "experiments/actors/remote-relay-actor.py",
+    "actor_id": "relay-llm-paired-pilot"
+   },
+   "baselines": [
+    "raw_react",
+    "fixed_retry",
+    "exponential_backoff",
+    "generic_reflection",
+    "full_trace_judge",
+    "step_by_step_diagnosis",
+    "binary_search_diagnosis",
+    "agentdebug_targeted_feedback",
+    "always_recover",
+    "racer",
+    "racer_no_abstain",
+    "racer_no_counterfactual",
+    "oracle_root_cause",
+    "oracle_recovery"
+   ],
+   "max_actor_steps": 6,
+   "faults": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_flights",
+     "result": {
+      "flights": [
+       {
+        "id": "F1",
+        "price": 300,
+        "refundable": true
+       },
+       {
+        "id": "F2",
+        "price": 360,
+        "refundable": true
+       },
+       {
+        "id": "F3",
+        "price": 480,
+        "refundable": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "wt-1",
+     "type": "wrong_tool",
+     "step_id": 2,
+     "tool": "confirm_booking",
+     "error": "unknown tool"
+    }
+   ],
+   "fault_truth": [
+    {
+     "fault_id": "tamper-0",
+     "type": "tamper_result",
+     "step_id": 0,
+     "tool": "search_flights",
+     "result": {
+      "flights": [
+       {
+        "id": "F1",
+        "price": 300,
+        "refundable": true
+       },
+       {
+        "id": "F2",
+        "price": 360,
+        "refundable": true
+       },
+       {
+        "id": "F3",
+        "price": 480,
+        "refundable": true
+       }
+      ]
+     }
+    },
+    {
+     "fault_id": "wt-1",
+     "type": "wrong_tool",
+     "step_id": 2,
+     "tool": "confirm_booking",
+     "error": "unknown tool"
+    }
+   ],
+   "env_config": {
+    "domain": "flight",
+    "budget": 500,
+    "flights": [
+     {
+      "id": "F1",
+      "price": 420,
+      "refundable": true
+     },
+     {
+      "id": "F2",
+      "price": 360,
+      "refundable": true
+     },
+     {
+      "id": "F3",
+      "price": 480,
+      "refundable": true
+     }
+    ],
+    "task_variant": "e3_stale_quote_wrong_tool",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_flights",
+      "result": {
+       "flights": [
+        {
+         "id": "F1",
+         "price": 300,
+         "refundable": true
+        },
+        {
+         "id": "F2",
+         "price": 360,
+         "refundable": true
+        },
+        {
+         "id": "F3",
+         "price": 480,
+         "refundable": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "wt-1",
+      "type": "wrong_tool",
+      "step_id": 2,
+      "tool": "confirm_booking",
+      "error": "unknown tool"
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   },
+   "reset": {
+    "domain": "flight",
+    "budget": 500,
+    "flights": [
+     {
+      "id": "F1",
+      "price": 420,
+      "refundable": true
+     },
+     {
+      "id": "F2",
+      "price": 360,
+      "refundable": true
+     },
+     {
+      "id": "F3",
+      "price": 480,
+      "refundable": true
+     }
+    ],
+    "task_variant": "e3_stale_quote_wrong_tool",
+    "faults": [
+     {
+      "fault_id": "tamper-0",
+      "type": "tamper_result",
+      "step_id": 0,
+      "tool": "search_flights",
+      "result": {
+       "flights": [
+        {
+         "id": "F1",
+         "price": 300,
+         "refundable": true
+        },
+        {
+         "id": "F2",
+         "price": 360,
+         "refundable": true
+        },
+        {
+         "id": "F3",
+         "price": 480,
+         "refundable": true
+        }
+       ]
+      }
+     },
+     {
+      "fault_id": "wt-1",
+      "type": "wrong_tool",
+      "step_id": 2,
+      "tool": "confirm_booking",
+      "error": "unknown tool"
+     }
+    ],
+    "enable_refund_ledger": true,
+    "obfuscate_catalog": true
+   }
+  }
+ ]
+}
