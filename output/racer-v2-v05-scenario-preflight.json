@@ -1,0 +1,14 @@
+{
+  "validator": "racer-v2-v05-scenario-preflight-v1",
+  "scenarios_checked": 7,
+  "rules": [
+    "R1 structure+obfuscation",
+    "R2 visible failure at step 2",
+    "R3 source uncommitted",
+    "R4 clean-replay harm trigger + optimal match",
+    "R5 observed-listing pick sanity",
+    "R6 pairwise independence >= 2 axes"
+  ],
+  "failures": [],
+  "verdict": "PASS"
+}
