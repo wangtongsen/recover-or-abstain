@@ -76,7 +76,7 @@ def annotate_run(run_path: Path, model_resource_id: str):
         src_state = source_final_state(result)
         fault_fired = result.get("termination_reason") == "tool_error"
         for baseline_id, entry in (result.get("baselines") or {}).items():
-            label = oracle.label_baseline(entry, truth, src_state)
+            label = oracle.label_baseline(entry, truth, src_state, label_version=oracle.ORACLE_LABEL_VERSION_V05)
             row["baselines"][baseline_id] = label
             sep = separation[scenario_id][baseline_id]
             sep["n"] += 1

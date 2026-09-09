@@ -47,6 +47,8 @@ ROW_FIELDS = frozenset({
     "direct_apply_state_hash",
     # Protocol v0.4: independent oracle harm-label fields.
     "harm_label_source", "harm_recomputed", "cf_outcome_harm",
+    # Protocol v0.5: domain-expansion identity fields.
+    "domain", "scenario_id",
 })
 CONTRACT_FIELDS = frozenset({
     "contract_version", "episode_id", "source_run_id", "run_id", "env_seed",
@@ -331,6 +333,33 @@ def _validate_harm_label_source(row: dict[str, Any], index: int, issues: list[di
         issues.append(_issue("G4_HARM_LABEL_NOT_ORACLE_SOURCED", "ERROR", path, "v0.4 行的 harmful_repair 必须与 oracle 复算标签 harm_recomputed 一致。"))
 
 
+def _validate_v05_row(row: dict[str, Any], index: int, issues: list[dict[str, str]]) -> None:
+    """Protocol v0.5 (version-scoped): domain + scenario identity and v0.5
+    oracle-label provenance fail closed on v0.5 rows only.
+
+    v0.1/v0.3/v0.4 rows carry no v0.5 fields and stay admissible under the
+    upgraded auditor (zero behavioral drift on regression envelopes).
+    """
+    if _text(row.get("protocol_id")) != "racer-v2-benchmark-protocol-0.5":
+        return
+    path = f"$.records[{index}]"
+    domain = _text(row.get("domain"))
+    if domain not in {"flight", "hotel", "shop"}:
+        issues.append(_issue("G6_V05_DOMAIN_MISSING_OR_INVALID", "ERROR", f"{path}.domain", "v0.5 行必须携带 domain ∈ {flight, hotel, shop}。"))
+    task_id = _text(row.get("task_id"))
+    if task_id.startswith("v05-e3-"):
+        if not _text(row.get("scenario_id")):
+            issues.append(_issue("G6_V05_SCENARIO_ID_MISSING", "ERROR", f"{path}.scenario_id", "v0.5 E3 行必须携带非空 scenario_id。"))
+        elif not re.fullmatch(r"E3-S[1-7]", _text(row.get("scenario_id"))):
+            issues.append(_issue("G6_V05_SCENARIO_ID_UNREGISTERED", "ERROR", f"{path}.scenario_id", "v0.5 E3 行 scenario_id 必须属于冻结注册表 E3-S1..E3-S7。"))
+    if _text(row.get("harm_label_source")) != "independent_oracle_v05":
+        issues.append(_issue("G6_V05_HARM_LABEL_NOT_ORACLE_V05", "ERROR", f"{path}.harm_label_source", "v0.5 行的 harm 标签必须声明 independent_oracle_v05 来源。"))
+    if not _is_bool(row.get("harm_recomputed")):
+        issues.append(_issue("G6_V05_HARM_LABEL_MISSING_RECOMPUTED", "ERROR", f"{path}.harm_recomputed", "v0.5 行必须携带布尔 harm_recomputed（oracle 复算标签）。"))
+    elif row.get("harm_recomputed") != row.get("harmful_repair"):
+        issues.append(_issue("G6_V05_HARM_LABEL_DISAGREES", "ERROR", f"{path}.harm_recomputed", "v0.5 行的 harmful_repair 必须与 oracle 复算标签 harm_recomputed 一致。"))
+
+
 def _validate_schema(payload: Any, rows: list[dict[str, Any]], canonical: bool, issues: list[dict[str, str]]) -> None:
     if not isinstance(payload, dict):
         return
@@ -376,6 +405,7 @@ def audit_payload(payload: Any) -> dict[str, Any]:
         _validate_replay(row, index, issues)
         _validate_side_effect(row, index, issues)
         _validate_harm_label_source(row, index, issues)
+        _validate_v05_row(row, index, issues)
         baseline = _baseline(row)
         if pair is None or baseline is None or not isinstance(row.get("trial_id"), int) or isinstance(row.get("trial_id"), bool) or not _text(row.get("model_resource_id")):
             continue
@@ -406,6 +436,7 @@ def audit_payload(payload: Any) -> dict[str, Any]:
             "G3_strict_replay": "PASS" if not any(issue["code"].startswith("G3_") for issue in issues) else "FAIL",
             "G4_side_effect_witness": "PASS" if not any(issue["code"].startswith("G4_") for issue in issues) else "FAIL",
             "G5_truth_and_secret_isolation": "PASS" if not any(issue["code"].startswith("G5_") for issue in issues) else "FAIL",
+            "G6_v05_domain_scenario_and_oracle_labels": "PASS" if not any(issue["code"].startswith("G6_") for issue in issues) else "FAIL",
             "G7_canonical_envelope": "PASS" if not any(issue["code"].startswith("G7_") for issue in issues) else "FAIL",
         },
         "issues": issues,

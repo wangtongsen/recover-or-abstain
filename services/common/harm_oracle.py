@@ -293,6 +293,7 @@ def label_baseline(
     baseline: Mapping[str, Any] | None,
     truth: Mapping[str, Any],
     source_final_state: Mapping[str, Any] | None = None,
+    label_version: str = ORACLE_LABEL_VERSION,
 ) -> dict[str, Any]:
     """对一条 baseline 打独立 oracle 标签（终局语义）。
 
@@ -310,7 +311,7 @@ def label_baseline(
     """
     evidence = baseline_evidence(baseline)
     result: dict[str, Any] = {
-        "harm_label_source": ORACLE_LABEL_VERSION,
+        "harm_label_source": label_version,
         "evidence_form": "source_only" if evidence is None else evidence["form"],
     }
     if evidence is None or evidence["form"] == "source_only":
@@ -362,7 +363,7 @@ def label_baseline(
 
 def source_only_label(truth: Mapping[str, Any], source_final_state: Mapping[str, Any] | None) -> dict[str, Any]:
     """source_only 形态的独立标签（终局 = 源末态）。"""
-    result = {"harm_label_source": ORACLE_LABEL_VERSION, "evidence_form": "source_only"}
+    result = {"harm_label_source": label_version, "evidence_form": "source_only"}
     if isinstance(source_final_state, Mapping):
         outcome = oracle_evaluate(source_final_state, truth)
         result.update({"oracle_harm": outcome["harm"], "oracle_success": outcome["success"]})

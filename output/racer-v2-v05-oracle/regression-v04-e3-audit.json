@@ -1,0 +1,26 @@
+{
+  "checks": {
+    "G1_source_manifest_anchor": "PASS",
+    "G2_paired_identity": "PASS",
+    "G3_strict_replay": "PASS",
+    "G4_side_effect_witness": "PASS",
+    "G5_truth_and_secret_isolation": "PASS",
+    "G6_v05_domain_scenario_and_oracle_labels": "PASS",
+    "G7_canonical_envelope": "PASS"
+  },
+  "counts": {
+    "errors": 0,
+    "main_comparison_rows": 140,
+    "non_main_or_legacy_rows": 0,
+    "warnings": 0
+  },
+  "input": {
+    "canonical_envelope": true,
+    "path": "output/racer-v2-v04-oracle/e3-v04-envelope.json",
+    "row_count": 140
+  },
+  "issues": [],
+  "return_code": 0,
+  "schema_version": "racer-v2-artifact-admission-v2",
+  "verdict": "PASS"
+}

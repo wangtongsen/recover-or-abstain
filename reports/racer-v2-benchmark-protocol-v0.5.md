@@ -113,3 +113,14 @@
 ## 冻结声明
 
 本协议冻结于 **2026-09-09T04:20:01Z**，早于任何 v0.5 执行轨迹的生成。冻结时点仅存在预检性证据（行为学预检、结构校验），不存在 v0.5 episode 执行产物。场景排除决策（N.3）基于冻结的引擎语义推演 + 预检验证，非执行后结果反推。
+
+
+## 执行期披露（冻结后追加）
+
+**D1. harm_oracle 参数化（提交 17ed6e0，2026-09-09）。** 冻结时点 §O 的 `services/common/harm_oracle.py` 锚点 `7160412d4a5bbddf` 对应冻结版（v0.4 语义 + 预留 v0.5 接口）。执行期完成 3 域参数化后文件演进，当前执行锚点 `f4af4a140cba8788`（flight 路径字节冻结 vs v0.4，8 条 oracle 单测锁定，全套件 229 项 PASS）。语义不变量：`truth_from_env_config` / `oracle_evaluate` / `verify_initial_state` 的 flight 路径与 v0.4 逐字节一致；hotel/shop 为同构扩展。
+
+**D2. label_version 参数化（提交于本批）。** `label_baseline()` 新增可选参数 `label_version`（默认 `independent_oracle_v04`，v0.4 回归线零漂移）；v0.5 标注管线显式传 `independent_oracle_v05`。v0.5 行的 `harm_label_source=independent_oracle_v05` 由 G6 门控强制（审计器升级见 D3）。
+
+**D3. 审计器 G6 门控（提交于本批）。** `scripts/audit_v2_artifacts.py` 在冻结版（`4f40a6c65c70308f`）之上扩容：ROW_FIELDS 白名单新增 `domain`、`scenario_id`；版本作用域化新增 G6 检查（v0.5 行必须 domain ∈ {flight,hotel,shop}、E3 行 scenario_id ∈ E3-S1..S7、harm_label_source=independent_oracle_v05、harm_recomputed 与 harmful_repair 一致）。版本作用域保证 v0.1/v0.3/v0.4 行门控零漂移：回归审计见 `output/racer-v2-v05-oracle/regression-*.json`（v0.1 770 行 / v0.3 140 行 / v0.4 E3 140 行 / v0.4 merged 910 行全部 PASS）。
+
+**D4. v0.1 步位缺陷修复（预注册于 §K.4）。** 主轨 confirm 位故障全部改挂 step_id=1（2-step actor 契约）；单任务行为探针（GLM，`v05-main-flight-force_error_confirm-trial-0`）证实故障在 step 1 真实触发，v0.1 缺陷不再复现。

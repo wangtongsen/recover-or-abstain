@@ -206,5 +206,70 @@ class V04HarmLabelGatingTests(unittest.TestCase):
         self.assertEqual(result["verdict"], "PASS")
 
 
+class V05DomainScenarioGatingTests(unittest.TestCase):
+    """Protocol v0.5: domain/scenario identity + independent_oracle_v05 labels."""
+
+    def v05_row(self, **updates):
+        row = valid_row(
+            protocol_id="racer-v2-benchmark-protocol-0.5",
+            task_id="v05-e3-E3-S1-trial-0",
+            paired_identity=["episode", "source", "v05-e3-E3-S1-trial-0", "0", "initial", "faults"],
+            harmful_repair=False,
+            harm_label_source="independent_oracle_v05",
+            harm_recomputed=False,
+            domain="flight",
+            scenario_id="E3-S1",
+        )
+        row.update(updates)
+        return row
+
+    def test_v05_row_with_domain_scenario_and_v05_labels_passes(self):
+        result = audit.audit_payload(valid_envelope(self.v05_row()))
+        self.assertEqual(result["verdict"], "PASS")
+        self.assertEqual(result["checks"]["G6_v05_domain_scenario_and_oracle_labels"], "PASS")
+
+    def test_v05_row_missing_domain_fails(self):
+        row = self.v05_row()
+        row.pop("domain")
+        result = audit.audit_payload(valid_envelope(row))
+        self.assertIn("G6_V05_DOMAIN_MISSING_OR_INVALID", {issue["code"] for issue in result["issues"]})
+
+    def test_v05_row_unknown_domain_fails(self):
+        result = audit.audit_payload(valid_envelope(self.v05_row(domain="train")))
+        self.assertIn("G6_V05_DOMAIN_MISSING_OR_INVALID", {issue["code"] for issue in result["issues"]})
+
+    def test_v05_e3_row_missing_scenario_id_fails(self):
+        row = self.v05_row()
+        row.pop("scenario_id")
+        result = audit.audit_payload(valid_envelope(row))
+        self.assertIn("G6_V05_SCENARIO_ID_MISSING", {issue["code"] for issue in result["issues"]})
+
+    def test_v05_e3_row_unregistered_scenario_id_fails(self):
+        result = audit.audit_payload(valid_envelope(self.v05_row(scenario_id="E3-S9")))
+        self.assertIn("G6_V05_SCENARIO_ID_UNREGISTERED", {issue["code"] for issue in result["issues"]})
+
+    def test_v05_main_row_does_not_require_scenario_id(self):
+        # Main-track v0.5 rows (v05-main-...) only require domain, not scenario_id.
+        row = self.v05_row(task_id="v05-main-flight-clean_success-trial-0")
+        row.pop("scenario_id")
+        result = audit.audit_payload(valid_envelope(row))
+        codes = {issue["code"] for issue in result["issues"]}
+        self.assertNotIn("G6_V05_SCENARIO_ID_MISSING", codes)
+        self.assertNotIn("G6_V05_SCENARIO_ID_UNREGISTERED", codes)
+
+    def test_v05_row_with_v04_label_source_fails(self):
+        result = audit.audit_payload(valid_envelope(self.v05_row(harm_label_source="independent_oracle_v04")))
+        self.assertIn("G6_V05_HARM_LABEL_NOT_ORACLE_V05", {issue["code"] for issue in result["issues"]})
+
+    def test_v05_harm_label_disagreeing_with_repair_fails(self):
+        row = self.v05_row(harmful_repair=True, harm_recomputed=False)
+        result = audit.audit_payload(valid_envelope(row))
+        self.assertIn("G6_V05_HARM_LABEL_DISAGREES", {issue["code"] for issue in result["issues"]})
+
+    def test_v05_nonboolean_recomputed_fails(self):
+        result = audit.audit_payload(valid_envelope(self.v05_row(harm_recomputed=None)))
+        self.assertIn("G6_V05_HARM_LABEL_MISSING_RECOMPUTED", {issue["code"] for issue in result["issues"]})
+
+
 if __name__ == "__main__":
     unittest.main()

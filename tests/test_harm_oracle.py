@@ -252,6 +252,13 @@ class LabelVersionTests(unittest.TestCase):
         label = harm_oracle.label_baseline({"decision": {}}, TRUTH, state(None, False))
         self.assertEqual(label["harm_label_source"], "independent_oracle_v04")
 
+    def test_label_source_v05_explicit(self):
+        label = harm_oracle.label_baseline(
+            {"decision": {}}, TRUTH, state(None, False),
+            label_version=harm_oracle.ORACLE_LABEL_VERSION_V05,
+        )
+        self.assertEqual(label["harm_label_source"], "independent_oracle_v05")
+
 
 if __name__ == "__main__":
     unittest.main()
