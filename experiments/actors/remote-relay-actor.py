@@ -58,11 +58,172 @@ SYSTEM_PROMPT = (
 )
 
 
+# --- v0.5 multi-domain actor vocabulary -------------------------------------
+# The flight prompt/tool schema above stay byte-frozen (they anchor the
+# revision-locked GLM/DeepSeek actor hash in the model registry). New domains
+# reuse the same generic decision procedure with their own vocabulary.
+
+_ACTOR_DOMAIN_SPECS: dict[str, dict[str, Any]] = {
+    "hotel": {
+        "system_prompt": (
+            "You are a hotel-reservation agent operating a room-booking toolset. "
+            "On every turn you must issue exactly one tool call via the tool_use block. "
+            "Follow this strict procedure with the CURRENT observation state:\n"
+            "1. If state.confirmed is true, or the previous step returned a booking_id, "
+            "call the finish tool.\n"
+            "2. If state.selected_room is null and a previous step already listed rooms, "
+            "call select_room. Compute the eligible set from the most recent room listing "
+            "in the trace: rooms where cancellable is true AND price <= budget. Then take "
+            "the eligible room with the MINIMUM price (ties: lowest id) and pass exactly its id.\n"
+            "3. If a room is selected but not confirmed, call confirm_reservation with "
+            "{\"user_confirmed\": true}.\n"
+            "4. Call search_rooms only once per task, when no room listing exists in the trace yet.\n"
+            "Repeated search returns the same listing. Never call confirm_reservation before select_room "
+            "succeeds. Never invent room ids or arguments. Return exactly one tool call per turn."
+        ),
+        "tools": [
+            {
+                "name": "search_rooms",
+                "description": "List available rooms with price and cancellability. Use only when no room listing exists in the trace yet.",
+                "input_schema": {"type": "object", "properties": {}, "required": []},
+            },
+            {
+                "name": "select_room",
+                "description": "Select a room for reservation. room_id must be one of the listed rooms.",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {"room_id": {"type": "string", "description": "Room identifier, e.g. R1"}},
+                    "required": ["room_id"],
+                },
+            },
+            {
+                "name": "confirm_reservation",
+                "description": "Confirm the selected reservation. Requires explicit user confirmation.",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {"user_confirmed": {"type": "boolean"}},
+                    "required": ["user_confirmed"],
+                },
+            },
+            {
+                "name": "finish",
+                "description": "Signal that the task is complete. Use when the reservation is confirmed or no tool can make progress.",
+                "input_schema": {"type": "object", "properties": {}, "required": []},
+            },
+        ],
+        "allowed_tools": ("search_rooms", "select_room", "confirm_reservation", "finish"),
+        "selected_key": "selected_room",
+        "item_noun_plural": "rooms",
+        "soft_flag": "cancellable",
+        "catalog_keys": ("rooms",),
+        "id_arg": "room_id",
+        "search_tool": "search_rooms",
+        "select_tool": "select_room",
+        "confirm_tool": "confirm_reservation",
+        "note": "selected_room null means no room is selected yet. Use ids from available_rooms only.",
+    },
+    "shop": {
+        "system_prompt": (
+            "You are a shopping agent operating a product-ordering toolset. "
+            "On every turn you must issue exactly one tool call via the tool_use block. "
+            "Follow this strict procedure with the CURRENT observation state:\n"
+            "1. If state.confirmed is true, or the previous step returned a booking_id, "
+            "call the finish tool.\n"
+            "2. If state.selected_product is null and a previous step already listed products, "
+            "call select_product. Compute the eligible set from the most recent product listing "
+            "in the trace: products where returnable is true AND in_stock is true AND price <= budget. "
+            "Then take the eligible product with the MINIMUM price (ties: lowest id) and pass exactly its id.\n"
+            "3. If a product is selected but not confirmed, call place_order with "
+            "{\"user_confirmed\": true}.\n"
+            "4. Call search_products only once per task, when no product listing exists in the trace yet.\n"
+            "Repeated search returns the same listing. Never call place_order before select_product "
+            "succeeds. Never invent product ids or arguments. Return exactly one tool call per turn."
+        ),
+        "tools": [
+            {
+                "name": "search_products",
+                "description": "List available products with price, returnability and stock. Use only when no product listing exists in the trace yet.",
+                "input_schema": {"type": "object", "properties": {}, "required": []},
+            },
+            {
+                "name": "select_product",
+                "description": "Select a product for ordering. product_id must be one of the listed products.",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {"product_id": {"type": "string", "description": "Product identifier, e.g. P1"}},
+                    "required": ["product_id"],
+                },
+            },
+            {
+                "name": "place_order",
+                "description": "Place the order for the selected product. Requires explicit user confirmation.",
+                "input_schema": {
+                    "type": "object",
+                    "properties": {"user_confirmed": {"type": "boolean"}},
+                    "required": ["user_confirmed"],
+                },
+            },
+            {
+                "name": "finish",
+                "description": "Signal that the task is complete. Use when the order is confirmed or no tool can make progress.",
+                "input_schema": {"type": "object", "properties": {}, "required": []},
+            },
+        ],
+        "allowed_tools": ("search_products", "select_product", "place_order", "finish"),
+        "selected_key": "selected_product",
+        "item_noun_plural": "products",
+        "soft_flag": "returnable",
+        "catalog_keys": ("products",),
+        "id_arg": "product_id",
+        "search_tool": "search_products",
+        "select_tool": "select_product",
+        "confirm_tool": "place_order",
+        "note": "selected_product null means no product is selected yet. Use ids from available_products only.",
+    },
+}
+
+_FLIGHT_DOMAIN_SPEC: dict[str, Any] = {
+    "system_prompt": SYSTEM_PROMPT,
+    "tools": None,  # filled by _tool_definitions()
+    "allowed_tools": ("search_flights", "select_flight", "confirm_booking", "finish"),
+    "selected_key": "selected_flight",
+    "item_noun_plural": "flights",
+    "soft_flag": "refundable",
+    "catalog_keys": ("flights",),
+    "id_arg": "flight_id",
+    "search_tool": "search_flights",
+    "select_tool": "select_flight",
+    "confirm_tool": "confirm_booking",
+    "note": "selected_flight null means no flight is selected yet. Use ids from available_flights only.",
+}
+
+
+def _detect_domain(observation: Mapping[str, Any]) -> str:
+    """Detect the task domain from the observation (v0.5).
+
+    New domains announce themselves via observation.domain. Legacy flight
+    observations carry no domain key (byte-frozen payload), so anything
+    without an explicit domain is flight.
+    """
+    domain = observation.get("domain") if isinstance(observation, Mapping) else None
+    if domain in _ACTOR_DOMAIN_SPECS:
+        return str(domain)
+    return "flight"
+
+
+def _domain_spec(domain: str) -> dict[str, Any]:
+    if domain in _ACTOR_DOMAIN_SPECS:
+        return _ACTOR_DOMAIN_SPECS[domain]
+    return _FLIGHT_DOMAIN_SPEC
+
+
 class RelayActorError(RuntimeError):
     """Raised when the relay response cannot be used as a safe action."""
 
 
-def _tool_definitions() -> list[dict[str, Any]]:
+def _tool_definitions(domain: str = "flight") -> list[dict[str, Any]]:
+    if domain in _ACTOR_DOMAIN_SPECS:
+        return _ACTOR_DOMAIN_SPECS[domain]["tools"]
     return [
         {
             "name": "search_flights",
@@ -105,18 +266,29 @@ def _observation_flights(observation: Mapping[str, Any]) -> list[Any]:
     return []
 
 
-def _build_user_content(observation: Mapping[str, Any], context: Mapping[str, Any]) -> list[dict[str, Any]]:
+def _observation_catalog(observation: Mapping[str, Any], spec: Mapping[str, Any]) -> list[Any]:
+    env_config = observation.get("env_config")
+    if not isinstance(env_config, Mapping):
+        return []
+    for key in spec["catalog_keys"]:
+        if isinstance(env_config.get(key), list):
+            return env_config[key]
+    return []
+
+
+def _build_user_content(observation: Mapping[str, Any], context: Mapping[str, Any], spec: Mapping[str, Any]) -> list[dict[str, Any]]:
     state = observation.get("state") if isinstance(observation.get("state"), Mapping) else {}
     previous = None
     trace = context.get("trace")
     if isinstance(trace, list) and trace and isinstance(trace[-1], Mapping):
         previous = trace[-1]
+    selected_key = spec["selected_key"]
     user = {
         "instruction": "Choose the next action for the CURRENT state below. Issue exactly one tool call.",
         "current_state": {
             "task": state.get("task"),
             "budget": state.get("budget"),
-            "selected_flight": state.get("selected_flight"),
+            selected_key: state.get(selected_key),
             "confirmed": state.get("confirmed"),
             "events": state.get("events"),
         },
@@ -128,10 +300,10 @@ def _build_user_content(observation: Mapping[str, Any], context: Mapping[str, An
             if previous
             else None
         ),
-        "available_flights": _observation_flights(observation),
+        f"available_{spec['item_noun_plural']}": _observation_catalog(observation, spec),
         "invariants": observation.get("invariants", []),
         "step_id": context.get("step_id"),
-        "note": "selected_flight null means no flight is selected yet. Use ids from available_flights only.",
+        "note": spec["note"],
     }
     return [{"type": "text", "text": json.dumps(user, ensure_ascii=False)}]
 
@@ -150,11 +322,11 @@ def _extract_tool_use(payload: Mapping[str, Any]) -> dict[str, Any] | None:
     return None
 
 
-def _validate_tool_choice(choice: Mapping[str, Any] | None) -> dict[str, Any] | None:
+def _validate_tool_choice(choice: Mapping[str, Any] | None, allowed_tools: tuple[str, ...] = _ALLOWED_TOOLS) -> dict[str, Any] | None:
     if choice is None:
         raise RelayActorError("relay returned no usable tool_use block")
     tool = choice.get("tool")
-    if tool not in _ALLOWED_TOOLS:
+    if tool not in allowed_tools:
         raise RelayActorError(f"relay selected unknown tool: {tool}")
     if tool == "finish":
         return None
@@ -164,16 +336,17 @@ def _validate_tool_choice(choice: Mapping[str, Any] | None) -> dict[str, Any] | 
     return {"tool": tool, "arguments": arguments}
 
 
-def _post_messages(messages: list[dict[str, Any]], temperature: float = _TEMPERATURE) -> Mapping[str, Any]:
+def _post_messages(messages: list[dict[str, Any]], temperature: float = _TEMPERATURE, domain: str = "flight") -> Mapping[str, Any]:
     if not _BASE_URL or not _API_KEY:
         raise RelayActorError("ANTHROPIC_BASE_URL and ANTHROPIC_AUTH_TOKEN must be set in the environment")
+    spec = _domain_spec(domain)
     payload = {
         "model": _MODEL,
         "max_tokens": _MAX_TOKENS,
         "temperature": temperature,
-        "system": SYSTEM_PROMPT,
+        "system": spec["system_prompt"],
         "messages": messages,
-        "tools": _tool_definitions(),
+        "tools": _tool_definitions(domain),
     }
     headers = {
         "Content-Type": "application/json",
@@ -306,7 +479,7 @@ def _termination_reason(observation: Mapping[str, Any], context: Mapping[str, An
     return None
 
 
-def _conversation(trace) -> list[dict[str, Any]]:
+def _conversation(trace, domain_tools: tuple[str, ...] = ("search_flights", "select_flight", "confirm_booking")) -> list[dict[str, Any]]:
     """Rebuild a minimal Anthropic conversation from the runner trace."""
     messages: list[dict[str, Any]] = []
     if not isinstance(trace, list):
@@ -315,7 +488,7 @@ def _conversation(trace) -> list[dict[str, Any]]:
         if not isinstance(step, Mapping):
             continue
         action = step.get("action")
-        if not (isinstance(action, Mapping) and action.get("tool") in ("search_flights", "select_flight", "confirm_booking")):
+        if not (isinstance(action, Mapping) and action.get("tool") in domain_tools):
             continue
         tool_use_id = f"toolu_{len(messages)}"
         messages.append({
@@ -339,8 +512,11 @@ def act(observation, context):
         _ledger["termination_reason"] = reason
         return None
 
-    messages = _conversation(context.get("trace"))
-    messages.append({"role": "user", "content": _build_user_content(observation, context)})
+    domain = _detect_domain(observation)
+    spec = _domain_spec(domain)
+    domain_tools = tuple(tool for tool in spec["allowed_tools"] if tool != "finish")
+    messages = _conversation(context.get("trace"), domain_tools)
+    messages.append({"role": "user", "content": _build_user_content(observation, context, spec)})
 
     last_error: Exception | None = None
     total_attempts = _MAX_EMPTY_RETRIES + 1 + 12  # content retries + overload backoff budget
@@ -354,7 +530,7 @@ def act(observation, context):
             # Deterministic first attempt; later attempts (empty-content
             # defects) escalate sampling temperature so the model can escape
             # a truncated-thinking loop that repeats identically at t=0.
-            payload = _post_messages(messages, temperature=temperature)
+            payload = _post_messages(messages, temperature=temperature, domain=domain)
         except RelayOverloadedError as exc:
             # Infrastructure overload: exponential backoff, then retry the
             # same request. Counted as endpoint errors in the usage ledger.
@@ -378,7 +554,7 @@ def act(observation, context):
             backoff_s = min(backoff_s * 2, 8.0)
             continue
         try:
-            action = _validate_tool_choice(choice)
+            action = _validate_tool_choice(choice, spec["allowed_tools"])
         except RelayActorError as exc:
             last_error = exc
             _record_invalid(payload, latency_ms)
