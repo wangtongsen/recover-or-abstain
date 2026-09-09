@@ -3,6 +3,51 @@ import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
+# v0.5 planning-error patch derivation. The flight cause keeps its frozen
+# literal patch (select_flight F1) for protocol continuity with v0.1-v0.4
+# artifacts; new domains derive the repair target from the diagnosis
+# evidence (the cheapest eligible item on the public listing, attached by
+# the diagnoser). A missing repair target degrades to abstain -- never a
+# fabricated patch.
+
+_PLANNING_ERROR_PATCHES = {
+    "selected_non_refundable_flight": {"tool": "select_flight", "arguments": {"flight_id": "F1"}},
+    "selected_non_cancellable_room": None,   # derived from evidence.repair_target
+    "selected_non_returnable_product": None,  # derived from evidence.repair_target
+}
+
+_PLANNING_ERROR_SELECT_TOOLS = {
+    "selected_non_cancellable_room": "select_room",
+    "selected_non_returnable_product": "select_product",
+}
+
+
+def _planning_error_patch(cause, evidence):
+    """Resolve the replace_argument patch for a planning-error cause.
+
+    Flight: frozen F1 literal (v0.1-v0.4 continuity).
+    Hotel/shop: the diagnoser's repair_target (cheapest eligible item
+    derived from the public listing). Without a usable target the strategy
+    abstains rather than fabricating an id.
+    """
+    frozen = _PLANNING_ERROR_PATCHES.get(cause, "missing")
+    if isinstance(frozen, dict):
+        return copy.deepcopy(frozen)
+    select_tool = _PLANNING_ERROR_SELECT_TOOLS.get(cause)
+    if select_tool is None:
+        return None
+    if not isinstance(evidence, dict):
+        return None
+    target = evidence.get("repair_target")
+    if not isinstance(target, dict):
+        return None
+    target_id = target.get("id")
+    if not isinstance(target_id, str) or not target_id.strip():
+        return None
+    id_arg = "room_id" if select_tool == "select_room" else "product_id"
+    return {"tool": select_tool, "arguments": {id_arg: target_id}}
+
+
 def choose(diagnosis, allow_abstain=True):
     candidates = diagnosis.get("candidates", [])
     if not candidates:
@@ -15,6 +60,14 @@ def choose(diagnosis, allow_abstain=True):
     if root.get("cause") == "selected_non_refundable_flight":
         decision = "replace_argument"
         patch = {"tool": "select_flight", "arguments": {"flight_id": "F1"}}
+    elif root.get("cause") in ("selected_non_cancellable_room", "selected_non_returnable_product"):
+        derived = _planning_error_patch(root.get("cause"), root.get("evidence"))
+        if derived is None:
+            decision = "abstain"
+            patch = None
+        else:
+            decision = "replace_argument"
+            patch = derived
     elif root.get("cause") == "missing_explicit_confirmation":
         decision = "ask_clarification"
         patch = None
@@ -211,6 +264,8 @@ def _reflection_patch(root, candidates):
     cause = root.get("cause")
     if cause == "selected_non_refundable_flight":
         return {"tool": "select_flight", "arguments": {"flight_id": "F1"}}
+    if cause in ("selected_non_cancellable_room", "selected_non_returnable_product"):
+        return _planning_error_patch(cause, root.get("evidence"))
     return _retry_patch(root)
 
 
@@ -290,6 +345,10 @@ def step_by_step_diagnosis_decision(diagnosis):
     if cause == "selected_non_refundable_flight":
         patch = {"tool": "select_flight", "arguments": {"flight_id": "F1"}}
         return _final_decision("step_by_step_diagnosis", "replace_argument", patch, root, "earliest-step root cause repaired", scan="sequential")
+    if cause in ("selected_non_cancellable_room", "selected_non_returnable_product"):
+        derived = _planning_error_patch(cause, root.get("evidence"))
+        if derived is not None:
+            return _final_decision("step_by_step_diagnosis", "replace_argument", derived, root, "earliest-step root cause repaired", scan="sequential")
     patch = _retry_patch(root)
     if patch is None:
         return {
@@ -323,6 +382,10 @@ def binary_search_diagnosis_decision(diagnosis):
     if cause == "selected_non_refundable_flight":
         patch = {"tool": "select_flight", "arguments": {"flight_id": "F1"}}
         return _final_decision("binary_search_diagnosis", "replace_argument", patch, mid, "midpoint-attributed root cause repaired", scan="binary_search")
+    if cause in ("selected_non_cancellable_room", "selected_non_returnable_product"):
+        derived = _planning_error_patch(cause, mid.get("evidence"))
+        if derived is not None:
+            return _final_decision("binary_search_diagnosis", "replace_argument", derived, mid, "midpoint-attributed root cause repaired", scan="binary_search")
     patch = _retry_patch(mid)
     if patch is None:
         return {
@@ -348,6 +411,8 @@ def agentdebug_targeted_feedback_decision(diagnosis):
     patch = _retry_patch(root)
     if root.get("cause") == "selected_non_refundable_flight":
         patch = {"tool": "select_flight", "arguments": {"flight_id": "F1"}}
+    if root.get("cause") in ("selected_non_cancellable_room", "selected_non_returnable_product"):
+        patch = _planning_error_patch(root.get("cause"), root.get("evidence"))
     if patch is None:
         return {
             "baseline_id": "agentdebug_targeted_feedback",
@@ -369,6 +434,10 @@ def always_recover_decision(diagnosis):
     if cause == "selected_non_refundable_flight":
         patch = {"tool": "select_flight", "arguments": {"flight_id": "F1"}}
         return _final_decision("always_recover", "replace_argument", patch, root, "forced recovery without abstention", allow_abstain=False)
+    if cause in ("selected_non_cancellable_room", "selected_non_returnable_product"):
+        derived = _planning_error_patch(cause, root.get("evidence"))
+        if derived is not None:
+            return _final_decision("always_recover", "replace_argument", derived, root, "forced recovery without abstention", allow_abstain=False)
     patch = _retry_patch(root)
     if patch is None:
         # Never abstain on principle, but with no actionable evidence the
@@ -410,6 +479,8 @@ def racer_decision(diagnosis, allow_abstain=True, use_counterfactual=True):
         patch = {"tool": "select_flight", "arguments": {"flight_id": "F1"}}
     elif cause == "missing_explicit_confirmation":
         patch = None  # ask_clarification, no replayable patch
+    elif cause in ("selected_non_cancellable_room", "selected_non_returnable_product"):
+        patch = _planning_error_patch(cause, root.get("evidence"))
     else:
         patch = _retry_patch(root)
     utility = _racer_utility(root, patch)
@@ -426,7 +497,7 @@ def racer_decision(diagnosis, allow_abstain=True, use_counterfactual=True):
     if patch is None:
         decision = "ask_clarification"
         return _final_decision("racer", decision, None, root, "clarification requested before any risky repair", use_counterfactual=use_counterfactual, expected_utility=utility)
-    decision = "replace_argument" if cause == "selected_non_refundable_flight" else "retry"
+    decision = "replace_argument" if cause in ("selected_non_refundable_flight", "selected_non_cancellable_room", "selected_non_returnable_product") else "retry"
     return _final_decision("racer", decision, patch, root, "risk-utility gated repair with counterfactual verification", use_counterfactual=use_counterfactual, expected_utility=utility)
 
 
@@ -475,6 +546,8 @@ def oracle_root_cause_decision(diagnosis, fault_truth):
         source = matching[0] if matching else root
         if source.get("cause") == "selected_non_refundable_flight":
             step_patch = {"tool": "select_flight", "arguments": {"flight_id": "F1"}}
+        elif source.get("cause") in ("selected_non_cancellable_room", "selected_non_returnable_product"):
+            step_patch = _planning_error_patch(source.get("cause"), source.get("evidence"))
         else:
             step_patch = _retry_patch(source)
     if step_patch is None:

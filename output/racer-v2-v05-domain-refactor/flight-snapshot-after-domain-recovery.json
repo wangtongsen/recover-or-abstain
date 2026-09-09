@@ -1,0 +1,821 @@
+{
+  "source_sha256": "b50a646f1e3abb56b854694ce3eb9806ec8fb00dfc5c304d101982cf341f32eb",
+  "scenarios": {
+    "default_reset": {
+      "observation": {
+        "state": {
+          "task": "Book the cheapest refundable flight from A to B.",
+          "budget": 500,
+          "confirmed": false,
+          "events": [],
+          "origin": "A",
+          "destination": "B",
+          "selected_flight": null
+        },
+        "state_hash": "a4ecba43ac2d902c",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking"
+        ],
+        "seed": 0,
+        "task_variant": "clean_success",
+        "variant": "clean_success",
+        "actions": [],
+        "env_config": {},
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be the cheapest eligible refundable flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      }
+    },
+    "e1_replace_action": {
+      "reset_observation": {
+        "state": {
+          "task": "Book the cheapest refundable flight from A to B.",
+          "budget": 500,
+          "confirmed": false,
+          "events": [],
+          "origin": "A",
+          "destination": "B",
+          "selected_flight": null,
+          "booking_id": "BK-001",
+          "refund_ledger": []
+        },
+        "state_hash": "f474a386981d6f4c",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking",
+          "refund_booking",
+          "get_refund_status"
+        ],
+        "seed": 0,
+        "task_variant": "e1_replace_action",
+        "variant": "e1_replace_action",
+        "actions": [],
+        "env_config": {
+          "seed": 0,
+          "budget": 500,
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F2",
+              "price": 360,
+              "refundable": false
+            },
+            {
+              "id": "F3",
+              "price": 80,
+              "refundable": true
+            }
+          ],
+          "task_variant": "e1_replace_action",
+          "enable_refund_ledger": true
+        },
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be the cheapest eligible refundable flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      },
+      "steps": [
+        {
+          "requested_action": {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F1"
+            }
+          },
+          "action": {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F1"
+            }
+          },
+          "result": {
+            "ok": true,
+            "selected": {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            }
+          },
+          "state_before_hash": "f474a386981d6f4c",
+          "state_after_hash": "045e69767fff7e2c",
+          "observation": {
+            "state": {
+              "task": "Book the cheapest refundable flight from A to B.",
+              "budget": 500,
+              "confirmed": false,
+              "events": [
+                "selected:F1"
+              ],
+              "origin": "A",
+              "destination": "B",
+              "selected_flight": {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              "booking_id": "BK-001",
+              "refund_ledger": []
+            },
+            "state_hash": "045e69767fff7e2c",
+            "tools": [
+              "search_flights",
+              "select_flight",
+              "confirm_booking",
+              "refund_booking",
+              "get_refund_status"
+            ],
+            "seed": 0,
+            "task_variant": "e1_replace_action",
+            "variant": "e1_replace_action",
+            "actions": [],
+            "env_config": {
+              "seed": 0,
+              "budget": 500,
+              "flights": [
+                {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                {
+                  "id": "F2",
+                  "price": 360,
+                  "refundable": false
+                },
+                {
+                  "id": "F3",
+                  "price": 80,
+                  "refundable": true
+                }
+              ],
+              "task_variant": "e1_replace_action",
+              "enable_refund_ledger": true
+            },
+            "invariants": [
+              "selected_flight must be refundable",
+              "price must be <= budget",
+              "selected_flight must be the cheapest eligible refundable flight",
+              "confirmation requires explicit user confirmation"
+            ]
+          }
+        },
+        {
+          "requested_action": {
+            "tool": "confirm_booking",
+            "arguments": {
+              "user_confirmed": true
+            }
+          },
+          "action": {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F1"
+            }
+          },
+          "result": {
+            "ok": true,
+            "selected": {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            }
+          },
+          "state_before_hash": "045e69767fff7e2c",
+          "state_after_hash": "fabafcbc358bd7c4",
+          "observation": {
+            "state": {
+              "task": "Book the cheapest refundable flight from A to B.",
+              "budget": 500,
+              "confirmed": false,
+              "events": [
+                "selected:F1",
+                "selected:F1"
+              ],
+              "origin": "A",
+              "destination": "B",
+              "selected_flight": {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              "booking_id": "BK-001",
+              "refund_ledger": []
+            },
+            "state_hash": "fabafcbc358bd7c4",
+            "tools": [
+              "search_flights",
+              "select_flight",
+              "confirm_booking",
+              "refund_booking",
+              "get_refund_status"
+            ],
+            "seed": 0,
+            "task_variant": "e1_replace_action",
+            "variant": "e1_replace_action",
+            "actions": [],
+            "env_config": {
+              "seed": 0,
+              "budget": 500,
+              "flights": [
+                {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                {
+                  "id": "F2",
+                  "price": 360,
+                  "refundable": false
+                },
+                {
+                  "id": "F3",
+                  "price": 80,
+                  "refundable": true
+                }
+              ],
+              "task_variant": "e1_replace_action",
+              "enable_refund_ledger": true
+            },
+            "invariants": [
+              "selected_flight must be refundable",
+              "price must be <= budget",
+              "selected_flight must be the cheapest eligible refundable flight",
+              "confirmation requires explicit user confirmation"
+            ]
+          }
+        }
+      ],
+      "evaluation": {
+        "success": false,
+        "side_effect": false,
+        "constraints_satisfied": true,
+        "optimal_selection": false,
+        "state_hash": "fabafcbc358bd7c4",
+        "seed": 0,
+        "env_seed": 0,
+        "run_id": "snap-e1"
+      }
+    },
+    "e3_tamper": {
+      "reset_observation": {
+        "state": {
+          "task": "Book the cheapest refundable flight from A to B.",
+          "budget": 500,
+          "confirmed": false,
+          "events": [],
+          "origin": "A",
+          "destination": "B",
+          "selected_flight": null,
+          "booking_id": "BK-001",
+          "refund_ledger": []
+        },
+        "state_hash": "f474a386981d6f4c",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking",
+          "refund_booking",
+          "get_refund_status"
+        ],
+        "seed": 0,
+        "task_variant": "e3_tamper_force_error",
+        "variant": "e3_tamper_force_error",
+        "actions": [],
+        "env_config": {
+          "seed": 0,
+          "budget": 500,
+          "task_variant": "e3_tamper_force_error",
+          "enable_refund_ledger": true,
+          "obfuscate_catalog": true,
+          "flight_catalog_visible": false
+        },
+        "invariants": [
+          "selected_flight must be refundable",
+          "price must be <= budget",
+          "selected_flight must be the cheapest eligible refundable flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      },
+      "steps": [
+        {
+          "requested_action": {
+            "tool": "search_flights",
+            "arguments": {}
+          },
+          "action": {
+            "tool": "search_flights",
+            "arguments": {}
+          },
+          "result": {
+            "flights": [
+              {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              {
+                "id": "F3",
+                "price": 480,
+                "refundable": true
+              }
+            ],
+            "tampered": true
+          },
+          "state_before_hash": "f474a386981d6f4c",
+          "state_after_hash": "f474a386981d6f4c",
+          "observation": {
+            "state": {
+              "task": "Book the cheapest refundable flight from A to B.",
+              "budget": 500,
+              "confirmed": false,
+              "events": [],
+              "origin": "A",
+              "destination": "B",
+              "selected_flight": null,
+              "booking_id": "BK-001",
+              "refund_ledger": []
+            },
+            "state_hash": "f474a386981d6f4c",
+            "tools": [
+              "search_flights",
+              "select_flight",
+              "confirm_booking",
+              "refund_booking",
+              "get_refund_status"
+            ],
+            "seed": 0,
+            "task_variant": "e3_tamper_force_error",
+            "variant": "e3_tamper_force_error",
+            "actions": [],
+            "env_config": {
+              "seed": 0,
+              "budget": 500,
+              "task_variant": "e3_tamper_force_error",
+              "enable_refund_ledger": true,
+              "obfuscate_catalog": true,
+              "flight_catalog_visible": false
+            },
+            "invariants": [
+              "selected_flight must be refundable",
+              "price must be <= budget",
+              "selected_flight must be the cheapest eligible refundable flight",
+              "confirmation requires explicit user confirmation"
+            ]
+          }
+        },
+        {
+          "requested_action": {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F1"
+            }
+          },
+          "action": {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F1"
+            }
+          },
+          "result": {
+            "ok": true,
+            "selected": {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            }
+          },
+          "state_before_hash": "f474a386981d6f4c",
+          "state_after_hash": "045e69767fff7e2c",
+          "observation": {
+            "state": {
+              "task": "Book the cheapest refundable flight from A to B.",
+              "budget": 500,
+              "confirmed": false,
+              "events": [
+                "selected:F1"
+              ],
+              "origin": "A",
+              "destination": "B",
+              "selected_flight": {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              "booking_id": "BK-001",
+              "refund_ledger": []
+            },
+            "state_hash": "045e69767fff7e2c",
+            "tools": [
+              "search_flights",
+              "select_flight",
+              "confirm_booking",
+              "refund_booking",
+              "get_refund_status"
+            ],
+            "seed": 0,
+            "task_variant": "e3_tamper_force_error",
+            "variant": "e3_tamper_force_error",
+            "actions": [],
+            "env_config": {
+              "seed": 0,
+              "budget": 500,
+              "task_variant": "e3_tamper_force_error",
+              "enable_refund_ledger": true,
+              "obfuscate_catalog": true,
+              "flight_catalog_visible": false
+            },
+            "invariants": [
+              "selected_flight must be refundable",
+              "price must be <= budget",
+              "selected_flight must be the cheapest eligible refundable flight",
+              "confirmation requires explicit user confirmation"
+            ]
+          }
+        },
+        {
+          "requested_action": {
+            "tool": "confirm_booking",
+            "arguments": {
+              "user_confirmed": true
+            }
+          },
+          "action": {
+            "tool": "confirm_booking",
+            "arguments": {
+              "user_confirmed": true
+            }
+          },
+          "result": {
+            "ok": false,
+            "error": "injected force_error_confirm"
+          },
+          "state_before_hash": "045e69767fff7e2c",
+          "state_after_hash": "045e69767fff7e2c",
+          "observation": {
+            "state": {
+              "task": "Book the cheapest refundable flight from A to B.",
+              "budget": 500,
+              "confirmed": false,
+              "events": [
+                "selected:F1"
+              ],
+              "origin": "A",
+              "destination": "B",
+              "selected_flight": {
+                "id": "F1",
+                "price": 420,
+                "refundable": true
+              },
+              "booking_id": "BK-001",
+              "refund_ledger": []
+            },
+            "state_hash": "045e69767fff7e2c",
+            "tools": [
+              "search_flights",
+              "select_flight",
+              "confirm_booking",
+              "refund_booking",
+              "get_refund_status"
+            ],
+            "seed": 0,
+            "task_variant": "e3_tamper_force_error",
+            "variant": "e3_tamper_force_error",
+            "actions": [],
+            "env_config": {
+              "seed": 0,
+              "budget": 500,
+              "task_variant": "e3_tamper_force_error",
+              "enable_refund_ledger": true,
+              "obfuscate_catalog": true,
+              "flight_catalog_visible": false
+            },
+            "invariants": [
+              "selected_flight must be refundable",
+              "price must be <= budget",
+              "selected_flight must be the cheapest eligible refundable flight",
+              "confirmation requires explicit user confirmation"
+            ]
+          }
+        }
+      ],
+      "evaluation": {
+        "success": false,
+        "side_effect": false,
+        "constraints_satisfied": true,
+        "optimal_selection": false,
+        "state_hash": "045e69767fff7e2c",
+        "seed": 0,
+        "env_seed": 0,
+        "run_id": "snap-e3"
+      }
+    },
+    "ledger_flow": {
+      "refund_result": {
+        "ok": true,
+        "booking_id": "BK-001",
+        "refund_entity_id": "RE-1",
+        "idempotent_replay": false,
+        "ledger_witness": "84b7f84a96138c6c68b551322f1f6cf7cd9a83860aef3cd9b6d7312611222bb0",
+        "ledger_entry_count": 1
+      },
+      "status_result": {
+        "ok": true,
+        "booking_id": "BK-001",
+        "refund_entity_id": "RE-1",
+        "refunded": true,
+        "ledger_witness": "84b7f84a96138c6c68b551322f1f6cf7cd9a83860aef3cd9b6d7312611222bb0",
+        "ledger_entry_count": 1,
+        "refund_witness_valid": true,
+        "reconciled": true
+      },
+      "evaluation": {
+        "success": true,
+        "side_effect": false,
+        "constraints_satisfied": true,
+        "optimal_selection": true,
+        "state_hash": "94d898d0500f9010",
+        "seed": 0,
+        "env_seed": 0,
+        "run_id": "snap-ledger"
+      }
+    },
+    "confirm_error": {
+      "confirm_without_flag": {
+        "ok": false,
+        "error": "explicit user confirmation required"
+      },
+      "unknown_flight": {
+        "ok": false,
+        "error": "unknown flight"
+      }
+    },
+    "non_refundable_variant": {
+      "reset_observation": {
+        "state": {
+          "task": "Book the cheapest non-refundable flight from A to B.",
+          "budget": 500,
+          "confirmed": false,
+          "events": [],
+          "origin": "A",
+          "destination": "B",
+          "selected_flight": null
+        },
+        "state_hash": "5d445be885608448",
+        "tools": [
+          "search_flights",
+          "select_flight",
+          "confirm_booking"
+        ],
+        "seed": 0,
+        "task_variant": "non_refundable",
+        "variant": "non_refundable",
+        "actions": [],
+        "env_config": {
+          "seed": 0,
+          "budget": 500,
+          "task_variant": "non_refundable",
+          "flights": [
+            {
+              "id": "F1",
+              "price": 420,
+              "refundable": true
+            },
+            {
+              "id": "F2",
+              "price": 360,
+              "refundable": false
+            },
+            {
+              "id": "F3",
+              "price": 80,
+              "refundable": true
+            }
+          ]
+        },
+        "invariants": [
+          "selected_flight must be non-refundable",
+          "price must be <= budget",
+          "selected_flight must be the cheapest eligible non-refundable flight",
+          "confirmation requires explicit user confirmation"
+        ]
+      },
+      "steps": [
+        {
+          "requested_action": {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F2"
+            }
+          },
+          "action": {
+            "tool": "select_flight",
+            "arguments": {
+              "flight_id": "F2"
+            }
+          },
+          "result": {
+            "ok": true,
+            "selected": {
+              "id": "F2",
+              "price": 360,
+              "refundable": false
+            }
+          },
+          "state_before_hash": "5d445be885608448",
+          "state_after_hash": "278d5079f859374d",
+          "observation": {
+            "state": {
+              "task": "Book the cheapest non-refundable flight from A to B.",
+              "budget": 500,
+              "confirmed": false,
+              "events": [
+                "selected:F2"
+              ],
+              "origin": "A",
+              "destination": "B",
+              "selected_flight": {
+                "id": "F2",
+                "price": 360,
+                "refundable": false
+              }
+            },
+            "state_hash": "278d5079f859374d",
+            "tools": [
+              "search_flights",
+              "select_flight",
+              "confirm_booking"
+            ],
+            "seed": 0,
+            "task_variant": "non_refundable",
+            "variant": "non_refundable",
+            "actions": [],
+            "env_config": {
+              "seed": 0,
+              "budget": 500,
+              "task_variant": "non_refundable",
+              "flights": [
+                {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                {
+                  "id": "F2",
+                  "price": 360,
+                  "refundable": false
+                },
+                {
+                  "id": "F3",
+                  "price": 80,
+                  "refundable": true
+                }
+              ]
+            },
+            "invariants": [
+              "selected_flight must be non-refundable",
+              "price must be <= budget",
+              "selected_flight must be the cheapest eligible non-refundable flight",
+              "confirmation requires explicit user confirmation"
+            ]
+          }
+        },
+        {
+          "requested_action": {
+            "tool": "confirm_booking",
+            "arguments": {
+              "user_confirmed": true
+            }
+          },
+          "action": {
+            "tool": "confirm_booking",
+            "arguments": {
+              "user_confirmed": true
+            }
+          },
+          "result": {
+            "ok": true,
+            "booking_id": "BK-001"
+          },
+          "state_before_hash": "278d5079f859374d",
+          "state_after_hash": "1e7a3969a552ed8f",
+          "observation": {
+            "state": {
+              "task": "Book the cheapest non-refundable flight from A to B.",
+              "budget": 500,
+              "confirmed": true,
+              "events": [
+                "selected:F2",
+                "confirmed"
+              ],
+              "origin": "A",
+              "destination": "B",
+              "selected_flight": {
+                "id": "F2",
+                "price": 360,
+                "refundable": false
+              }
+            },
+            "state_hash": "1e7a3969a552ed8f",
+            "tools": [
+              "search_flights",
+              "select_flight",
+              "confirm_booking"
+            ],
+            "seed": 0,
+            "task_variant": "non_refundable",
+            "variant": "non_refundable",
+            "actions": [],
+            "env_config": {
+              "seed": 0,
+              "budget": 500,
+              "task_variant": "non_refundable",
+              "flights": [
+                {
+                  "id": "F1",
+                  "price": 420,
+                  "refundable": true
+                },
+                {
+                  "id": "F2",
+                  "price": 360,
+                  "refundable": false
+                },
+                {
+                  "id": "F3",
+                  "price": 80,
+                  "refundable": true
+                }
+              ]
+            },
+            "invariants": [
+              "selected_flight must be non-refundable",
+              "price must be <= budget",
+              "selected_flight must be the cheapest eligible non-refundable flight",
+              "confirmation requires explicit user confirmation"
+            ]
+          }
+        }
+      ],
+      "evaluation": {
+        "success": false,
+        "side_effect": true,
+        "constraints_satisfied": true,
+        "optimal_selection": false,
+        "state_hash": "1e7a3969a552ed8f",
+        "seed": 0,
+        "env_seed": 0,
+        "run_id": "snap-nr"
+      }
+    },
+    "direct_apply_receipt": {
+      "receipts_empty_before_evaluate": true,
+      "evaluation": {
+        "success": false,
+        "side_effect": true,
+        "constraints_satisfied": true,
+        "optimal_selection": false,
+        "state_hash": "8dcd56965950a48c",
+        "seed": 0,
+        "env_seed": 0,
+        "run_id": "snap-da"
+      },
+      "receipts": [
+        {
+          "apply_id": "da-1",
+          "apply_sequence": 1,
+          "tool": "confirm_booking",
+          "arguments": {
+            "user_confirmed": true
+          },
+          "state_after_hash": "8dcd56965950a48c",
+          "success": false,
+          "side_effect": true,
+          "run_id": "snap-da",
+          "finalized": true,
+          "apply_witness": "4b346562d787db41ddfa33b7eb34e860d5d7e436da3c9e5bee7f583a988b8ebf"
+        }
+      ]
+    }
+  },
+  "digests": {
+    "default_reset": "b6a94887887b5811",
+    "e1_replace_action": "404daf3213091e20",
+    "e3_tamper": "1752416346a3ce1b",
+    "ledger_flow": "096bbf079e1e6189",
+    "confirm_error": "19f53d313ccbd49a",
+    "non_refundable_variant": "9cdaed289b7ed79e",
+    "direct_apply_receipt": "fc27856a7a4520a5"
+  }
+}
