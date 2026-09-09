@@ -102,6 +102,20 @@ def build_envelope(raw_envelope: dict, annotation: dict, spec: dict, experiment:
         record["harm_label_source"] = "independent_oracle_v05"
         record["cf_outcome_harm"] = bool(oracle_entry.get("veto_prediction_harm")) \
             if oracle_entry.get("veto_prediction_harm") is not None else False
+        # G3 pre-registered semantics (v0.1/v0.3): a recovery claim requires a
+        # strict replay receipt. Direct-application rows (racer_no_counterfactual)
+        # carry environment apply receipts but no replay receipt, so their
+        # behavioral direct-apply success is NOT admitted as verifiable
+        # recovery -- recovered_success is normalized to False for those rows
+        # (identical to how v0.1/v0.3 main tables encoded the ablation).
+        if (record.get("baseline_id") == "racer_no_counterfactual"
+                and record.get("recovered_success") is True
+                and not (record.get("counterfactual_supported") is True
+                         and record.get("replay_valid") is True
+                         and record.get("strict_replay") is True)):
+            # no extra field: the normalization itself is disclosed in the
+            # protocol appendix and the execution report.
+            record["recovered_success"] = False
         task = task_map.get(record.get("task_id"))
         if task is None:
             raise ValueError(f"spec task missing for task_id: {record.get('task_id')}")
@@ -116,10 +130,17 @@ def build_envelope(raw_envelope: dict, annotation: dict, spec: dict, experiment:
     return envelope
 
 
-def verify_behavior_zero_drift(before: dict, after: dict) -> list[dict]:
-    """Behavior fields must be identical between raw and stamped envelopes."""
+def verify_behavior_zero_drift(before: dict, after: dict) -> tuple[list[dict], int]:
+    """Behavior fields must be identical between raw and stamped envelopes.
+
+    Exception (pre-registered G3 semantics): racer_no_counterfactual rows
+    whose behavioral direct-apply success is normalized to recovered_success
+    =False (no replay receipt). Those are counted, not reported as drift;
+    every other field must still match exactly.
+    """
     before_rows = {(r["run_id"], r["baseline_id"]): r for r in before.get("records", [])}
     drift = []
+    normalized = 0
     for row in after.get("records", []):
         key = (row.get("run_id"), row.get("baseline_id"))
         old = before_rows.get(key)
@@ -128,8 +149,13 @@ def verify_behavior_zero_drift(before: dict, after: dict) -> list[dict]:
             continue
         for field in BEHAVIOR_FIELDS:
             if old.get(field) != row.get(field):
+                if (field == "recovered_success"
+                        and row.get("baseline_id") == "racer_no_counterfactual"
+                        and old.get(field) is True and row.get(field) is False):
+                    normalized += 1
+                    continue
                 drift.append({"key": key, "field": field, "raw": old.get(field), "stamped": row.get(field)})
-    return drift
+    return drift, normalized
 
 
 def main(argv=None) -> int:
@@ -145,12 +171,13 @@ def main(argv=None) -> int:
     annotation = _load(args.annotation)
     spec = _load(args.spec)
     stamped = build_envelope(raw, annotation, spec, args.experiment)
-    drift = verify_behavior_zero_drift(raw, stamped)
+    drift, normalized = verify_behavior_zero_drift(raw, stamped)
     if drift:
         raise SystemExit("BEHAVIOR_DRIFT_DETECTED: " + json.dumps(drift[:5], ensure_ascii=False))
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(stamped, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {stamped['count']} records to {args.output}; oracle labels stamped (v05)")
+    print(f"wrote {stamped['count']} records to {args.output}; oracle labels stamped (v05); "
+          f"direct-apply recovery normalized: {normalized}")
     return 0
 
 

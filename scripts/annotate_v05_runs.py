@@ -89,7 +89,7 @@ def annotate_run(run_path: Path, model_resource_id: str):
 
 def _env_config_from_spec(task_id: str):
     # batch specs embed the full env_config; load from the known run dirs
-    for spec_path in sorted((PROJECT_ROOT / "output").glob("racer-v2-v05-run-*/batch-spec.json")):
+    for spec_path in sorted((PROJECT_ROOT / "output").glob("racer-v2-v05-*/batch-spec.json")):
         try:
             spec = json.loads(spec_path.read_text(encoding="utf-8"))
         except Exception:
