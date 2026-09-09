@@ -1,6 +1,6 @@
 # RACER v2 v0.5 执行报告（进行中）
 
-**状态**：GLM E3 + 主表完成 + 准入 PASS；DeepSeek E3 完成 + 准入 PASS + 双模型统计合并；DeepSeek 主表执行中。
+**状态**：双矩阵双模型全部完成 + 全 PASS；**R.2 GO 判定达成（6/6 条件）**；论文 §6 升级进行中。
 
 ## 1. GLM E3 全量（2026-09-09）
 
@@ -54,9 +54,31 @@
   - 分离表：S1/S2/S4/S6 重试族 70/80（judge 弃权跨模型复现）；S3 80/80；S5 42/80、S7 64/80。
 - 执行披露：GLM 与 DeepSeek 共享冻结 run_id（矩阵设计），DeepSeek 运行覆盖 volume 上 GLM 的 E3 轨迹文件；GLM 的 raw envelope 在覆盖前已构建落盘（13:18 < 16:14），完整 GLM trace 保留于 `e3-run.json`（含全 trajectory），可复现性不受影响。
 
-## 5. 待办
+## 5. DeepSeek 主表（3 域 × 11 cells × 10 种子，330 任务）
 
-- [ ] DeepSeek main（执行中，spec：`experiments/racer-v2-v05-matrix-main-deepseek.json`，330 任务）→ 标注/envelope/审计/统计
-- [ ] R.2 GO/NO-GO 总判定（R.2-1 至 R.2-6 逐项）
-- [ ] 论文 §6 升级（3 域 × 双模型 × 7 场景）
-- [ ] README 更新 + commit/push
+- 执行 38m24s（约为 GLM 1/4.7 用时），exit 0；oracle 标注 4620 记录零翻转；审计 **4620/4620 PASS**（0 排除）。
+- 统计（`main-deepseek-statistics.json`，Q.4 域分层）：
+  - racer 恢复率：flight **100%** / hotel **100%** / shop **75.0%**（shop 域间差异跨模型复现，GLM 78.3%）；
+  - 全域 harm 0；racer vs no_cf/raw_react/full_trace_judge 三域全部显著（域内 p=1e-4～0.034）；racer vs fixed_retry/no_abstain 三域零差（主轨无陷阱设计下预期一致，与 GLM 相同）。
+- **模型行为差异（如实披露）**：
+  - 故障触发 cell 8/33（GLM 为 17/33）——DeepSeek actor 多步行为（`max_dynamic_steps_exceeded` 223 vs GLM 147）使部分 step 位故障未达触发；失败分母 69（GLM 111）；
+  - no_cf 直接应用恢复 0（GLM 106）——DeepSeek 在故障 cell 上的诊断/补丁生成行为差异，无 G3 归一化行；
+  - 以上差异不影响 E3 主假设（双模型 Holm 拒绝）与主表 harm=0 结论。
+
+## 6. R.2 GO/NO-GO 总判定（2026-09-09，双矩阵双模型全量落盘后）
+
+| 条件 | 要求 | 实测 | 判定 |
+|---|---|---|---|
+| R.2-1 E3 审计 | 1960/1960 | GLM 980 + DeepSeek 980 全 PASS | ✅ |
+| R.2-2 主表审计 | 9240/9240 | GLM 4620 + DeepSeek 4620 全 PASS | ✅ |
+| R.2-3 planned=executed | 两矩阵 × 两模型 | 70/70 ×2 + 330/330 ×2 run_id 集合全等 | ✅ |
+| R.2-4 行为零漂移回归 | v0.1/v0.3/v0.4 envelope PASS | 770/140/140/910 全 PASS | ✅ |
+| R.2-5 分离方向 | ≥11/14 场景-模型组合 | **12/14**（GLM 7/7 + DS 5/7；DS S5/S7 偏离 ≤3 配额内，§2/§4 已披露） | ✅ |
+| R.2-6 排除率 | ≤5% 每模型每 pass | 全部审计 0 排除 | ✅ |
+
+**总判定：GO。** v0.5 双矩阵结果进入主表（协议 §S 论文映射生效），全部偏离（R.2-5 judge 弃权、S5/S7 模型偏差、DeepSeek 故障触发面差异、volume 覆盖披露）已如实记录于本报告与协议执行期披露。
+
+## 7. 待办
+
+- [ ] 论文 §6 升级（3 域 × 双模型 × 7 场景）+ 摘要/贡献/局限同步
+- [ ] README 更新 + 最终 commit/push
