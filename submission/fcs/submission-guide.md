@@ -3,8 +3,21 @@
 **目标期刊：** Frontiers of Computer Science（FCS，《计算机科学前沿》）
 **主办/发行：** 高等教育出版社 + 北京航空航天大学 主办；Springer 发行
 **投稿系统：** http://mc.manuscriptcentral.com/hepfcs
-**投稿正文：** `submission/fcs/recover-or-abstain-fcs.md`
 **要求依据：** FCS *Instructions for Authors*（2025 版 PDF）+ 官方 Overleaf 模板 "FCS LaTeX Template 2026"
+
+## 0. 投稿包清单
+
+| 文件 | 状态 | 说明 |
+|---|---|---|
+| `cover-letter.md` | ✅ 待填作者信息 | 含"为何需要完整篇幅"段，用于规避被要求改成 Letter（3 页，等同拒稿） |
+| `recover-or-abstain-fcs.md` | ✅ | Markdown 投稿正文（英文），9,012 words |
+| `recover-or-abstain-fcs.tex` | ✅ 未编译 | 官方 `fcs` 模板版，booktabs 三线表 + 图浮动体 + 25 条参考文献（引用键已校验） |
+| `figures/fig1-racer-loop.{eps,pdf,tiff,png}` | ✅ | 闭环框架图，4 种格式 |
+| `figures/fig2-scenario-separation.{eps,pdf,tiff,png}` | ✅ | 七场景×双模型分离图，4 种格式 |
+| `figures/make_figures.py` | ✅ | 图的可复现生成脚本 |
+| `md2fcs_tex.py` | ✅ | Markdown → LaTeX 转换脚本（改 md 后重跑） |
+
+**仍缺作者提供：** 作者姓名与上标标记、单位（精确到院系+邮编）、通讯作者邮箱、基金名称与编号。
 
 ---
 
@@ -75,10 +88,49 @@ FCS 要求的完整常规稿件组件，逐项对照投稿版：
    - Fig. 2 采用点图而非条形图的原因：RACER 的比率为 0，条形图长度为零会导致该系列**不可见**，读者无法区分"0"与"缺数据"；点图在 0 处仍清晰可辨。
 7. **参考文献增至 25–35 条**：当前恰为 25 条（FCS 惯例要求 ≥25、近 5 年过半）。若审稿人要求补充，可再加 agent 可靠性/审计方向的近期工作。
 
-### 3.3 若走 LaTeX 路线
+### 3.3 LaTeX 路线（已生成，推荐）
 
-官方模板：Overleaf 搜索 **"FCS LaTeX Template 2026"**（`\documentclass[review]{fcs}`）。
-需要将 Markdown 正文转为该模板；模板已内置 `\author[1,*]{}`、`\address[1]{}`、`\corremail{}`、`\fcssetup{}`、`\begin{abstract}`、`\keywords{}` 等结构，与本投稿版的字段一一对应。
+**产物：** `recover-or-abstain-fcs.tex` —— 已套用官方 `fcs` 文档类结构，正文/表格/图/参考文献全部就绪。
+
+**已包含的 LaTeX 化处理：**
+- `\documentclass[review]{fcs}` + `\title` / `\author[1,*]` / `\address[1]` / `\corremail` / `\fcssetup` / `abstract` / `\keywords`
+- **Table 1–4 全部转为 booktabs 三线表**（`\toprule`/`\midrule`/`\bottomrule`，无竖线），列数一致性已校验
+- **Fig. 1/2 以 `figure` 浮动体插入**（`\includegraphics` 指向 `figures/*.eps`），caption 内嵌，无需再单独提供 caption 列表
+- 参考文献 25 条转为 `thebibliography` + `\bibitem{refN}`；正文引用为 `\cite{refN}`，**已校验 25/25 全部匹配、无未定义键、无未引用项**（范围引用 `[15–18]` 已自动展开为 `ref15,ref16,ref17,ref18`）
+- 章节编号交由 LaTeX 自动生成（已剥离 Markdown 里手写的 "4 …" "6.2 …" 编号，避免双重编号）
+- 附录 A/B 用 `\section*`（不编号）
+
+**编译方法（二选一）：**
+1. **Overleaf（最省事）**：新建项目 → 上传 `recover-or-abstain-fcs.tex` 与 `figures/` 整个目录 → 把 Overleaf 上的 **"FCS LaTeX Template 2026"** 模板里的 `fcs.cls` 一并加入项目 → 编译。
+2. **本地**：取得 `fcs.cls`（Overleaf 模板或期刊官网）后
+   ```bash
+   pdflatex recover-or-abstain-fcs      # 模板头为 % !TeX program = pdflatex
+   pdflatex recover-or-abstain-fcs      # 第二遍生成引用与交叉引用
+   ```
+   > 本机没有 TeX 发行版，也无 `fcs.cls`，因此**该 .tex 尚未实际编译过**；若报错请先把日志发我。
+
+**可复现性：** `.tex` 由 `md2fcs_tex.py` 从 Markdown 生成——**请改 Markdown 后重跑脚本**，不要直接编辑 .tex：
+```bash
+/Users/infoflow/.workbuddy/binaries/python/envs/default/bin/python submission/fcs/md2fcs_tex.py
+```
+脚本内置两项断言（未恢复占位符 / NUL 字节残留即报错），并在转换时先转义纯文本、后插入 `\cite`/`\textbf` 等标记（顺序颠倒会把标记本身转义成乱码——该缺陷已在开发中修复）。
+
+### 3.4 图片格式（已全部导出）
+
+`figures/` 下每张图均有 4 种格式，按上传系统要求任选：
+
+| 格式 | 文件 | 用途 |
+|---|---|---|
+| **EPS** | `*.eps` | 期刊首选（矢量），图内文字可缩放无损 |
+| PDF | `*.pdf` | 预览 / LaTeX 编译（`.tex` 已指向 .eps，如需改 PDF 请替换 `\includegraphics` 后缀） |
+| TIFF | `*.tiff` | 600 dpi、**LZW 压缩**（未压缩时单文件达 40–62 MB，超期刊 20 MB 上限；压缩后约 1 MB） |
+| PNG | `*.png` | 600 dpi 位图，本地预览用 |
+
+重新生成全部格式：
+```bash
+/Users/infoflow/.workbuddy/binaries/python/envs/default/bin/python submission/fcs/figures/make_figures.py
+```
+
 
 ---
 

@@ -86,7 +86,9 @@ $$\text{harm} = \text{confirmed} \wedge \neg\text{optimal\_selection},\qquad \te
 
 isomorphic across domains, thereby decoupling cross-domain behavioral differences from domain-semantic differences. The shop domain additionally enforces an `in_stock` hard gate.
 
-**The irreversible-side-effect scenario family (7 scenarios).** The track was expanded from 2 cells to 7 independent scenarios, enumerated over domain × misleading-evidence mode × trigger fault, with every pair of scenarios differing on at least two axes:
+**The irreversible-side-effect scenario family (7 scenarios).** The track was expanded from 2 cells to 7 independent scenarios, enumerated over domain × misleading-evidence mode × trigger fault, with every pair of scenarios differing on at least two axes (Table 1):
+
+**Table 1** The seven irreversible-side-effect scenarios, enumerated over domain, misleading-evidence mode, and trigger fault.
 
 | # | Domain | Misleading evidence | Trigger fault |
 |---|---|---|---|
@@ -116,9 +118,9 @@ The four misleading-evidence modes occur 3, 1, 1, and 2 times respectively; the 
 
 ### 6.1 Main track: three domains, two models, 9,240 records
 
-The main track contains no irreversible trap—its purpose is to measure recovery rate and domain generality—so harm is zero by design for every baseline on every domain and model, and the evidentiary weight of harm separation rests entirely on the irreversible track. Table 1 reports verified recovery per domain and model, together with the within-domain paired comparisons of RACER against the three most informative baselines.
+The main track contains no irreversible trap—its purpose is to measure recovery rate and domain generality—so harm is zero by design for every baseline on every domain and model, and the evidentiary weight of harm separation rests entirely on the irreversible track. Table 2 reports verified recovery per domain and model, together with the within-domain paired comparisons of RACER against the three most informative baselines.
 
-**Table 1** Main-track verified recovery and within-domain paired tests (per domain and model; 110 episodes each).
+**Table 2** Main-track verified recovery and within-domain paired tests (per domain and model; 110 episodes each).
 
 | Domain | Model | Verified recovery | Paired $p$ vs. `no_cf` / `raw` / `judge` | Harm (all baselines) |
 |---|---|---:|---|---:|
@@ -139,9 +141,9 @@ Three structural observations follow.
 
 ### 6.2 Irreversible-side-effect track: seven scenarios, two models
 
-All episodes on this track fail in the source environment by construction. **Table 2** reports the joint harmful-commit rate of the eight retry-family baselines (denominator 80 = 8 baselines × 10 seeds) and the veto-abstention rate of the two RACER baselines (denominator 20), per scenario and model.
+All episodes on this track fail in the source environment by construction. **Table 3** reports the joint harmful-commit rate of the eight retry-family baselines (denominator 80 = 8 baselines × 10 seeds) and the veto-abstention rate of the two RACER baselines (denominator 20), per scenario and model.
 
-**Table 2** Behavioral separation on the irreversible-side-effect track.
+**Table 3** Behavioral separation on the irreversible-side-effect track.
 
 | # | Domain / misleading evidence / trigger | Retry-family harm (GLM) | RACER veto abstain (GLM) | Retry-family harm (DS) | RACER veto abstain (DS) |
 |---|---|---:|---:|---:|---:|
@@ -185,16 +187,16 @@ The replication model reproduces the core pattern of behavioral separation exact
 
 ### 6.5 Ablation: a 2×2 decomposition of gating and verification
 
-**Table 3** decomposes the harmful-commit rate on the irreversible track along two components—risk–utility gating and counterfactual-replay verification—using the 7 scenarios × 10 seeds × 2 models matrix.
+Table 4 decomposes the harmful-commit rate on the irreversible track along two components—risk–utility gating and counterfactual-replay verification—using the 7 scenarios × 10 seeds × 2 models matrix.
 
-**Table 3** Two-by-two ablation on the irreversible track.
+**Table 4** Two-by-two ablation on the irreversible track.
 
 | Gating | Verification | Baseline | Harm (GLM) | Harm (DeepSeek) | Verified recovery (main track) |
 |---|---|---|---:|---:|---:|
-| ✓ | ✓ | RACER | 0/70 | 0/70 | Table 1 |
-| ✗ | ✓ | RACER−abstain | 0/70 | 0/70 | Table 1 |
+| ✓ | ✓ | RACER | 0/70 | 0/70 | Table 2 |
+| ✗ | ✓ | RACER−abstain | 0/70 | 0/70 | Table 2 |
 | ✓ | ✗ | RACER−counterfactual | 70/70 | 64/70 | 0% |
-| ✗ | ✗ | `fixed_retry` (retry-family representative) | 70/70 | 64/70 | Table 1 |
+| ✗ | ✗ | `fixed_retry` (retry-family representative) | 70/70 | 64/70 | Table 2 |
 
 The conclusion is that **replay verification is a behaviorally necessary component for preventing harmful commits**: every policy that carries the verification layer commits zero harmful repairs, whereas every policy that lacks it—including the gated but unverified ablation and including the oracle root-cause baseline—commits harmful repairs at scale in both models. (The DeepSeek shortfall to 64/70 again originates in six trials that never reached the failure denominator, not in protection by the verification layer.) Gating by itself does not prevent a harmful commit, as the identical rates of the unverified ablation and `fixed_retry` demonstrate; its contribution is declaration discipline and abstention policy. The other half of the recovery claim is captured by the fail-closed declaration semantics: a recovery without a receipt is never admitted, which is why the unverified ablation recovers 0% on the main track. Its harmful commits are attested by an environment-issued receipt rather than by a self-reported boolean, and the harm labels themselves are cross-attested by an oracle that never reads replay output—so behavior, declaration, and ground truth provide three mutually independent layers of evidence for the necessity of the verification layer.
 
