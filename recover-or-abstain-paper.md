@@ -2,7 +2,7 @@
 
 ## 摘要
 
-工具调用智能体（tool-calling agents）的自动恢复存在一个被普遍忽视的可信性缺口：一次"看起来修好了"的修复并不等于**可证实的恢复**——未经证实的补丁可能在无人察觉的情况下引入有害副作用。本文提出 RACER（Risk-Aware Counterfactual Execution and Recovery），将恢复声明重新定义为一种须经审计的断言：只有当候选补丁在隔离的干净会话中完成前缀—补丁—后缀的严格反事实重放、并携带可复算的身份回执时，恢复才被承认；当重放预测修复将引入不可逆副作用时，策略改判弃权（replay veto）——补丁不提交。围绕该语义，我们构建了覆盖三类故障场景的配对基准：真实 LLM actor 在三个语义域（航班/酒店/商店）上执行 800 个 episode，14 个基线全量配对比较，双模型（GLM-5.3-Flash 主分析 + DeepSeek-V4-Flash 复现分析）共 11,200 条记录经 fail-closed 准入审计（记录级 G1–G7 门 + 评估器级 G0/G8 协议/矩阵/模型锁与计划—执行覆盖门）全数通过、零排除。在 7 个独立预注册的不可逆副作用场景（E3 轨道，含目录抹除、价格腐蚀、库存伪造三类陷阱机制 × 三类触发故障）上：朴素重试族（8 基线联合）提交有害修复 GLM 510/560、DeepSeek 466/560，无验证消融（RACER−counterfactual）有害 GLM 70/70、DeepSeek 64/70，而 RACER 的重放否决将其全部转化为无害弃权（两模型 racer 有害均为 0/140）；伤害率差异（H-E3a）与 veto 准确率（H-E3b）在两模型上均经 Holm 校正后显著（p = 1e-4 量级），且 7/7 场景方向一致触发预注册的跨模型合并分析。主表三域上 RACER 恢复率 100%/100%/75–78%（shop 域的 in_stock 硬门槛暴露域语义差异，跨模型复现）。危害标签由独立于重放的 oracle 真值复算（1,960 行 E3 零翻转、veto 准确率 GLM 70/70 / DeepSeek 64/70）。同时我们诚实报告：与保留验证层的消融（RACER−abstain）无显著结果差；drop/replace 类注入故障被 LLM actor 的自然重发行为自愈；DeepSeek 的多步行为使部分故障 cell 未达失败分母（12/14 场景-模型组合满足预注册分离门控，模型级偏差逐项披露）——这些发现对故障注入基准的设计本身有方法论意义。
+工具调用智能体（tool-calling agents）的自动恢复存在一个被普遍忽视的可信性缺口：一次"看起来修好了"的修复并不等于**可证实的恢复**——未经证实的补丁可能在无人察觉的情况下引入有害副作用。本文提出 RACER（Risk-Aware Counterfactual Execution and Recovery），将恢复声明重新定义为一种须经审计的断言：只有当候选补丁在隔离的干净会话中完成前缀—补丁—后缀的严格反事实重放、并携带可复算的身份回执时，恢复才被承认；当重放预测修复将引入不可逆副作用时，策略改判弃权（replay veto）——补丁不提交。围绕该语义，我们构建了覆盖三类故障场景的配对基准：真实 LLM actor 在三个语义域（航班/酒店/商店）上执行 800 个 episode，14 个基线全量配对比较，双模型（GLM-5.3-Flash 主分析 + DeepSeek-V4-Flash 复现分析）共 11,200 条记录经 fail-closed 准入审计（记录级 G1–G7 门 + 评估器级 G0/G8 协议/矩阵/模型锁与计划—执行覆盖门）全数通过、零排除。在 7 个独立预注册的不可逆副作用场景（E3 轨道，含 omission（最优项缺失）、价格边界腐蚀、库存伪造、陈旧报价四类误导证据模式 × force_error/rate_limit/wrong_tool 三类触发故障）上：朴素重试族（8 基线联合）提交有害修复 GLM 510/560、DeepSeek 466/560，无验证消融（RACER−counterfactual）有害 GLM 70/70、DeepSeek 64/70，而 RACER 的重放否决将其全部转化为无害弃权（两模型 racer 有害均为 0/140）；伤害率差异（H-E3a）与 veto 准确率（H-E3b）在两模型上均经 Holm 校正后显著（p = 1e-4 量级），且 7/7 场景方向一致触发预注册的跨模型合并分析。主表三域上 RACER 恢复率 100%/100%/75–78%（shop 域的 in_stock 硬门槛暴露域语义差异，跨模型复现）。危害标签由独立于重放的 oracle 真值复算（1,960 行 E3 零翻转、veto 准确率 GLM 70/70 / DeepSeek 64/70）。同时我们诚实报告：与保留验证层的消融（RACER−abstain）无显著结果差；drop/replace 类注入故障被 LLM actor 的自然重发行为自愈；DeepSeek 的多步行为使部分故障 cell 未达失败分母（12/14 场景-模型组合满足预注册分离门控，模型级偏差逐项披露）——这些发现对故障注入基准的设计本身有方法论意义。
 
 ## 1. 引言
 
@@ -19,7 +19,7 @@
 
 - **C1（形式化）**：给出"重放证实的恢复"（replay-verified recovery）的严格语义——恢复成功当且仅当隔离重放评估成功、无副作用且回执满足严格重放契约；并给出**重放否决**的决策语义（预测有害则改判弃权、不提交）。在该语义下系统比较 14 个基线。
 - **C2（方法）**：RACER 框架及配套的 fail-closed 准入审计器族（记录级 G1–G5/G7、评估器级 G0/G8）；审计器使恢复声明从"叙述"变为"可机器复验的凭证"。
-- **C3（基准）**：两条预注册轨道的配对基准——E1/E2 可重试故障轨道（3 域 × 11 cells × 10 seeds）与 E3 不可逆副作用轨道（7 独立场景 × 3 域 × 10 seeds，协议 v0.5 预注册：目录抹除/价格腐蚀/库存伪造三类陷阱机制 × force_error/rate_limit/wrong_tool 三类触发故障，使"修复=提交次优不可逆决策"）；14 基线、双模型、11,200 记录，协议/矩阵/模型资源/基线注册表全部冻结并哈希锚定；τ²-airline 适配的 G4 负结果（原生退款非幂等、无账本见证）作为环境设计动机。
+- **C3（基准）**：两条预注册轨道的配对基准——E1/E2 可重试故障轨道（3 域 × 11 cells × 10 seeds）与 E3 不可逆副作用轨道（7 独立场景 × 3 域 × 10 seeds，协议 v0.5 预注册：omission/价格边界腐蚀/库存伪造/陈旧报价四类误导证据模式 × force_error/rate_limit/wrong_tool 三类触发故障，使"修复=提交次优不可逆决策"）；14 基线、双模型、11,200 记录，协议/矩阵/模型资源/基线注册表全部冻结并哈希锚定；τ²-airline 适配的 G4 负结果（原生退款非幂等、无账本见证）作为环境设计动机。
 - **C4（发现）**：(i) 2×2 消融（门控 × 验证）证明重放验证是防止有害提交的行为学必要组件：无验证的任何策略在 E3 两模型上大量提交有害修复（含 oracle 根因修复——正确诊断 ≠ 安全修复），带验证的策略全部无害弃权；危害标签经独立于重放的 oracle 真值复算零翻转（1,960 行 E3），否决触发准确率 GLM 70/70 / DeepSeek 64/70；(ii) H-E3a/H-E3b 在两模型上均 Holm 显著（p = 1e-4 量级）且 7/7 场景方向一致——预注册的跨模型合并分析被触发；(iii) 三域主表暴露 shop 域 in_stock 硬门槛下的恢复率差异（75–78% vs 100%），框架行为跨域同构、差异来自环境可达性；(iv) drop/replace 注入故障被 LLM 自然重发自愈——故障注入必须与智能体策略交互才能产生持久失败；(v) 诚实零结果：与保留验证的 RACER−abstain 无显著结果差——风险门控的弃权不改变结果编码，价值体现在声明纪律而非结果增益。
 
 ## 2. 相关工作
@@ -58,7 +58,7 @@
 
 **三域扩展（协议 v0.5 §K）。** 任务环境以单引擎域分派实现三个语义域：flight（search_flights/select_flight/confirm_booking）、hotel（search_rooms/select_room/confirm_reservation）、shop（search_products/select_product/place_order）。三域共享统一结构（目录、预算、软约束标志、账本语汇、回执机制），差异仅在工具命名与条目属性键——设计目标是使统一危害谓词（confirmed ∧ ¬optimal_selection，optimal = 真实目录中满足软约束的最便宜在库条目且 ≤ 预算；shop 域附加 in_stock 硬门槛）在域间同构，从而把跨域行为差异与域语义差异解耦。
 
-**E3 场景族（协议 v0.5 §N，7 独立场景）。** 场景设计从 2 cell 扩展为 7 个独立场景（3 域 × 陷阱机制 × 触发故障的成对组合，场景间独立性 ≥2 轴）：S1 flight/目录抹除最优+force_error 触发；S2 flight/目录抹除+rate_limit；S3 hotel/目录抹除+wrong_tool；S4 shop/目录抹除+force_error；S5 hotel/价格腐蚀（边界型）+rate_limit；S6 shop/目录抹除+rate_limit；S7 shop/库存伪造+wrong_tool。陷阱合法性由引擎语义约束推导并预注册：伪造目录只能把 agent 引离真实最优、指向"可提交但次优"的条目（引向真实不合格条目会在 confirm 复检处失败、构不成危害提交）；drop_action 静默 no-op 无可见失败（全体弃权，无分离）、response_loss 使源终态对全体有害、真值 listing 规划错误使 RACER 正确恢复——三者均因无陷阱价值被排除在场景空间之外。E3 actor 为 3 步模式（search→select→confirm，混淆目录迫使搜索步）。
+**E3 场景族（协议 v0.5 §N，7 独立场景）。** 场景设计从 2 cell 扩展为 7 个独立场景（域 × 误导证据模式 × 触发故障的组合枚举，场景间独立性 ≥2 轴）：S1 flight/最优项从目录缺失（omission）+force_error@confirm；S2 flight/最优价被抬至预算边界（price corruption at boundary）+rate_limit@confirm；S3 hotel/omission+wrong_tool@confirm；S4 shop/最优项库存被伪报为无货（stock falsification）+force_error@place_order；S5 hotel/陈旧报价（stale quote，非最优项被显示为更便宜）+rate_limit@confirm；S6 shop/omission+rate_limit@place_order；S7 flight/stale quote+wrong_tool@confirm。**误导证据共四类**（omission 3 例、price-boundary corruption 1 例、stock falsification 1 例、stale quote 2 例；触发故障 force_error 2 / rate_limit 3 / wrong_tool 2；域分布 flight 3 / hotel 2 / shop 2）。陷阱合法性由引擎语义约束推导并预注册：伪造目录只能把 agent 引离真实最优、指向"可提交但次优"的条目（引向真实不合格条目会在 confirm 复检处失败、构不成危害提交）；drop_action 静默 no-op 无可见失败（全体弃权，无分离）、response_loss 使源终态对全体有害、真值 listing 规划错误使 RACER 正确恢复——三者均因无陷阱价值被排除在场景空间之外。E3 actor 为 3 步模式（search→select→confirm，混淆目录迫使搜索步）。
 
 **E1/E2 轨道（可重试故障）。** E1 故障矩阵（5 类故障，注入于确认步骤）×5 trial；E2 任务变体（clean_success、non_refundable、suboptimal_refundable、missing_confirmation、force_error_confirm、drop_confirm，共享航班表：F1 ¥420 可退 / F2 ¥360 不可退 / F3 ¥480 可退，预算 ¥500）×5 trial。共 11 单元 × 5 trial = **55 episode**。全部单元启用幂等退款账本（refund_booking 幂等 + SHA-256 ledger witness + get_refund_status 对账查询），使任何副作用声明天然满足 G4 退款语义形。
 
@@ -124,15 +124,15 @@ v0.5 主表按（域 × 模型）分层报告 RACER 恢复率与全基线 harm�
 
 v0.5 将 E3 从 2 cell 单域 10 episode 扩展为 7 独立场景 × 3 域 × 10 种子 × 14 基线 × 2 模型 = 1,960 记录。每场景的陷阱机制与触发故障见 §5（E3 场景族）。全模型分离表（重试族 = 8 基线联合有害率，重试族满分 80 = 8 基线 × 10 种子）：
 
-| 场景 | 域 / 陷阱 / 触发 | GLM 重试族有害 | GLM racer veto 弃权 | DS 重试族有害 | DS racer veto 弃权 |
+| 场景 | 域 / 误导证据 / 触发 | GLM 重试族有害 | GLM racer veto 弃权 | DS 重试族有害 | DS racer veto 弃权 |
 |---|---|---:|---:|---:|---:|
-| S1 | flight / 抹除最优 / force_error | 70/80 | 20/20 | 70/80 | 20/20 |
-| S2 | flight / 抹除最优 / rate_limit | 70/80 | 20/20 | 70/80 | 20/20 |
-| S3 | hotel / 抹除最优 / wrong_tool | 80/80 | 20/20 | 80/80 | 20/20 |
-| S4 | shop / 抹除最优 / force_error | 70/80 | 20/20 | 70/80 | 20/20 |
-| S5 | hotel / 价格腐蚀(边界) / rate_limit | 70/80 | 20/20 | 42/80 | 16/20 |
-| S6 | shop / 抹除最优 / rate_limit | 70/80 | 20/20 | 70/80 | 20/20 |
-| S7 | shop / 库存伪造 / wrong_tool | 80/80 | 20/20 | 64/80 | 18/20 |
+| S1 | flight / omission / force_error | 70/80 | 20/20 | 70/80 | 20/20 |
+| S2 | flight / price@boundary / rate_limit | 70/80 | 20/20 | 70/80 | 20/20 |
+| S3 | hotel / omission / wrong_tool | 80/80 | 20/20 | 80/80 | 20/20 |
+| S4 | shop / stock falsification / force_error | 70/80 | 20/20 | 70/80 | 20/20 |
+| S5 | hotel / stale quote / rate_limit | 70/80 | 20/20 | 42/80 | 16/20 |
+| S6 | shop / omission / rate_limit | 70/80 | 20/20 | 70/80 | 20/20 |
+| S7 | flight / stale quote / wrong_tool | 80/80 | 20/20 | 64/80 | 18/20 |
 
 读法：非满分的重试族行全部来自 full_trace_judge 的弃权（judge 要求多候选佐证，force_error/rate_limit 族的注入错误在 trace 中无旁证 → 确定性弃权——**基线设计属性而非模型噪声**，v0.4 同模式 0/10 先于 v0.5 存在、smoke 预检已知、DeepSeek 跨模型复现，R.2-5 已裁决带披露 GO）；S3/S7（wrong_tool 族）judge 重试并落入有害。DeepSeek S5/S7 的缩减（42/80、64/80）另有模型级成因（部分 trial 的源 episode 未达失败分母——actor 停滞于步数耗尽而非工具错误），属 R.2-5 配额内（12/14 ≥ 11/14）场景-模型组合偏离，逐基线明细见产物分离表。
 
