@@ -56,25 +56,33 @@ def extract(md: str):
     refs_at = md.index('## References')
     appendix_at = md.index('## Appendix A')
     # The closing statements are emitted by the template as \section* blocks, so
-    # they must be cut out of the body or they appear twice.
-    ack_at = md.index('**Acknowledgements**')
-    closing = md[ack_at:refs_at]
+    # they must be cut out of the body or they appear twice. The cutter anchors on
+    # whoever comes first among them, so that a paper with no funding can drop its
+    # Acknowledgements block entirely instead of leaving an empty \section*.
+    closing_labels = ('**Acknowledgements**', '**Competing interests**', '**Data availability**')
+    found = [md.index(lab) for lab in closing_labels if lab in md]
+    assert found, 'no closing statements (Acknowledgements/Competing/Data) found'
+    closing_at = min(found)
+    closing = md[closing_at:refs_at]
 
     def grab(label: str, nxt: str | None) -> str:
         pat = rf'\*\*{label}\*\*\s*(.+?)(?={nxt}|\Z)' if nxt else rf'\*\*{label}\*\*\s*(.+?)\Z'
         m = re.search(pat, closing, re.S)
         return re.sub(r'\n*-{3,}\s*$', '', m.group(1)).strip() if m else ''
 
+    competing = grab('Competing interests', r'\*\*Data availability')
+    data = grab('Data availability', None)
+    ack = grab('Acknowledgements', r'\*\*Competing')
     return {
         'title': title.strip(),
         'abstract': abstract.group(1).strip(),
         'keywords': abstract.group(2).strip(),
-        'body': md[body_start:ack_at].rstrip(),
+        'body': md[body_start:closing_at].rstrip(),
         'refs': md[refs_at:appendix_at].rstrip(),
         'tail': md[appendix_at:].rstrip(),
-        'ack': grab('Acknowledgements', r'\*\*Competing'),
-        'competing': grab('Competing interests', r'\*\*Data availability'),
-        'data': grab('Data availability', None),
+        'ack': ack,
+        'competing': competing,
+        'data': data,
     }
 
 
@@ -299,6 +307,12 @@ def main() -> None:
     body = body.replace('\\subsection{Irreversible-side-effect track: seven scenarios, two models}',
                         '\\subsection{Irreversible-side-effect track: seven scenarios, two models}\n\n' + fig2, 1)
 
+    # A paper with no funding has no Acknowledgements block, so the section is
+    # emitted only when the manuscript actually carries one.
+    ack_block = ''
+    if parts['ack']:
+        ack_block = '\\section*{Acknowledgements}\n' + inline(parts['ack']) + '\n\n'
+
     tex = f"""% !TeX program = pdflatex
 % Frontiers of Computer Science submission --- generated from recover-or-abstain-fcs.md
 % by submission/fcs/md2fcs_tex.py. Edit the Markdown, not this file.
@@ -313,7 +327,7 @@ def main() -> None:
 
 % + marks the corresponding author
 \\author[1,+]{{Tongsen Wang}}
-\\address[1]{{[Department, Institution, City Postal-code, China]}}
+\\address[1]{{Baidu, Beijing 100085, China}}
 \\corremail{{wangtongsen@baidu.com}}
 
 \\fcssetup{{
@@ -333,10 +347,7 @@ def main() -> None:
 
 {body}
 
-\\section*{{Acknowledgements}}
-{inline(parts['ack'])}
-
-\\section*{{Competing interests}}
+{ack_block}\\section*{{Competing interests}}
 {inline(parts['competing'])}
 
 \\section*{{Data availability}}

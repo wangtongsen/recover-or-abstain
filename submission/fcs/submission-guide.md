@@ -280,3 +280,23 @@ FCS 要求的完整常规稿件组件，逐项对照投稿版：
 **同步**：中文原稿同步统计表述（`p ≈ 0` → `1.2\times10^{-13}`；`1e-4` → `1\times10^{-4}`）。中文稿章节编号体系与英文不同（中文 §6.5 即自愈节），故 `§6.5` 引用**无需改动**。
 
 **复核**：摘要 299 词 · 关键词 167 字符 · 引用 27/27 双向匹配且 1–27 严格递增 · 零非 ASCII · 5 表 2 图 · 编译 0 error / 0 undefined。
+
+---
+
+## 11. 作者单位与基金信息（2026-09-13，收尾）
+
+老板确认：**单位 = 百度公司**，**无基金**。
+
+**单位填入**（英文名与地址已联网核实：百度官网「联系我们」页 + SEC 文件一致）：
+- 正文：`^{1} Baidu Campus, No. 10 Shangdi 10th Street, Haidian District, Beijing 100085, China`
+- LaTeX：`\address[1]{Baidu, Beijing 100085, China}`（fcs 类会自行排印）
+- Cover letter：对应作者块与署名块同步
+
+**基金：整句删除，而非留空占位。** 原致谢为 "This work was supported by [funding agency, grant number]. The authors thank [names] for [contribution]."——无基金时**致谢节整体移除**。
+
+为此把生成器 `md2fcs_tex.py` 做了一处稳健化改造：
+- 原先它用 `md.index('**Acknowledgements**')` 作为正文切分锚点，**删掉该段会直接 KeyError**；现改为在 `Acknowledgements / Competing interests / Data availability` 中取**最先出现者**作锚点，三者缺任一仍可用。
+- 模板中 `\section*{Acknowledgements}` 改为**随内容存在与否条件输出**（`ack_block`），避免留下一个空的章节标题。
+
+**复核**：包内占位符 **0 个** · 摘要 299 词 · 引用 27/27 且 1–27 递增 · 零非 ASCII · 5 表 2 图 · 编译 `errors=0 undefined_refs=0`。
+**剩余**：投稿日期、推荐审稿人各两处（属投稿系统填写项，非稿件内容）。

@@ -5,7 +5,7 @@
 ^{+}\ indicates the corresponding author.
 
 **Affiliations:**
-^{1} [Department, Institution, City Postal-code, China]
+^{1} Baidu Campus, No. 10 Shangdi 10th Street, Haidian District, Beijing 100085, China
 
 **Corresponding author e-mail:** wangtongsen@baidu.com
 
@@ -245,8 +245,6 @@ Adapting the native τ²-airline environment (pilot tier) produced a G4 failure:
 ## 8 Conclusion
 
 RACER reframes agent recovery from an observed coincidence into an auditable assertion: a recovery succeeds only if it is proven by an isolated counterfactual replay, anchored by a paired identity, and admitted by a fail-closed audit; when the replay predicts harm, the policy vetoes the commit and explicitly abstains. On a real-LLM benchmark of 800 episodes, 14 baselines, two models, and 11,200 records across three domains and two tracks, every record passed admission auditing with zero exclusions. On retryable faults RACER and naive retrying are indistinguishable—a null result. On irreversible side-effect faults (7 scenarios × 3 domains) unverified policies, including oracle root-cause repair, commit harmful repairs at scale in both models, whereas RACER's replay veto converts every case into harmless abstention (0/140 in each model); both hypotheses are Holm-significant in both models with 7/7 directional agreement, which triggers the pre-registered cross-model pooled analysis. The three-domain main table exposes a reachability gap under the shop domain's `in_stock` gate: the framework behaves consistently across domains and the gap is explained by environmental semantics rather than framework failure. We also report a null result against the verification-preserving ablation, whose gating changes abstention rates but not outcome encoding, and the self-healing of injected drop/replace faults; together these delineate the evidential boundaries of each component. Future work includes broader model families and deployment validation in real production environments, parameterized families of irreversible faults (monetary gradients, multi-step irreversible chains), and the release of the fail-closed auditor and pre-registration discipline as standalone tooling that can serve as reusable, claim-level evidence infrastructure for agent-recovery research.
-
-**Acknowledgements** This work was supported by [funding agency, grant number]. The authors thank [names] for [contribution].
 
 **Competing interests** The authors declare that they have no competing interests.
 
