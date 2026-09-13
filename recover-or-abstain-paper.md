@@ -95,7 +95,7 @@ v0.5 主表按（域 × 模型）分层报告 RACER 恢复率与全基线 harm�
 
 1. **域间恢复率差异（shop 域 75–78%）**：shop 的 in_stock 硬门槛使部分故障 cell 的最优条目在恢复时已不可达（库存被先行动作消耗），重放诚实地预测"补丁可达的条目非最优"→ 否决弃权而非提交次优。这是**域语义差异的诚实暴露**——RACER 在三个域上的行为完全同构，差异来自环境可达性而非框架失效；跨模型复现（GLM 78.3% / DeepSeek 75.0%）。
 2. **racer vs fixed_retry / racer−abstain 在主轨零差**：主轨无陷阱设计下重试即正确修复，与 v0.1 发现一致——差异化收益存在于有害维度（E3），不存在于可重试维度。
-3. **G3 fail-closed 语义的规模化验证**：GLM 主表 106 行 no_cf 直接应用恢复（环境回执有效、行为成功）因无重放回执被归一化为不可证实恢复；DeepSeek 主表 0 行（其 actor 在故障 cell 上未生成直接应用恢复——模型行为差异，见 §6.2b 披露）。两模型的主表对齐后 racer_no_counterfactual 恢复率均为 0%——与 v0.1/v0.3 消融编码逐字一致。
+3. **G3 fail-closed 语义的规模化验证**：GLM 主表 106 行 no_cf 直接应用恢复（环境回执有效、行为成功）因无重放回执被归一化为不可证实恢复；DeepSeek 主表 60 行（106 vs 60 的差异反映两模型诊断输出产生可应用补丁的频率不同，见 §6.2b 披露）。两模型的主表对齐后 racer_no_counterfactual 恢复率均为 0%——与 v0.1/v0.3 消融编码逐字一致。
 
 ### 6.1a 历史对照（v0.1–v0.4 合并 25 失败 episode，910 记录）
 
@@ -161,7 +161,7 @@ v0.3 及之前存在一个同义反复弱点：harm 标签（evaluator 的 harmf
 DeepSeek 复现分析（预注册定位）在行为分离的核心模式上与 GLM 完全一致：racer 全场景 harm 0、veto 弃权模式相同、judge 弃权模式逐场景复现（S1/S2/S4/S6 同为 70/80）。模型级差异如实披露：
 
 1. **失败分母差异**：DeepSeek actor 多步行为（max_dynamic_steps_exceeded 223 次 vs GLM 147）使 E3 S5 的 4/10 trial 与主表 25/33 的故障 cell 源 episode 未达"工具错误"失败分母——故障注入了但 episode 以 actor 停滞告终。这压缩了 DeepSeek 的重试族有害分母（S5 42/80），不构成对分离方向的威胁（12/14 组合仍满足 R.2-5）。
-2. **主表直接应用差异**：GLM 主表 106 行 no_cf 直接应用恢复 vs DeepSeek 0 行——DeepSeek 在故障 cell 上未生成可应用的补丁（诊断输出差异）。两模型 racer_no_counterfactual 主表恢复率同为 0%（GLM 经 G3 归一化、DeepSeek 行为上即无恢复），消融结论不受影响。
+2. **主表直接应用频率差异**：no_cf 消融在 GLM 主表直接应用补丁 106 行、在 DeepSeek 主表 60 行——差异反映两模型诊断输出产生可应用补丁的频率不同。两模型 racer_no_counterfactual 主表恢复率同为 0%，因 fail-closed 声明语义拒绝任何无重放回执的恢复声明；消融结论不受该差异影响。
 3. **执行覆盖披露**：双模型共享冻结 run_id（矩阵设计使然），后执行模型覆盖 volume 轨迹文件；先执行模型的 envelope 在覆盖前已构建落盘、完整 trace 保留于 run JSON，可复现性不受影响。
 
 #### 6.2c 历史对照：v0.2–v0.3 的 2-cell E3（10 episode）
