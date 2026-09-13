@@ -28,6 +28,8 @@
 
 **反事实修复与副作用安全。** CausalFlow [5] 在因果归因之上提出反事实修复，是与本文最接近的构想，但其修复评估不要求携带可复算的重放回执，副作用以事后标注而非审计准入的方式处理，也不存在"预测有害则不提交"的否决语义。τ-bench [6] 提供工具—智能体—用户交互域并强调领域真实性与用户模拟，但未对恢复声明提供证实机制；我们对其 airline 域的适配实验（§6.7）显示原生退款工具非幂等且无公开账本见证，副作用声明无法满足 fail-closed 审计——这正是我们自建可审计环境与退款账本语义的直接动机。AgentDojo [7] 以动态环境评估注入攻击防御，其注入与本文的运行时故障注入目标不同：前者考察安全性，后者考察恢复可信性；E3 的 tamper_result 故障（污染工具响应载荷）在机制上与提示注入相邻，但作用于恢复评估而非攻击面。
 
+**安全过滤器与弃权。** 否决在智能体恢复之外有近亲。安全屏蔽（safety shielding）以反应式系统包裹学习智能体、抑制违反规格的动作，这一思想源于安全强化学习 [8]；与 shield 一样，重放否决是**提交前**过滤器，其力量来自在动作生效前作出判断。选择性预测（reject option）形式化了"置信不足时拒答"的互补决策 [9]；此处弃权同样是第一等动作。区别在于证据标准：shield 执行**先验给定**的规格，而 RACER 的否决由**该补丁的复算反事实执行**证成，准入审计核验的是重放回执而非手写规格。
+
 **智能体评估方法学。** 近期基准工作普遍强调可复现性与防污染（固定任务集、种子、指标冻结），但"结果可复现"与"声明可审计"是两个层次：前者保证重跑一致，后者保证单次运行内的每个结论都有机器可验的证据链。RACER 的配对身份（6 元组）、trial 展开、去重证明与 fail-closed 准入审计（G0–G5/G7/G8 门族）属于后一层次；协议 v0.2 的"预注册冻结 + 执行后对账附录 + 独立第二审计者复核"把预注册纪律引入智能体基准；该纪律在本项目内的实际效果（第二审计者确曾验出叙述夸大并修正）见 §7。
 
 ## 3. 问题形式化
@@ -40,6 +42,8 @@
 
 **定义 3（配对身份）。** 每个源 episode 由 6 元组唯一标识：(episode_id, source_run_id, task_id, canonical_json(env_seed), initial_state_fingerprint, fault_schedule_fingerprint)。基线间比较仅在配对身份内进行，杜绝跨环境比较的伪差异。
 
+**重放的确定性。** 重放会话不重新查询模型：前缀与后缀的每一步都重放已记录的 requested 动作，作用于以源种子初始化的干净环境（故障日程为空），候选补丁在故障步被替换。工具响应是环境状态的纯函数，因此对给定源 episode，$E(\tau_{\text{cf}})$ 是确定性的。验证层评估的是候选补丁的**后果**而非重新采样模型行为——这正是否决可归因于补丁而非采样噪声的原因。定义 2 中的 `use_counterfactual` 是启用验证的策略侧开关，不属于准入语义。
+
 弃权不计入恢复亦不计入有害；其语义是"证据不足以支持一次可证实的修复"。风险—效用门控使用 u = confidence − (1 − confidence)，u 低于阈值（0.55）时弃权——该阈值是工程默认值，本文不做普适性声明。
 
 ## 4. 方法：RACER
@@ -50,7 +54,9 @@
 
 **验证（隔离反事实重放 + 否决）。** 重放器为每个补丁建立 `<run_id>:cf` 会话：源种子、故障日程为空、以 requested_action 恢复原始意图、执行前缀—补丁—后缀。会话返回轨迹、评估与 replay_provenance（valid/strict/源契约）。重放器独立复算期望契约并逐字段比对。按定义 2，重放预测到副作用或失败时决策改判弃权、补丁不提交。消融 RACER−counterfactual 跳过重放并将补丁**直接提交**源环境（direct application）——用于检验"无验证即提交"的真实行为后果。
 
-**准入（fail-closed 审计）。** 主表只接受满足以下条件的 canonical envelope：G1 源 manifest SHA-256 锚点；G2 配对身份由 task_id 与环境契约**重算**一致；G3 恢复声明携带 valid+strict 回执且期望契约重算匹配（无回执的恢复声明直接拒绝——racer_no_counterfactual 消融的 0% 恢复即由此语义产生）；G4（v0.3 三形）副作用行须满足其一：退款语义形（退款实体 + SHA-256 账本见证 + 正整数账目数）、重放证实形（counterfactual_supported ∧ replay_valid，须凭证链）、直接应用形（协议 v0.3 起：direct_applied=true 且携带环境签发的不可变 apply 回执——apply_witness = SHA-256(canonical JSON{sequence, tool, arguments, state_after_hash, success, side_effect, run_id})，行为结局位于哈希材料之内，伪造有害声明不可行；v0.2 的自陈布尔形态由此废止，旧 v0.2 E3 表在新审计器下按设计回归 NO-GO）；G5 键名与值模式扫描拒绝真值/密钥泄漏；G7 envelope 形状、字段行白名单与零重复去重证明。评估器侧另有 G0（协议/矩阵/模型锁）与 G8（计划—执行覆盖完备性，两条轨道分别 preflight：770=770 与 140=140）。
+全体基线都可以调用重放器：它是共享服务，是否重放是**待测策略的属性**而非 RACER 的特权。RACER−counterfactual 消融恰好占据互补格——它以同样的访问权构造同样的补丁，但直接提交——这正是 2×2 分解得以把差异归因于验证、而非归因于副作用 oracle 可得性的依据。
+
+**准入（fail-closed 审计）。** 主表只接受满足以下条件的 canonical envelope：G1 源 manifest SHA-256 锚点；G2 配对身份由 task_id 与环境契约**重算**一致；G3 恢复声明携带 valid+strict 回执且期望契约重算匹配（无回执的恢复声明直接拒绝——racer_no_counterfactual 消融的 0% 恢复即由此语义产生）；G4（v0.3 三形）副作用行须满足其一：退款语义形（退款实体 + SHA-256 账本见证 + 正整数账目数）、重放证实形（counterfactual_supported ∧ replay_valid，须凭证链）、直接应用形（协议 v0.3 起：direct_applied=true 且携带环境签发的不可变 apply 回执——apply_witness = SHA-256(canonical JSON{sequence, tool, arguments, state_after_hash, success, side_effect, run_id})，行为结局位于哈希材料之内，伪造有害声明不可行；v0.2 的自陈布尔形态由此废止，旧 v0.2 E3 表在新审计器下按设计回归 NO-GO）；G5 键名与值模式扫描拒绝真值/密钥泄漏；G7 envelope 形状、字段行白名单与零重复去重证明。评估器侧另有 G0（协议/矩阵/模型锁）与 G8（计划—执行覆盖完备性，两条轨道分别 preflight：770=770 与 140=140）。这些门并非平铺清单，而是对具体威胁的映射：G5 防真值泄漏进智能体可见面；G1/G2 防身份替换与跨环境比较；G3 防不可复算的恢复声明；G4 防伪造或自陈的副作用声明；G6 防标签来源漂移（危害标签须源自 oracle 链而非重放输出）；G0/G8 防计划与执行间的协议、矩阵、模型漂移；G7 防信封畸形与重复行。
 
 ## 5. 基准设计
 
@@ -140,6 +146,7 @@ v0.5 将 E3 从 2 cell 单域 10 episode 扩展为 7 独立场景 × 3 域 × 10
 
 - **H-E3a（伤害率）**：GLM family−racer 差 = 0.911，CI [0.898, 0.923]，p = 1e-4；DeepSeek 差 = 0.832，CI [0.766, 0.888]，p = 1e-4——两模型均 Holm 拒绝 H₀。
 - **H-E3b（veto 准确率）**：GLM 70/70（p = 2⁻⁷⁰）；DeepSeek 64/70（91.4%，p ≈ 0）——两模型均 Holm 拒绝 H₀。DeepSeek 的 6 个不正确否决集中在 S5（4）与 S7（2），对应"源 episode 未失败"的配对错位（对未失败 episode 的弃权不计为正确否决），非误放有害补丁——有害维度零漏放（两模型 racer harm 均 0/140）。
+- **检验的分辨率**：两个置换 p 值均落在 $1\times10^{-4}$，即 10,000 次置换检验的下限，应读作"至少这么小"而非精确值；不依赖置换分辨率的 bootstrap 置信区间承担效应量信息。
 - **方向一致性**：两模型各 7/7 场景重试族 harm 率 > racer harm 率。
 - **no_counterfactual 消融**：GLM 有害 70/70（全场景 10/10）；DeepSeek 64/70（S5 6/10、S7 8/10，同源 episode 分母差异）——去除验证层的补丁在两模型上都大量提交有害修复。
 
@@ -214,6 +221,8 @@ E3 有害提交率按两个组件分解（v0.5 口径：7 场景 × 10 种子 ×
 
 结论：**重放验证是防止有害提交的行为学必要组件**——任何带验证的策略有害为 0/70，任何不带验证的策略（含带门控的 RACER−counterfactual、含 oracle 根因）在两模型上大量提交有害修复（DeepSeek 的 64/70 缩减源自 6 个未达失败分母的 trial，非验证层保护）；门控本身不阻止有害提交（RACER−counterfactual 的有害率与 fixed_retry 相同证明），其贡献是声明纪律与弃权策略。恢复声明的另一半由 G3 语义刻画：无回执的恢复一律不受理（RACER−counterfactual 主表恢复 0%）；其有害提交自 v0.3 起由环境回执独立证实、自 v0.4 起经独立 oracle 真值复算（零翻转）交叉证实——行为、声明与真值三层证据在 v0.5 的 1,960 行 E3 矩阵上共同支撑验证层的必要性。
 
+与 `raw_react` 的对比值得强调，因为它界定了主张的边界。在不可逆轨上 `raw_react` 同样无害——不动作不可能提交有害修复——因此 RACER 的优势并非仅在于规避危害。二者的区别在**联合行为**：同一策略在可重试轨上恢复失败，而 `raw_react` 什么也不恢复、RACER 在三域双模型上恢复了每一个合格失败（§6.1）。无条件弃权者只能在不可逆轨匹配 RACER 的危害数，却放弃全部可恢复失败；因此贡献是**可证实恢复与可证实拒绝的组合**，而非弃权本身。
+
 ### 6.5 失败结构与自愈发现（v0.1 轨道）
 
 三个结构性观察刻画了"注入故障 ≠ 持久失败"：
@@ -263,3 +272,5 @@ RACER 将智能体恢复从"观测到的巧合"重构为"可审计的断言"：�
 [5] Bonagiri, A., et al. *CausalFlow: Causal Attribution and Counterfactual Repair for LLM Agent Failures*. arXiv:2605.25338, 2026.
 [6] Yao, S., et al. *τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains*. ICLR 2025 (arXiv:2406.12045).
 [7] Debenedetti, E., et al. *AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents*. NeurIPS 2024, Datasets and Benchmarks Track, 82895–82920.
+[8] Alshiekh, M., Bloem, R., Ehlers, R., et al. *Safe Reinforcement Learning via Shielding*. AAAI 2018, 32(1): 2669–2678.
+[9] Geifman, Y., El-Yaniv, R. *Selective Classification for Deep Neural Networks*. NeurIPS 2017, 4878–4887.

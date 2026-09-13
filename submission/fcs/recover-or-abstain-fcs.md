@@ -1,14 +1,13 @@
 # Recover or Abstain: Replay-Verified Recovery for Tool-Calling Agents
 
-**Authors:** [Given-name Family-name]^{1,\ast}, [Given-name Family-name]^{2}, [Given-name Family-name]^{1,+}
+**Authors:** Tongsen Wang^{1,+}
 
-\ast\ indicates equal contribution; ^{+}\ indicates the corresponding author.
+^{+}\ indicates the corresponding author.
 
 **Affiliations:**
-^{1} [Department, University/Institution, City Postal-code, China]
-^{2} [Department, University/Institution, City Postal-code, China]
+^{1} [Department, Institution, City Postal-code, China]
 
-**Corresponding author e-mail:** [xxx@xxx.edu.cn]
+**Corresponding author e-mail:** wangtongsen@baidu.com
 
 **Abstract** A tool-calling agent that "looks fixed" has not necessarily been fixed in a way anyone can prove. An unverified patch may introduce an irreversible side effect that no one observes. We present RACER (Risk-Aware Counterfactual Execution and Recovery), which recasts recovery as an *auditable assertion* rather than an observed coincidence: a recovery claim is admitted only when the candidate patch completes a strict prefix–patch–suffix counterfactual replay in an isolated, fault-free session initialized from the source seed, and carries a recomputable identity receipt; when the replay predicts an irreversible side effect or a failure, the policy **abstains** and the patch is never committed. We build a paired benchmark over three semantic domains (flight, hotel, shop), 14 baselines, and two LLM actors (GLM-5.3-Flash as the primary analysis, DeepSeek-V4-Flash as an independent replication). Across 800 episodes and 11,200 records, every record passed a fail-closed admission audit with zero exclusions; the harmful-commit evidence rests on the 1,960 irreversible-track records; the 9,240 main-track records measure recovery and domain generality. On seven pre-registered irreversible-side-effect scenarios that combine four misleading-evidence modes with three trigger faults, non-verifying baselines commit harmful repairs in 510/560 (GLM) and 466/560 (DeepSeek) cases and the no-verification ablation in 70/70 and 64/70, whereas RACER's replay veto converts every such case into harmless abstention (0/140 harmful in both models). The harm-rate difference and veto accuracy are both Holm-significant in both models ($p = 1\times10^{-4}$) with 7/7 scenarios directionally consistent, which triggers the pre-registered cross-model pooled analysis. An independent oracle that recomputes harm labels without reading any replay output reproduces every label, and veto accuracy reaches 70/70 (GLM) and 64/70 (DeepSeek). Main-track recovery is 100%/100%/75–78% across the three domains. We also report negative results: no significant difference from the verification-preserving ablation, and self-healing of injected drop/replace faults. These findings inform the design of fault-injection benchmarks.
 

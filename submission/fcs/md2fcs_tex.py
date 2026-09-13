@@ -311,13 +311,10 @@ def main() -> None:
 
 \\title{{{parts['title']}}}
 
-% * equal contribution; + corresponding author
-\\author[1,*]{{[Given-name Family-name]}}
-\\author[2]{{[Given-name Family-name]}}
-\\author[1,+]{{[Given-name Family-name]}}
-\\address[1]{{[Department, University/Institution, City Postal-code, China]}}
-\\address[2]{{[Department, University/Institution, City Postal-code, China]}}
-\\corremail{{[xxx@xxx.edu.cn]}}
+% + marks the corresponding author
+\\author[1,+]{{Tongsen Wang}}
+\\address[1]{{[Department, Institution, City Postal-code, China]}}
+\\corremail{{wangtongsen@baidu.com}}
 
 \\fcssetup{{
   received = {{month dd, yyyy}},

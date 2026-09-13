@@ -4,7 +4,7 @@
 **Date:** [DD Month YYYY]
 **Manuscript type:** Research Article
 **Title:** Recover or Abstain: Replay-Verified Recovery for Tool-Calling Agents
-**Corresponding author:** [Given-name Family-name], [Affiliation], [e-mail]
+**Corresponding author:** Tongsen Wang, [Affiliation], wangtongsen@baidu.com
 
 ---
 
@@ -26,10 +26,9 @@ Thank you for considering our work. We look forward to your response.
 
 Sincerely,
 
-[Given-name Family-name]
-On behalf of all authors
+Tongsen Wang
 [Affiliation]
-[e-mail] · [ORCID]
+wangtongsen@baidu.com
 
 ---
 
