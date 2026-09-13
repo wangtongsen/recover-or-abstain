@@ -297,10 +297,11 @@ def main() -> None:
     fig2 = (r'\begin{figure}[t]' '\n' r'\centering'
             '\n' r'\includegraphics[width=\textwidth]{figures/fig2-scenario-separation}'
             '\n' r'\caption{Behavioral separation on the irreversible-side-effect track, per scenario and model. '
-            r'Each scenario shows the harmful-commit rate of the retry family (8 baselines, 80 rows per scenario) '
+            r'Each scenario shows the harmful-commit rate of the eight non-verifying baselines (80 rows per scenario) '
             r'and of the unverified ablation RACER$-$counterfactual (10 rows per scenario) against RACER '
             r'(10 rows per scenario), whose harmful-commit rate is zero in every scenario under both models. '
-            r'Exact rates are plotted without error bars.}'
+            r'Exact rates are plotted without error bars; the two DeepSeek rows below 100\% (S5 and S7) reflect '
+            r'trials whose source episode never reached the tool-error failure denominator, as disclosed in the text.}'
             '\n' r'\label{fig:sep}' '\n' r'\end{figure}')
 
     body = body.replace('\\section{The RACER Framework}', '\\section{The RACER Framework}\n\n' + fig1, 1)
