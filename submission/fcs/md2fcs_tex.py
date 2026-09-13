@@ -25,32 +25,56 @@ DST = HERE / 'recover-or-abstain-fcs.tex'
 
 # Unicode -> LaTeX. Order matters: longer/dash forms first.
 UNICODE_MAP = [
+    # Superscript pairs must precede their components, or "tau2" is split apart.
+    ('\u03c4\u00b2', '$\\tau^{2}$'),
     ('\u2014', '---'), ('\u2013', '--'), ('\u2212', '$-$'),
     ('\u201c', '``'), ('\u201d', "''"), ('\u2018', '`'), ('\u2019', "'"),
     ('\u00b7', '$\\cdot$'), ('\u2248', '$\\approx$'),
     ('\u2264', '$\\le$'), ('\u2265', '$\\ge$'), ('\u00d7', '$\\times$'),
     ('\u207b', '$^{-}$'), ('\u00b2', '$^{2}$'), ('\u03c4', '$\\tau$'),
+    ('\u2227', '$\\wedge$'), ('\u03b1', '$\\alpha$'), ('\u03b2', '$\\beta$'),
+    ('\u00ec', "\\'i"), ('\u00e8', "\\`e"), ('\u00e9', "\\'e"),
     ('\u2026', '\\ldots{}'), ('\u00a7', '\\S'), ('\u2192', '$\\to$'),
     ('\u2713', '\\checkmark{}'), ('\u2717', '$\\times$'),
+    ('\u2208', '$\\in$'), ('\u2190', '$\\leftarrow$'),
 ]
 
 CITE_RE = re.compile(r'\[(\d+(?:\s*[,\u2013-]\s*\d+)*)\]')
 
 
 def extract(md: str):
-    """Split the manuscript into the template's required components."""
-    abstract = re.search(r'\*\*Abstract\*\*\s*(.+?)\s*\*\*Keywords\*\*\s*(.+)', md, re.S)
+    """Split the manuscript into the template's required components.
+
+    The keyword capture is line-bounded on purpose: an unbounded `(.+)` under
+    re.DOTALL swallows the entire manuscript into \\keywords{}, duplicating the
+    body inside a preamble argument (and, with a non-\\long \\keywords, aborting
+    the run with "Paragraph ended before \\keywords was complete").
+    """
+    abstract = re.search(r'\*\*Abstract\*\*\s*(.+?)\s*\*\*Keywords\*\*\s*([^\n]+)', md, re.S)
     title = re.search(r'^#\s+(.+)$', md, re.M).group(1)
     body_start = md.index('## 1 Introduction')
     refs_at = md.index('## References')
     appendix_at = md.index('## Appendix A')
+    # The closing statements are emitted by the template as \section* blocks, so
+    # they must be cut out of the body or they appear twice.
+    ack_at = md.index('**Acknowledgements**')
+    closing = md[ack_at:refs_at]
+
+    def grab(label: str, nxt: str | None) -> str:
+        pat = rf'\*\*{label}\*\*\s*(.+?)(?={nxt}|\Z)' if nxt else rf'\*\*{label}\*\*\s*(.+?)\Z'
+        m = re.search(pat, closing, re.S)
+        return re.sub(r'\n*-{3,}\s*$', '', m.group(1)).strip() if m else ''
+
     return {
         'title': title.strip(),
         'abstract': abstract.group(1).strip(),
         'keywords': abstract.group(2).strip(),
-        'body': md[body_start:refs_at].rstrip(),
+        'body': md[body_start:ack_at].rstrip(),
         'refs': md[refs_at:appendix_at].rstrip(),
         'tail': md[appendix_at:].rstrip(),
+        'ack': grab('Acknowledgements', r'\*\*Competing'),
+        'competing': grab('Competing interests', r'\*\*Data availability'),
+        'data': grab('Data availability', None),
     }
 
 
@@ -127,6 +151,9 @@ def inline(text: str) -> str:
     text = restore(text, store)
     for a, b in UNICODE_MAP:
         text = text.replace(a, b)
+    # Straight double quotes -> LaTeX quotes. Pairs only, and never inside a
+    # restored \texttt{} or math span (those contain "\" or braces).
+    text = re.sub(r'"([^"\\{}\n]+)"', lambda m: '``' + m.group(1) + "''", text)
     return text
 
 
@@ -160,6 +187,12 @@ def convert_body(body: str, star_sections: bool = False) -> str:
         line = raw.strip()
 
         if not line:
+            i += 1
+            continue
+
+        # Markdown horizontal rules are section separators in the source only;
+        # emitted as-is they render as stray em-dash paragraphs in LaTeX.
+        if re.fullmatch(r'-{3,}', line):
             i += 1
             continue
 
@@ -242,8 +275,11 @@ def main() -> None:
     tail = convert_body(tail_md, star_sections=True)
 
     # two figure floats, placed where the manuscript first refers to each
+    # Extension-less graphics names: the template header sets pdflatex, which cannot
+    # read EPS ("Unknown graphics extension: .eps"); letting graphicx pick .pdf/.png
+    # from the same stem keeps the file compilable under either engine.
     fig1 = (r'\begin{figure}[t]' '\n' r'\centering'
-            '\n' r'\includegraphics[width=\textwidth]{figures/fig1-racer-loop.eps}'
+            '\n' r'\includegraphics[width=\textwidth]{figures/fig1-racer-loop}'
             '\n' r'\caption{The RACER loop. A recovery claim passes through public-evidence diagnosis, '
             r'risk--utility gating, and an isolated counterfactual replay. When the replay predicts a side '
             r'effect or a failure, the policy vetoes the commit and abstains; otherwise the patch is committed '
@@ -251,7 +287,7 @@ def main() -> None:
             r'admission audit (G1--G7 at record level; G0 and G8 at evaluator level).}'
             '\n' r'\label{fig:loop}' '\n' r'\end{figure}')
     fig2 = (r'\begin{figure}[t]' '\n' r'\centering'
-            '\n' r'\includegraphics[width=\textwidth]{figures/fig2-scenario-separation.eps}'
+            '\n' r'\includegraphics[width=\textwidth]{figures/fig2-scenario-separation}'
             '\n' r'\caption{Behavioral separation on the irreversible-side-effect track, per scenario and model. '
             r'Each scenario shows the harmful-commit rate of the retry family (8 baselines, 80 rows per scenario) '
             r'and of the unverified ablation RACER$-$counterfactual (10 rows per scenario) against RACER '
@@ -301,20 +337,13 @@ def main() -> None:
 {body}
 
 \\section*{{Acknowledgements}}
-This work was supported by [funding agency, grant number]. The authors thank [names] for [contribution].
+{inline(parts['ack'])}
 
 \\section*{{Competing interests}}
-The authors declare that they have no competing interests.
+{inline(parts['competing'])}
 
 \\section*{{Data availability}}
-The frozen protocols, execution reconciliation appendices, matrices, model-resource registry (without
-credentials), baseline registry, and all artifacts---including the 800 trajectories, oracle manifests,
-evaluation outputs, the 11{{,}}200-record envelopes, the admission and version-regression audit files, the
-statistical outputs, and the independent second-auditor report---are released with the paper. The
-implementation uses the Python standard library only and passes 229 unit tests. Credentials are injected
-exclusively through runtime environment variables and never enter the repository or the artifacts; public
-trajectories and evaluation ground truth are physically separated, and fault\\_truth never appears in any
-agent-visible interface.
+{inline(parts['data'])}
 
 {refs}
 

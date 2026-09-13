@@ -10,7 +10,7 @@
 | 文件 | 状态 | 说明 |
 |---|---|---|
 | `cover-letter.md` | ✅ 待填作者信息 | 含"为何需要完整篇幅"段，用于规避被要求改成 Letter（3 页，等同拒稿） |
-| `recover-or-abstain-fcs.md` | ✅ | Markdown 投稿正文（英文），9,012 words |
+| `recover-or-abstain-fcs.md` | ✅ | Markdown 投稿正文（英文），约 9,356 words（含附录与参考文献） |
 | `recover-or-abstain-fcs.tex` | ✅ 未编译 | 官方 `fcs` 模板版，booktabs 三线表 + 图浮动体 + 25 条参考文献（引用键已校验） |
 | `figures/fig1-racer-loop.{eps,pdf,tiff,png}` | ✅ | 闭环框架图，4 种格式 |
 | `figures/fig2-scenario-separation.{eps,pdf,tiff,png}` | ✅ | 七场景×双模型分离图，4 种格式 |
@@ -46,7 +46,7 @@ FCS 要求的完整常规稿件组件，逐项对照投稿版：
 | Author(s) | ⚠️ **占位符，需填** | `[Given-name Family-name]` |
 | Author affiliation(s) | ⚠️ **占位符，需填**（含邮编） | `[Department, …]` |
 | Corresponding author e-mail | ⚠️ **占位符，需填** | `[xxx@xxx.edu.cn]` |
-| Abstract | ✅ 已改为英文单段，**约 270 words（<300 上限）** | 标题页 |
+| Abstract | ✅ 已改为英文单段，**284 words（<300 上限）** | 标题页 |
 | Keywords | ✅ 8 个（上限 8） | 标题页 |
 | Nomenclature | ➖ 不需要（符号量少，随文解释） | — |
 | Main text | ✅ §1–§8 | — |
@@ -55,7 +55,7 @@ FCS 要求的完整常规稿件组件，逐项对照投稿版：
 | References | ✅ 25 条，顺序编码制，期刊名全称 | 文末 |
 | Appendices | ✅ Appendix A（协议版本）、Appendix B（历史轨道） | 文末 |
 | Figure captions | ✅ Fig. 1/2 已**实际绘制**（矢量 PDF + 600 dpi PNG），captions 已按图定稿 | 文末 + `figures/` |
-| Tables | ✅ Table 1–3（**须转三线表**） | §6 |
+| Tables | ✅ Table 1–5（已转 booktabs 三线表，含附录 A 的协议表） | §5 / §6 / Appendix A |
 
 ---
 
@@ -66,7 +66,7 @@ FCS 要求的完整常规稿件组件，逐项对照投稿版：
 1. **作者与单位**：姓名（Given-name Family-name 格式）、单位（精确到院系）、邮编、国籍/城市、通讯作者邮箱。
 2. **基金信息**：Acknowledgements 中的基金名称与编号（若无基金则整句删除）。
 3. **英文全文润色**：投稿版为初译，建议经母语级润色（FCS 明确要求"较好的英语表达水平"）。
-4. **表格转三线表**：Table 1–3 在 Word/LaTeX 中改为**仅三条横线**（表题下、列头下、表体下），**不使用竖线**。
+4. **表格三线表**：已在 LaTeX 版中完成（booktabs）；Markdown 版仍为管道表，投 Word 时需手动转三线表。
 5. **参考文献核对**：已完成——4 条含卷期/页码的条目于 2026-09-13 逐条对官方记录核实通过（见下表）；其余为预印本/会议论文（"venue + year + arXiv 编号"形式，本无卷期页），需用 DBLP/Scholar 确认编号与标题对应后删除文末 Author note。
 
 ### 3.1a 参考文献核验状态（2026-09-13）
@@ -192,3 +192,42 @@ FCS 要求的完整常规稿件组件，逐项对照投稿版：
 | 触发故障 | trigger fault |
 | 可证实恢复 | verified recovery |
 | 门槛（硬/软） | hard gate / soft flag |
+
+
+---
+
+## 8. 四路独立 review 发现并已修复的问题（2026-09-13）
+
+投稿包完成后，用 4 个独立审查 agent 分别从 FCS 合规、LaTeX 技术、科学内容、跨文件一致性四个角度复查，发现并修复了以下问题：
+
+### 8.1 数字错误（最严重，已修）
+| 问题 | 原文 | 实测/修正 |
+|---|---|---|
+| 主表恢复率分母 | `110/110`、`86/110`、`82/110` | 分母应为**失败 episode 数**：GLM `41/41`、`47/47`、`18/23`；DeepSeek `9/9`、`24/24`、`27/36` |
+| DeepSeek no_cf 直接应用 | "count is zero"（0 行） | 实为 **60 行**（GLM 106 行）。原判断误读了 envelope 构建日志的 "normalized: 0"——那是*无需归一化的行数*，不是*直接应用行数* |
+
+> 教训：核对数字时只比对**比率**（recovery_rate）不够，必须同时核对**分子与分母**；解读构建日志时要确认该字段的语义。
+
+### 8.2 LaTeX 版致命缺陷（已修）
+| 问题 | 后果 |
+|---|---|
+| 摘要正则用贪婪 `(.+)` + `re.S` 抓 keywords | **整篇 Markdown（64,569 字符）被塞进 `\keywords{}`**，正文重复两份；`.tex` 从 69 KB 虚增到 133 KB |
+| `\includegraphics{...eps}` 而模板声明 pdflatex | pdftex 不支持 EPS，直接报 `Unknown graphics extension: .eps` → 改为**不带扩展名**，由 graphicx 自选 |
+| 模板三大段（Acknowledgements / Competing / Data availability）与正文重复 | 致谢等出现两次 → 改为统一从 Markdown 提取，保证 .md 与 .tex 内容等价 |
+| 空表题注（附录 A 表） | `\caption{}` 输出 "Table 5:" 无题 → md 中补 **Table 5** 题注 |
+| Markdown 的 `---` 分隔线 | 渲染为游离破折号段落 → 转换时跳过 |
+| 非 ASCII（∧ α ì 等） | pdflatex 报 `Unicode character not set up` → 加入 Unicode 映射表 |
+| 直双引号 | 排版为反向引号 → 成对转换为 `` ``…'' `` |
+
+### 8.3 其他已修
+- **失效交叉引用**：`§6.7`（τ² 实为 §6.8）、`§6.2b`（章节已不存在，应为 §6.4）
+- **术语冲突**：§5 定义 "Retry family" 为 2 个基线，§6 却用同一词指 8 个 → §6 统一改为 **non-verifying baselines**（图例同步重新生成）
+- **分离门控口径**：原文 "12 of 14" 未说明口径，读者按字面会算出 3/14。现已明确写出：门控基于**排除 full-trace judge 的 7 个非验证基线**，并给出排除理由（judge 的弃权是基线确定性属性、跨模型复现）
+- **稿件内作者批注**（"to be deleted before submission" 等 2 处）已从正文移除，内容保留在本指南
+- 表格编号统一为 **Table 1–5**（§5 场景表补编号，原 Table 1/2/3 顺延）
+
+### 8.4 经复核确认无误的项
+引用键 25/25 双向匹配、摘要 284 words、关键词 8 个、无中文残留、图 600 dpi 且 TIFF 经 LZW 压缩（约 1 MB ≤ 20 MB）、booktabs 三线表列数一致、正文引用统一 `Fig. n`。
+
+### 8.5 仍无法在本地验证的项（投稿时注意）
+`.tex` **未实际编译**（本机无 TeX 发行版、无 `fcs.cls`）；查重率（需 iThenticate）；ScholarOne 内的作者联系方式填写；首次上传 PDF。

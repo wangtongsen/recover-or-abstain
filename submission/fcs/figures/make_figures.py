@@ -114,7 +114,7 @@ def figure2():
         ax.scatter(nocf, y, s=42, marker='s', color='#D98A3D', edgecolor='#8F5618',
                    linewidth=0.6, zorder=3, label='RACER\u2212counterfactual (no verification)')
         ax.scatter(retry, y, s=46, marker='o', color='#B4534B', edgecolor='#7C3A34',
-                   linewidth=0.6, zorder=3, label='Retry family (8 baselines)')
+                   linewidth=0.6, zorder=3, label='Non-verifying baselines (8)')
         ax.scatter(racer, y, s=52, marker='D', color='#3F7D57', edgecolor='#2C5A3E',
                    linewidth=0.6, zorder=4, label='RACER (replay veto)')
         for i in range(7):
