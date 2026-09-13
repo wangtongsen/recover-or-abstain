@@ -231,3 +231,31 @@ FCS 要求的完整常规稿件组件，逐项对照投稿版：
 
 ### 8.5 仍无法在本地验证的项（投稿时注意）
 `.tex` **未实际编译**（本机无 TeX 发行版、无 `fcs.cls`）；查重率（需 iThenticate）；ScholarOne 内的作者联系方式填写；首次上传 PDF。
+
+---
+
+## 9. 回应性修订（2026-09-13，第二轮 agent 审稿后）
+
+内容深审 agent 给出 **Major Revision**，英译 agent 给出"需轻度润色"。据此完成一轮不需要新实验的修订：
+
+### 9.1 内容层（审稿人会追问的点）
+
+| # | 问题 | 修法 |
+|---|---|---|
+| 1 | **`raw_react`（什么都不做）在 E3 上也 0 有害** —— 论文未正面回应"RACER 是否只是更聪明的躺平" | §6.6 新增一段：点明 RACER 的价值是**联合行为**——同一策略在可重试轨恢复每个合格失败（`raw_react` 恢复 0），无条件弃权者只能匹配 E3 的 harm 数却放弃全部可恢复失败 |
+| 2 | **Def 1–2 复现歧义**（后缀是否重调 LLM？如何保证确定性？`use_counterfactual` 是实现开关却写入定义） | §3 新增 **Determinism of the replay**：重放不重新查询模型（prefix/suffix 重放已记录动作，工具响应是状态的纯函数），因此重放对源种子确定性；并说明 `use_counterfactual` 是策略侧开关、不属准入语义（已对照 `services/counterfactual/app.py` 核实实现） |
+| 3 | **可能被误读为 RACER 独占 side-effect oracle**（审稿 agent 自己就误读了） | §4 新增说明：重放器是**共享服务**，是否重放是策略属性而非特权；`RACER−counterfactual` 正是"有同样访问权但不重放"的对照格 |
+| 4 | **G1–G7 无威胁模型映射**，"必要性"无从评估 | §4 末补一段：逐门映射到具体威胁（G5 真值泄漏 / G1-G2 身份替换 / G3 不可复算声明 / G4 伪造副作用 / G6 标签来源 / G0+G8 计划—执行漂移 / G7 信封畸形与重复行） |
+| 5 | **p = 1e-4 未说明是置换分辨率下限** | §6.2 新增 **Resolution of the tests**：说明 10,000 次置换的最小非零 p 即 1e-4，应读作"至少这么小"，效应量信息由不依赖置换分辨率的 bootstrap CI 承担 |
+| 6 | **相关工作缺 safety shielding / reject option** | §2 新增 **Safety filters and abstention** 段，新增 2 条**已联网核实**的文献：[26] Alshiekh et al., AAAI 2018, 32(1): 2669–2678；[27] Geifman & El-Yaniv, NeurIPS 30, 2017: 4878–4887。明确区分：shield 执行*先验规格*，RACER 的否决由*该补丁的复算重放*证成 |
+| 7 | **摘要的规模表述易造成错觉**（11,200 记录 vs 真正承载 harm 证据的 1,960 行） | 摘要点明：harm 证据基于 1,960 条不可逆轨记录，9,240 条主表记录测的是恢复率与域泛化 |
+
+### 9.2 语言层（采纳英译审稿意见）
+- 搭配：`commit an irreversible side effect` → `introduce`（commit 只搭配 harm/repair）
+- 语域：删除全部 4 处 `honest`（隐含"他人不诚实"，改为中性 `null result`）；`We realize this claim` → `We operationalize`
+- 用词：行为描述中误用的 `isomorphically` → `consistently`（**保留**两处数学义用法：危害谓词的跨域同构、hotel/shop 的同构扩展）；`zero-duplication deduplication proof` → `deduplication proof showing zero duplicates`
+- 时态：摘要中对已完成实验统一过去时（`passed`）
+- 数字格式：统一为 `$1\times10^{-4}$`
+
+### 9.3 修订后复核
+引用顺序 **1–27 严格递增**（顺序编码制）· 27/27 引用双向匹配 · 摘要 **299 words**（<300）· 零非 ASCII · 关键词 167 字符 · 5 表 2 图 · 空 caption 0 · 游离 `---` 0 · tex 73 KB
