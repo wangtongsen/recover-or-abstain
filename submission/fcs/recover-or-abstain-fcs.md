@@ -64,6 +64,8 @@ Abstention counts neither as recovery nor as harm; its semantics is "the evidenc
 
 ## 4 The RACER Framework
 
+Fig. 1 summarizes the loop: the four stages below correspond to Definitions 1–3, and the audit band shown at the bottom of the figure is detailed under *Admission*.
+
 **Diagnosis on public evidence.** The diagnoser scans the trajectory step by step: (i) a mismatch between the tool name of the requested and the effective action yields an `effective_tool_mismatch` candidate (covering the observable consequences of `wrong_tool` and `replace_action`); (ii) a tool error yields an `action_error` candidate whose root cause is the error string (the injected error text embeds its fault type, e.g. "injected rate_limit"); (iii) a constraint violation is traced back to the selection step. A key design constraint is that **semantic judgments are derived from public text only**: refundability candidates come from the task text and invariants rather than from hard-coded flight semantics. As disclosed in §7, a first implementation hard-coded "selecting F2 violates the constraint" and produced 40 rows of false-positive harmful repairs on the non-refundable task variant; the defect was exposed by counterfactual replay (the replayed patch exhibited a side effect) and dropped to zero after the fix. That episode is itself evidence for the value of the closed loop.
 
 **Policy: risk–utility gating.** Candidates are ranked by utility and the highest-utility candidate is turned into a patch: error-type candidates restore the `requested_action` (retry semantics), argument-type candidates perform a substitution. The decision records the expected cost/risk and sets `use_counterfactual = true`.
@@ -160,7 +162,7 @@ All episodes on this track fail in the source environment by construction. **Tab
 - **Directional consistency.** In both models, 7 of 7 scenarios show a higher retry-family harm rate than RACER harm rate.
 - **No-verification ablation.** Committing patches without replay is harmful in 70/70 cases for GLM and 64/70 for DeepSeek (with the S5 and S7 shortfalls again attributable to the same denominator effect).
 
-Both models agree in direction on all seven scenarios, which satisfies the pre-registered condition for cross-model pooled stratified analysis.
+Both models agree in direction on all seven scenarios, which satisfies the pre-registered condition for cross-model pooled stratified analysis. Fig. 2 visualizes the same separation for all seven scenarios and both models, together with the unverified ablation.
 
 ### 6.3 Independent oracle recomputation of harm labels
 
@@ -247,14 +249,14 @@ RACER reframes agent recovery from an observed coincidence into an auditable ass
 ## References
 
 [1] Zhu K, et al. Where LLM agents fail and how they can learn from failures. arXiv:2509.25370, 2025
-[2] Zhang S, et al. Which agent causes task failures and when? On automated failure attribution of LLM multi-agent systems. In: Proceedings of the 42nd International Conference on Machine Learning (ICML), 2025, PMLR 267: 76583–76599
+[2] Zhang S, Yin M, Zhang J, et al. Which agent causes task failures and when? On automated failure attribution of LLM multi-agent systems. In: Proceedings of the 42nd International Conference on Machine Learning (ICML), 2025: PMLR 267: 76583–76599. arXiv:2505.00212
 [3] Ma X, et al. Demystifying the lifecycle of failures in platform-orchestrated agentic workflows. arXiv:2509.23735, 2025
 [4] Zhang G, et al. AgenTracer: Who is inducing failure in the LLM agentic systems? In: International Conference on Learning Representations (ICLR), 2026. arXiv:2509.03312
 [5] Bonagiri A, et al. CausalFlow: Causal attribution and counterfactual repair for LLM agent failures. arXiv:2605.25338, 2026
 [6] Yao S, et al. τ-bench: A benchmark for tool-agent-user interaction in real-world domains. In: International Conference on Learning Representations (ICLR), 2025. arXiv:2406.12045
-[7] Debenedetti E, et al. AgentDojo: A dynamic environment to evaluate prompt injection attacks and defenses for LLM agents. In: Advances in Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track, 2024: 82895–82920
+[7] Debenedetti E, Zhang J, Balunovic M, et al. AgentDojo: A dynamic environment to evaluate prompt injection attacks and defenses for LLM agents. In: Advances in Neural Information Processing Systems 37 (NeurIPS), Datasets and Benchmarks Track, 2024: 82895–82920. DOI: 10.52202/079017-2636
 [8] Ralph P, et al. Empirical standards for software engineering research. arXiv:2010.03525, 2020
-[9] Nosek B A, Ebersole C R, DeHaven A C, Mellor D T. The preregistration revolution. Proceedings of the National Academy of Sciences, 2018, 115(11): 2600–2606
+[9] Nosek B A, Ebersole C R, DeHaven A C, Mellor D T. The preregistration revolution. Proceedings of the National Academy of Sciences, 2018, 115(11): 2600–2606. DOI: 10.1073/pnas.1708274114
 [10] Yao S, Zhao J, Yu D, et al. ReAct: Synergizing reasoning and acting in language models. In: International Conference on Learning Representations (ICLR), 2023. arXiv:2210.03629
 [11] Shinn N, Cassano F, Gopinath A, et al. Reflexion: Language agents with verbal reinforcement learning. In: Advances in Neural Information Processing Systems (NeurIPS), 2023. arXiv:2303.11366
 [12] Madaan A, Tandon N, Gupta P, et al. Self-Refine: Iterative refinement with self-feedback. In: Advances in Neural Information Processing Systems (NeurIPS), 2023. arXiv:2303.17651
@@ -264,7 +266,7 @@ RACER reframes agent recovery from an observed coincidence into an auditable ass
 [16] Jimenez C E, Yang J, Wettig A, et al. SWE-bench: Can language models resolve real-world GitHub issues? In: International Conference on Learning Representations (ICLR), 2024. arXiv:2310.06770
 [17] Zhou S, Xu F F, Zhu H, et al. WebArena: A realistic web environment for building autonomous agents. In: International Conference on Learning Representations (ICLR), 2024. arXiv:2307.13854
 [18] Mialon G, Fourrier C, Swift C, et al. GAIA: A benchmark for general AI assistants. arXiv:2311.12983, 2023
-[19] Wang L, Ma C, Feng X, et al. A survey on large language model based autonomous agents. Frontiers of Computer Science, 2024, 18(6): 186345
+[19] Wang L, Ma C, Feng X, et al. A survey on large language model based autonomous agents. Frontiers of Computer Science, 2024, 18(6): 186345. DOI: 10.1007/s11704-024-40231-1
 [20] Xi Z, Chen W, Guo X, et al. The rise and potential of large language model based agents: A survey. arXiv:2309.07864, 2023
 [21] Sumers T R, Yao S, Narasimhan K, Griffiths T L. Cognitive architectures for language agents. Transactions on Machine Learning Research (TMLR), 2024. arXiv:2309.02427
 [22] Wei J, Wang X, Schuurmans D, et al. Chain-of-thought prompting elicits reasoning in large language models. In: Advances in Neural Information Processing Systems (NeurIPS), 2022. arXiv:2201.11903
@@ -272,7 +274,7 @@ RACER reframes agent recovery from an observed coincidence into an auditable ass
 [24] Wu Q, Bansal G, Zhang J, et al. AutoGen: Enabling next-gen LLM applications via multi-agent conversation. arXiv:2308.08155, 2023
 [25] Patil S G, Zhang T, Wang X, Gonzalez J E. Gorilla: Large language model connected with massive APIs. In: Advances in Neural Information Processing Systems (NeurIPS), 2024. arXiv:2305.15334
 
-> **Author note (to be deleted before submission).** References [8]–[25] are suggested additions that bring the list above the customary minimum for a research article and are all cited in §2 as written. Please verify every volume, page, and DOI before submission, then delete this note.
+> **Author note (to be deleted before submission).** Reference verification status: the four entries that carry volume or page information were checked against the publisher or proceedings record on 2026-09-13 and are correct as given—[2] (PMLR 267: 76583–76599), [7] (NeurIPS 37: 82895–82920, DOI 10.52202/079017-2636), [9] (PNAS 115(11): 2600–2606, DOI 10.1073/pnas.1708274114), and [19] (FCS 18(6): 186345, DOI 10.1007/s11704-024-40231-1). The remaining entries are preprints or conference papers cited in the customary "venue + year + arXiv identifier" form, which carries no volume or page numbers; please confirm each identifier and title against DBLP or Google Scholar, then delete this note.
 
 ---
 
@@ -294,9 +296,9 @@ The retryable track was first executed with a single domain and 5 seeds before t
 
 ## Figure captions
 
-No figures are included in the present version; the two figures below are recommended additions and their drawing instructions are given for the authors to produce vector artwork at the resolution required by the journal.
+**Fig. 1** The RACER loop. A recovery claim passes through public-evidence diagnosis, risk–utility gating, and an isolated counterfactual replay. When the replay predicts a side effect or a failure, the policy vetoes the commit and abstains; otherwise the patch is committed with a strict replay receipt. Every admitted record must additionally pass the fail-closed admission audit (G1–G7 at record level; G0 and G8 at evaluator level).
 
-**Fig. 1** (recommended) The RACER loop: public-evidence diagnosis → risk–utility gating → isolated counterfactual replay → replay veto or admitted recovery, with the fail-closed admission auditor shown as a gate that every record must pass before entering the main table. *Suggested form:* a left-to-right four-stage pipeline with a feedback edge from the replay stage back to the policy (veto) and a bottom band representing the audit gates G1–G8.
+**Fig. 2** Behavioral separation on the irreversible-side-effect track, per scenario and model. Each scenario shows the harmful-commit rate of the retry family (8 baselines, 80 rows per scenario) and of the unverified ablation `RACER−counterfactual` (10 rows per scenario) against RACER (10 rows per scenario), whose harmful-commit rate is zero in every scenario under both models. Exact rates are plotted without error bars; the two DeepSeek rows below 100% (S5 and S7) reflect trials whose source episode never reached the tool-error failure denominator, as disclosed in §6.4.
 
-**Fig. 2** (recommended) Behavioral separation by scenario: for each of the seven irreversible scenarios, the harmful-commit rate of the retry family versus the harmful rate of RACER, separately for the two models. *Suggested form:* a grouped horizontal bar chart, seven rows (S1–S7), two color families, with the RACER bars at zero.
+> **Figure files.** Vector artwork is provided as `figures/fig1-racer-loop.pdf` and `figures/fig2-scenario-separation.pdf` (with 600 dpi PNG renditions for preview). Convert to EPS or TIFF at ≥300 dpi (colour) before submission if the journal's upload system does not accept PDF.
 
